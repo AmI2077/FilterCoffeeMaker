@@ -1,6 +1,7 @@
 package org.example.project.features.recipesList.ui.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,14 +36,17 @@ import org.example.project.core.utils.toTimeString
 import org.example.project.features.newCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 
-@Preview
 @Composable
 fun RecipeCard(
     modifier: Modifier = Modifier,
-    recipe: Recipe = mockRecipe
+    recipe: Recipe = mockRecipe,
+    onRecipeClick: (recipe: Recipe) -> Unit,
 ) {
     Column(
         modifier = modifier
+            .clickable(
+                onClick = { onRecipeClick(recipe) }
+            )
             .width(160.dp)
             .shadow(
                 shape = RoundedCornerShape(20.dp),

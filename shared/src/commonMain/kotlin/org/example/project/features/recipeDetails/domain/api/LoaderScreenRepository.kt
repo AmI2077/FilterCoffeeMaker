@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.domain.api
+package org.example.project.features.recipeDetails.domain.api
 
 interface LoaderScreenRepository {
 

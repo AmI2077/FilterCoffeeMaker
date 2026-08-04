@@ -18,10 +18,10 @@ import org.example.project.features.coffeeList.data.repository.CoffeeRepositoryI
 import org.example.project.features.coffeeList.domain.api.CoffeeRepository
 import org.example.project.features.newCoffee.data.repository.AddCoffeeRepositoryImpl
 import org.example.project.features.newCoffee.domain.AddCoffeeRepository
-import org.example.project.features.newRecipe.data.repository.LoaderScreenRepositoryImpl
-import org.example.project.features.newRecipe.data.repository.NewRecipeRepositoryImpl
-import org.example.project.features.newRecipe.domain.api.LoaderScreenRepository
-import org.example.project.features.newRecipe.domain.api.NewRecipeRepository
+import org.example.project.features.recipeDetails.data.repository.LoaderScreenRepositoryImpl
+import org.example.project.features.recipeDetails.data.repository.RecipeDetailsRepositoryImpl
+import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
+import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
 import org.example.project.features.recipesList.domain.api.RecipesRepository
 import org.koin.dsl.module
@@ -41,8 +41,8 @@ val dataModule = module {
         AddCoffeeRepositoryImpl(get(), get(), get(), get())
     }
 
-    single<NewRecipeRepository> {
-        NewRecipeRepositoryImpl(get(), get(), get(), get())
+    single<RecipeDetailsRepository> {
+        RecipeDetailsRepositoryImpl(get(), get(), get(), get())
     }
 
     single<CoffeeRepository> {

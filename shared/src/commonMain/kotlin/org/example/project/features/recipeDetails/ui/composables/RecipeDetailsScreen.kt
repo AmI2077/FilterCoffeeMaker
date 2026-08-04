@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.composables
+package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,29 +25,30 @@ import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.newCoffee.ui.composables.CoffeeImage
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenIntent.LoadRecipe
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenUiState
-import org.example.project.features.newRecipe.ui.vm.NewRecipeScreenModel
-import org.example.project.features.newRecipe.ui.vm.RecipeLoaderScreenModel
+import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent.LoadRecipeDetails
+import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
+import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
+import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 
 @Composable
-fun NewRecipeScreen(
+fun RecipeDetailsScreen(
     modifier: Modifier = Modifier,
-    screenModel: NewRecipeScreenModel,
+    screenModel: RecipeDetailsScreenModel,
     loaderScreenModel: RecipeLoaderScreenModel,
     onStartTimerClick: (recipe: Recipe) -> Unit,
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
+    println("_STATE: ${state}")
 
     val scrollState = rememberScrollState()
 
     when (state) {
-        is NewRecipeScreenUiState.Content -> {
-            val recipe = (state as NewRecipeScreenUiState.Content).recipe
-            NewRecipeScreenContent(
+        is RecipeDetailsScreenUiState.Content -> {
+            val recipe = (state as RecipeDetailsScreenUiState.Content).recipe
+            RecipeDetailsScreenContent(
                 modifier = modifier
                     .verticalScroll(scrollState),
-                coffeeImage = (state as NewRecipeScreenUiState.Content).imagePath,
+                coffeeImage = (state as RecipeDetailsScreenUiState.Content).imagePath,
                 recipe = recipe,
                 onStartTimerClick = { recipe ->
                     onStartTimerClick(recipe)
@@ -55,7 +56,7 @@ fun NewRecipeScreen(
             )
         }
 
-        NewRecipeScreenUiState.Loading -> {
+        RecipeDetailsScreenUiState.Loading -> {
             RecipeLoaderScreen(
                 modifier = modifier
                     .background(white),
@@ -63,24 +64,27 @@ fun NewRecipeScreen(
             )
         }
 
-        NewRecipeScreenUiState.WaterAmountDialog -> {
+        RecipeDetailsScreenUiState.WaterAmountDialog -> {
             WaterAmountDialog { amount ->
                 screenModel.onIntent(
-                    LoadRecipe(waterAmount = amount)
+                    LoadRecipeDetails(waterAmount = amount)
                 )
             }
         }
+
+        else -> Unit
     }
 }
 
 @Preview
 @Composable
-fun NewRecipeScreenContent(
+fun RecipeDetailsScreenContent(
     modifier: Modifier = Modifier,
     coffeeImage: String? = null,
     recipe: Recipe = mockRecipe,
     onStartTimerClick: (recipe: Recipe) -> Unit = {}
 ) {
+    println("IMAGE_DIRECTORY: $coffeeImage")
     Column(
         modifier = modifier
     ) {

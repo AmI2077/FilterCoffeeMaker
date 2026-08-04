@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.data.extensions
+package org.example.project.features.recipeDetails.data.extensions
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor

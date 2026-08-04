@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.domain.models
+package org.example.project.features.recipeDetails.domain.models
 
 import kotlinx.serialization.Serializable
 import org.example.project.core.domain.model.Coffee

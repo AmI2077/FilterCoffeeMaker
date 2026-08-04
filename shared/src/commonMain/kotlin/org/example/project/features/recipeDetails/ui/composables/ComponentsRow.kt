@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.composables
+package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
