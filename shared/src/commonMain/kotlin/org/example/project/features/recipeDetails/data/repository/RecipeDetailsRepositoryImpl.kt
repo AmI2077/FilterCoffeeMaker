@@ -13,15 +13,15 @@ import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.recipeDetails.data.extensions.RecipeResponseSerializer
-import org.example.project.features.recipeDetails.domain.api.NewRecipeRepository
+import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
 
-class NewRecipeRepositoryImpl(
+class RecipeDetailsRepositoryImpl(
     private val aiClient: AiClient,
     private val recipeDao: RecipeDao,
     private val resourceManager: ResourceManager,
     private val dispatcher: CoroutineDispatcher,
-) : NewRecipeRepository {
+) : RecipeDetailsRepository {
     override suspend fun getRecipe(recipeRequest: RecipeRequest): Recipe {
         return withContext(dispatcher) {
             val coffeeJson = Json.encodeToJsonElement(recipeRequest).toString()

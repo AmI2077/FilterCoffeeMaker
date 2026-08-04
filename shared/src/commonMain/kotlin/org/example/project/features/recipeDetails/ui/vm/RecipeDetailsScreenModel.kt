@@ -10,31 +10,31 @@ import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.recipeDetails.domain.api.NewRecipeRepository
+import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
-import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenIntent
-import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenUiState
+import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent
+import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
 import kotlin.time.Duration.Companion.seconds
 
-class NewRecipeScreenModel(
+class RecipeDetailsScreenModel(
     private val coffeeId: Int,
     private val imageSaver: ImageSaver,
-    private val newRecipeRepository: NewRecipeRepository,
+    private val recipeDetailsRepository: RecipeDetailsRepository,
     private val coffeeDetailsRepository: CoffeeDetailsRepository
 ) : ScreenModel {
 
     private var _state =
-        MutableStateFlow<NewRecipeScreenUiState>(NewRecipeScreenUiState.WaterAmountDialog)
+        MutableStateFlow<RecipeDetailsScreenUiState>(RecipeDetailsScreenUiState.WaterAmountDialog)
     val state = _state.asStateFlow()
 
 
-    fun onIntent(intent: NewRecipeScreenIntent) {
+    fun onIntent(intent: RecipeDetailsScreenIntent) {
         when (intent) {
-            is NewRecipeScreenIntent.LoadRecipe -> {
+            is RecipeDetailsScreenIntent.LoadRecipeDetails -> {
                 getRecipe(waterAmount = intent.waterAmount)
             }
 
-            is NewRecipeScreenIntent.SaveRecipeToRecents -> {
+            is RecipeDetailsScreenIntent.SaveRecipeDetailsToRecents -> {
                 saveRecipeToRecents(intent.recipe, coffeeId)
             }
         }
@@ -42,13 +42,13 @@ class NewRecipeScreenModel(
 
     private fun saveRecipeToRecents(recipe: Recipe, coffeeId: Int) {
         screenModelScope.launch {
-            newRecipeRepository.saveRecipeToRecents(recipe, coffeeId)
+            recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
         }
     }
 
     private fun getRecipe(waterAmount: Int) {
         _state.update {
-            NewRecipeScreenUiState.Loading
+            RecipeDetailsScreenUiState.Loading
         }
         screenModelScope.launch {
             delay(10.seconds)
@@ -62,11 +62,11 @@ class NewRecipeScreenModel(
                 coffee = coffee,
                 waterAmount = waterAmount,
             )
-            val recipe = newRecipeRepository.getRecipe(recipeRequest)
+            val recipe = recipeDetailsRepository.getRecipe(recipeRequest)
 
-            newRecipeRepository.saveRecipeToRecents(recipe, coffeeId)
+            recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
             _state.update {
-                NewRecipeScreenUiState.Content(
+                RecipeDetailsScreenUiState.Content(
                     imagePath = directory,
                     recipe = recipe
                 )

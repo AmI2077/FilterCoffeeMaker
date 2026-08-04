@@ -4,7 +4,7 @@ import org.example.project.core.domain.model.Recipe
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
 import org.example.project.features.coffeeList.ui.vm.CoffeeScreenModel
 import org.example.project.features.newCoffee.ui.vm.AddCoffeeScreenModel
-import org.example.project.features.recipeDetails.ui.vm.NewRecipeScreenModel
+import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
 import org.example.project.features.timer.ui.vm.TimerScreenModel
@@ -27,10 +27,10 @@ val vmModule = module {
         )
     }
     factory { (coffeeId: Int) ->
-        NewRecipeScreenModel(
+        RecipeDetailsScreenModel(
             coffeeId = coffeeId,
             imageSaver = get(),
-            newRecipeRepository = get(),
+            recipeDetailsRepository = get(),
             coffeeDetailsRepository = get()
         )
     }

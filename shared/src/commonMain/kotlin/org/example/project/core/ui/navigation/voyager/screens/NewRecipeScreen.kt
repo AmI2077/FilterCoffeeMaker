@@ -10,8 +10,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import org.example.project.core.ui.theme.backgroundPrimary
-import org.example.project.features.recipeDetails.ui.composables.NewRecipeScreen
-import org.example.project.features.recipeDetails.ui.vm.NewRecipeScreenModel
+import org.example.project.features.recipeDetails.ui.composables.RecipeDetailsScreen
+import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.koin.core.parameter.parametersOf
 
@@ -23,7 +23,7 @@ class NewRecipeScreen(
         val navigator = LocalNavigator.current
 
         Scaffold { paddingValues ->
-            NewRecipeScreen(
+            RecipeDetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(backgroundPrimary)
@@ -31,7 +31,7 @@ class NewRecipeScreen(
                         top = paddingValues.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding(),
                     ),
-                screenModel = koinScreenModel<NewRecipeScreenModel>(
+                screenModel = koinScreenModel<RecipeDetailsScreenModel>(
                     parameters = { parametersOf(coffeeId) }
                 ),
                 loaderScreenModel = koinScreenModel<RecipeLoaderScreenModel>(),
