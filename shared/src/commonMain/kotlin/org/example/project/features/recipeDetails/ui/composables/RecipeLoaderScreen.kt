@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.composables
+package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
@@ -21,7 +21,7 @@ import coffee.shared.generated.resources.recipe_loading_image_2
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.features.newCoffee.ui.composables.RecipeLoader
-import org.example.project.features.newRecipe.ui.vm.RecipeLoaderScreenModel
+import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

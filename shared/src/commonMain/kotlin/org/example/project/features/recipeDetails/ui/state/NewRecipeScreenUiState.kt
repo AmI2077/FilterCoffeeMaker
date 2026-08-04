@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.state
+package org.example.project.features.recipeDetails.ui.state
 
 import org.example.project.core.domain.model.Recipe
 

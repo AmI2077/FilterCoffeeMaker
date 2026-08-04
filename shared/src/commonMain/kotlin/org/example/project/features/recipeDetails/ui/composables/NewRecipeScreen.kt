@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.composables
+package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,10 +25,10 @@ import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.newCoffee.ui.composables.CoffeeImage
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenIntent.LoadRecipe
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenUiState
-import org.example.project.features.newRecipe.ui.vm.NewRecipeScreenModel
-import org.example.project.features.newRecipe.ui.vm.RecipeLoaderScreenModel
+import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenIntent.LoadRecipe
+import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenUiState
+import org.example.project.features.recipeDetails.ui.vm.NewRecipeScreenModel
+import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 
 @Composable
 fun NewRecipeScreen(

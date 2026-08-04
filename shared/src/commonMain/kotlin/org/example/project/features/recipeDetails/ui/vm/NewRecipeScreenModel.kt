@@ -1,4 +1,4 @@
-package org.example.project.features.newRecipe.ui.vm
+package org.example.project.features.recipeDetails.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -10,10 +10,10 @@ import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.newRecipe.domain.api.NewRecipeRepository
-import org.example.project.features.newRecipe.domain.models.RecipeRequest
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenIntent
-import org.example.project.features.newRecipe.ui.state.NewRecipeScreenUiState
+import org.example.project.features.recipeDetails.domain.api.NewRecipeRepository
+import org.example.project.features.recipeDetails.domain.models.RecipeRequest
+import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenIntent
+import org.example.project.features.recipeDetails.ui.state.NewRecipeScreenUiState
 import kotlin.time.Duration.Companion.seconds
 
 class NewRecipeScreenModel(

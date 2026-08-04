@@ -1,7 +1,7 @@
-package org.example.project.features.newRecipe.domain.api
+package org.example.project.features.recipeDetails.domain.api
 
 import org.example.project.core.domain.model.Recipe
-import org.example.project.features.newRecipe.domain.models.RecipeRequest
+import org.example.project.features.recipeDetails.domain.models.RecipeRequest
 
 interface NewRecipeRepository {
 

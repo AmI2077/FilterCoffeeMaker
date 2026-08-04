@@ -1,9 +1,9 @@
-package org.example.project.features.newRecipe.data.repository
+package org.example.project.features.recipeDetails.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.example.project.core.data.resources.ResourceManager
-import org.example.project.features.newRecipe.domain.api.LoaderScreenRepository
+import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
 import kotlin.random.Random
 
 class LoaderScreenRepositoryImpl(
