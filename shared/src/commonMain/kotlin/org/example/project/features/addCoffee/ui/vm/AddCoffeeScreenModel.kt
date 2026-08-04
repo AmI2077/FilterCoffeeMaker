@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.ui.vm
+package org.example.project.features.addCoffee.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.features.newCoffee.data.repository.AddCoffeeRepositoryResult
-import org.example.project.features.newCoffee.domain.AddCoffeeInteractor
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenIntents
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiEvents
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiState
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiStatus
+import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
+import org.example.project.features.addCoffee.domain.AddCoffeeInteractor
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenIntents
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiEvents
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiState
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiStatus
 
 class AddCoffeeScreenModel(
     private val addCoffeeInteractor: AddCoffeeInteractor,

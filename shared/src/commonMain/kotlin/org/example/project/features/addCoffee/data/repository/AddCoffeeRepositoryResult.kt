@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.data.repository
+package org.example.project.features.addCoffee.data.repository
 
 import org.example.project.core.domain.model.Coffee
 

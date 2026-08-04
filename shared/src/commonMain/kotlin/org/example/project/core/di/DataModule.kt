@@ -16,8 +16,8 @@ import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepositoryImpl
 import org.example.project.features.coffeeList.data.repository.CoffeeRepositoryImpl
 import org.example.project.features.coffeeList.domain.api.CoffeeRepository
-import org.example.project.features.newCoffee.data.repository.AddCoffeeRepositoryImpl
-import org.example.project.features.newCoffee.domain.AddCoffeeRepository
+import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryImpl
+import org.example.project.features.addCoffee.domain.AddCoffeeRepository
 import org.example.project.features.recipeDetails.data.repository.LoaderScreenRepositoryImpl
 import org.example.project.features.recipeDetails.data.repository.RecipeDetailsRepositoryImpl
 import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository

@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.ui.states
+package org.example.project.features.addCoffee.ui.states
 
 import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResult
 

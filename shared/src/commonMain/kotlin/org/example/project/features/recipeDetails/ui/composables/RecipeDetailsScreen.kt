@@ -24,7 +24,7 @@ import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
-import org.example.project.features.newCoffee.ui.composables.CoffeeImage
+import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent.LoadRecipeDetails
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel

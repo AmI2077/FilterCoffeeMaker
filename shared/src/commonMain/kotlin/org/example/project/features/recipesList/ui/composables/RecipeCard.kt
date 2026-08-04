@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
@@ -33,7 +32,7 @@ import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
-import org.example.project.features.newCoffee.ui.composables.CoffeeImage
+import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

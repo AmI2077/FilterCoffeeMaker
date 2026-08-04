@@ -42,8 +42,8 @@ import org.example.project.core.ui.theme.regularTextStyle
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenUiState
-import org.example.project.features.newCoffee.ui.composables.CoffeeBalance
-import org.example.project.features.newCoffee.ui.composables.CoffeeImage
+import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
+import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

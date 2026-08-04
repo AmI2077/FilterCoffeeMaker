@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.data
+package org.example.project.features.addCoffee.data
 
 import android.content.Context
 import org.example.project.core.domain.api.ImageSaver

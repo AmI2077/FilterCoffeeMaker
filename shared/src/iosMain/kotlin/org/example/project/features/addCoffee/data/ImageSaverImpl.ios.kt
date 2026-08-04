@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.data
+package org.example.project.features.addCoffee.data
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
@@ -7,7 +7,6 @@ import org.example.project.core.domain.api.ImageSaver
 import platform.Foundation.NSData
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
-import platform.Foundation.NSSearchPathDirectory
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask

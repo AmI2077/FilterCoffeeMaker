@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.ui.composables
+package org.example.project.features.addCoffee.ui.composables
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically

@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.ui.states
+package org.example.project.features.addCoffee.ui.states
 
 sealed interface AddCoffeeScreenUiEvents {
     object PickPhoto : AddCoffeeScreenUiEvents

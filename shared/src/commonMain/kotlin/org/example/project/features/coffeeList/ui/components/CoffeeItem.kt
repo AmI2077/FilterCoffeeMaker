@@ -34,7 +34,7 @@ import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.gray
 import org.example.project.core.ui.theme.white
-import org.example.project.features.newCoffee.ui.composables.CoffeeImage
+import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

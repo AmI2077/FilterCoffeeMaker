@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.ui.composables
+package org.example.project.features.addCoffee.ui.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,11 +31,11 @@ import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.gray
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenIntents
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiEvents
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiState
-import org.example.project.features.newCoffee.ui.states.AddCoffeeScreenUiStatus
-import org.example.project.features.newCoffee.ui.vm.AddCoffeeScreenModel
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenIntents
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiEvents
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiState
+import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiStatus
+import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

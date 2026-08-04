@@ -1,7 +1,7 @@
-package org.example.project.features.newCoffee.domain
+package org.example.project.features.addCoffee.domain
 
 import org.example.project.core.domain.model.Coffee
-import org.example.project.features.newCoffee.data.repository.AddCoffeeRepositoryResult
+import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
 import kotlin.io.encoding.Base64
 
 class AddCoffeeInteractorImpl(

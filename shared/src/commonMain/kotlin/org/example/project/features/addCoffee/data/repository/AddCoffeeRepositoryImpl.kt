@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.data.repository
+package org.example.project.features.addCoffee.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -11,8 +11,8 @@ import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.domain.model.Coffee
-import org.example.project.features.newCoffee.data.extensions.CoffeeResponseSerializer
-import org.example.project.features.newCoffee.domain.AddCoffeeRepository
+import org.example.project.features.addCoffee.data.extensions.CoffeeResponseSerializer
+import org.example.project.features.addCoffee.domain.AddCoffeeRepository
 
 class AddCoffeeRepositoryImpl(
     private val aiClient: AiClient,

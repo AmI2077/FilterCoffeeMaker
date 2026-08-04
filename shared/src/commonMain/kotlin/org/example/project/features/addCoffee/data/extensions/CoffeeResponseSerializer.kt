@@ -1,4 +1,4 @@
-package org.example.project.features.newCoffee.data.extensions
+package org.example.project.features.addCoffee.data.extensions
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
