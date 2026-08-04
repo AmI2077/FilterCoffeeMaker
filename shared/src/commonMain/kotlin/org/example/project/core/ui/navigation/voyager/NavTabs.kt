@@ -14,6 +14,7 @@ import coffee.shared.generated.resources.ic_mycoffee_screen_24
 import coffee.shared.generated.resources.ic_saved_recipes_screen_24
 import org.example.project.core.ui.navigation.voyager.screens.AddCoffeeScreen
 import org.example.project.core.ui.navigation.voyager.screens.CoffeeDetailsScreen
+import org.example.project.core.ui.navigation.voyager.screens.NewRecipeScreen
 import org.example.project.features.coffeeList.ui.screens.CoffeeScreen
 import org.example.project.features.coffeeList.ui.vm.CoffeeScreenModel
 import org.example.project.features.recipesList.ui.composables.RecipesScreen
@@ -24,11 +25,19 @@ import org.jetbrains.compose.resources.painterResource
 object RecentRecipesTab : Tab {
     @Composable
     override fun Content() {
+        val tabNavigator = LocalNavigator.current
+        val root = tabNavigator?.parent
+
         RecipesScreen(
             modifier = Modifier
                 .fillMaxSize(),
             screenModel = koinScreenModel<RecipesScreenModel>()
-        )
+        ) {
+            root?.push(NewRecipeScreen(
+                coffeeId = null,
+                recipe = it
+            ))
+        }
     }
 
     override val options: TabOptions

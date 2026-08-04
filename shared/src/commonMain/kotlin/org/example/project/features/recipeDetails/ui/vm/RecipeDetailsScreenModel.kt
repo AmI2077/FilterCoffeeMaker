@@ -17,25 +17,31 @@ import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUi
 import kotlin.time.Duration.Companion.seconds
 
 class RecipeDetailsScreenModel(
-    private val coffeeId: Int,
+    private val coffeeId: Int?,
+    private val recipe: Recipe? = null,
     private val imageSaver: ImageSaver,
     private val recipeDetailsRepository: RecipeDetailsRepository,
     private val coffeeDetailsRepository: CoffeeDetailsRepository
 ) : ScreenModel {
 
     private var _state =
-        MutableStateFlow<RecipeDetailsScreenUiState>(RecipeDetailsScreenUiState.WaterAmountDialog)
+        MutableStateFlow<RecipeDetailsScreenUiState>(RecipeDetailsScreenUiState.Idle)
     val state = _state.asStateFlow()
 
+    init {
+        _state.update {
+            getInitState(recipe)
+        }
+    }
 
     fun onIntent(intent: RecipeDetailsScreenIntent) {
         when (intent) {
             is RecipeDetailsScreenIntent.LoadRecipeDetails -> {
-                getRecipe(waterAmount = intent.waterAmount)
+                loadRecipeFromAi(waterAmount = intent.waterAmount)
             }
 
             is RecipeDetailsScreenIntent.SaveRecipeDetailsToRecents -> {
-                saveRecipeToRecents(intent.recipe, coffeeId)
+                saveRecipeToRecents(intent.recipe, coffeeId!!)
             }
         }
     }
@@ -46,18 +52,17 @@ class RecipeDetailsScreenModel(
         }
     }
 
-    private fun getRecipe(waterAmount: Int) {
+    private fun loadRecipeFromAi(waterAmount: Int) {
         _state.update {
             RecipeDetailsScreenUiState.Loading
         }
         screenModelScope.launch {
             delay(10.seconds)
-            val coffee = coffeeDetailsRepository.getCoffeeDetails(coffeeId)
+            val coffee = coffeeDetailsRepository.getCoffeeDetails(coffeeId!!)
 
             val directory = coffee.imagePath?.let {
                 imageSaver.getDirectory(it)
             }
-
             val recipeRequest = RecipeRequest(
                 coffee = coffee,
                 waterAmount = waterAmount,
@@ -72,5 +77,14 @@ class RecipeDetailsScreenModel(
                 )
             }
         }
+    }
+
+    private fun getInitState(recipe: Recipe?): RecipeDetailsScreenUiState {
+        return recipe?.let { recipe ->
+            RecipeDetailsScreenUiState.Content(
+                imagePath = recipe.coffee.imagePath,
+                recipe = recipe
+            )
+        } ?: RecipeDetailsScreenUiState.WaterAmountDialog
     }
 }

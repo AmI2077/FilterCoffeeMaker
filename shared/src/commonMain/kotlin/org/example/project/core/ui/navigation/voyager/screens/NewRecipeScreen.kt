@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.theme.backgroundPrimary
 import org.example.project.features.recipeDetails.ui.composables.RecipeDetailsScreen
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
@@ -16,7 +17,8 @@ import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.koin.core.parameter.parametersOf
 
 class NewRecipeScreen(
-    private val coffeeId: Int
+    private val coffeeId: Int?,
+    private val recipe: Recipe? = null
 ) : Screen {
     @Composable
     override fun Content() {
@@ -32,7 +34,7 @@ class NewRecipeScreen(
                         bottom = paddingValues.calculateBottomPadding(),
                     ),
                 screenModel = koinScreenModel<RecipeDetailsScreenModel>(
-                    parameters = { parametersOf(coffeeId) }
+                    parameters = { parametersOf(coffeeId, recipe) }
                 ),
                 loaderScreenModel = koinScreenModel<RecipeLoaderScreenModel>(),
                 onStartTimerClick = { recipe ->

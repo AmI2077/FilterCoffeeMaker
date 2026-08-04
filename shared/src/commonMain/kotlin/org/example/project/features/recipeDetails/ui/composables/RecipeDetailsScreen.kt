@@ -38,6 +38,7 @@ fun RecipeDetailsScreen(
     onStartTimerClick: (recipe: Recipe) -> Unit,
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
+    println("_STATE: ${state}")
 
     val scrollState = rememberScrollState()
 
@@ -70,6 +71,8 @@ fun RecipeDetailsScreen(
                 )
             }
         }
+
+        else -> Unit
     }
 }
 
@@ -81,6 +84,7 @@ fun RecipeDetailsScreenContent(
     recipe: Recipe = mockRecipe,
     onStartTimerClick: (recipe: Recipe) -> Unit = {}
 ) {
+    println("IMAGE_DIRECTORY: $coffeeImage")
     Column(
         modifier = modifier
     ) {
