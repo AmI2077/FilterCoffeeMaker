@@ -80,9 +80,7 @@ fun RecipesScreenContent(
 }
 
 @Composable
-fun RecipeHeader(
-    modifier: Modifier = Modifier,
-) {
+fun RecipeHeader() {
     HeaderAppText(
         text = "Привет!)"
     )
