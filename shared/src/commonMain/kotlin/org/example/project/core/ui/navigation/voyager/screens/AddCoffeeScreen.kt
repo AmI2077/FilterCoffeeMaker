@@ -32,7 +32,9 @@ class AddCoffeeScreen : Screen {
                         bottom = paddingValues.calculateBottomPadding(),
                     ),
                 screenModel = koinScreenModel<AddCoffeeScreenModel>(),
-                onBack = { navigator?.pop() }
+                onAddBtnClick = {
+                    navigator?.pop()
+                }
             )
         }
     }

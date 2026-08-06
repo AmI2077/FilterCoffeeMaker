@@ -1,6 +1,8 @@
 package org.example.project.features.addCoffee.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,11 +32,9 @@ import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.gray
 import org.example.project.core.ui.theme.white
+import org.example.project.features.addCoffee.store.AddCoffeeActions
+import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenIntents
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiEvents
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiState
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiStatus
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
 
@@ -42,7 +42,7 @@ import org.jetbrains.compose.resources.painterResource
 fun AddCoffeeScreen(
     modifier: Modifier = Modifier,
     screenModel: AddCoffeeScreenModel,
-    onBack: () -> Unit,
+    onAddBtnClick: () -> Unit
 ) {
     val state = screenModel.state.collectAsStateWithLifecycle()
 
@@ -54,23 +54,15 @@ fun AddCoffeeScreen(
         ),
     )
     LaunchedEffect(photoPicker.result) {
-        val result = photoPicker.result
-        screenModel.onIntent(AddCoffeeScreenIntents.ImagePicked(result))
+        screenModel.loadPickedImage(photoPicker.result)
     }
 
     LaunchedEffect(Unit) {
-        screenModel.uiEvents.collect { event ->
-            when (event) {
-                AddCoffeeScreenUiEvents.PickPhoto -> {
-                    photoPicker.launchGallery()
-                }
-
-                is AddCoffeeScreenUiEvents.ShowAiError -> {
-                    println(event.message)
-                }
-
-                AddCoffeeScreenUiEvents.NavigateToCoffeeScreen -> {
-                    onBack()
+        screenModel.uiActions.collect { action ->
+            when (action) {
+                AddCoffeeActions.OpenGallery -> photoPicker.launchGallery()
+                is AddCoffeeActions.AddCoffeeBtnClicked -> {
+                    onAddBtnClick()
                 }
             }
         }
@@ -80,17 +72,13 @@ fun AddCoffeeScreen(
         modifier = modifier,
         state = state.value,
         onPickImageClick = {
-            screenModel.onIntent(
-                AddCoffeeScreenIntents.PickImage
-            )
+            screenModel.pickImage()
         },
         onLoadBtnClick = {
-            screenModel.onIntent(
-                AddCoffeeScreenIntents.LoadImage
-            )
+            screenModel.loadCoffeeInfo()
         },
         onAddBtnClick = {
-            screenModel.onIntent(AddCoffeeScreenIntents.AddCoffee)
+            screenModel.addCoffee()
         }
     )
 }
@@ -103,77 +91,55 @@ fun AddCoffeeScreenContent(
     onLoadBtnClick: () -> Unit,
     onAddBtnClick: () -> Unit,
 ) {
-    val imagePath = state.imageDirectory
+    val imageDirectory = state.imageDirectory
 
     Column(modifier = modifier) {
         HeaderAppText(
             text = "Новый кофе"
         )
         Spacer(Modifier.padding(top = 20.dp))
-        if (imagePath != null) {
-            CoffeeImage(
-                modifier = Modifier
-                    .aspectRatio(UiDefaults.IMAGE_ASPECT_RATIO)
-                    .fillMaxWidth(),
-                model = imagePath
+        CoffeeImageView(
+            modifier = Modifier
+                .aspectRatio(UiDefaults.IMAGE_ASPECT_RATIO)
+                .fillMaxWidth(),
+            imageDirectory = imageDirectory,
+            onClick = { onPickImageClick() }
+        )
+        if (state.coffeeInfo != null) {
+            CoffeeInfoContent(
+                coffee = state.coffeeInfo,
+                onAddBtnClick = { onAddBtnClick() },
+                onEditBtnClick = {}
             )
-        } else {
-            RegularAppText(
+        }
+        if (state.isLoading) {
+            CoffeeInfoLoading(
                 modifier = Modifier
-                    .align(Alignment.End),
-                text = "Тыкни, чтобы загрузить",
-                color = blueGrayText,
-                fontSize = 16.sp
+                    .fillMaxSize()
             )
-            CoffeeImagePlaceholder(
-                modifier = Modifier
-                    .aspectRatio(UiDefaults.IMAGE_ASPECT_RATIO)
-                    .fillMaxWidth()
-            ) {
-                onPickImageClick()
-            }
         }
-        when (val status = state.status) {
-            is AddCoffeeScreenUiStatus.Content -> {
-                CoffeeInfoContent(
-                    coffee = status.coffee,
-                    onAddBtnClick = { onAddBtnClick() },
-                    onEditBtnClick = {}
-                )
-            }
 
-            is AddCoffeeScreenUiStatus.Error -> Unit
-            AddCoffeeScreenUiStatus.Idle -> Unit
-            AddCoffeeScreenUiStatus.Loading -> {
-                CoffeeInfoLoading(
-                    modifier = Modifier
-                        .fillMaxSize()
+        Spacer(Modifier.weight(1f))
+        AppButton(
+            modifier = Modifier.fillMaxWidth(),
+            icon = {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_ai_24),
+                    contentDescription = null
                 )
-            }
-
-            AddCoffeeScreenUiStatus.PhotoLoaded -> {
-                Spacer(Modifier.weight(1f))
-                AppButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    icon = {
-                        Icon(
-                            painter = painterResource(Res.drawable.ic_ai_24),
-                            contentDescription = null
-                        )
-                    },
-                    text = {
-                        RegularAppText(
-                            modifier = Modifier.padding(vertical = 20.dp),
-                            text = "Загрузить",
-                            color = white
-                        )
-                    },
-                    onClick = {
-                        onLoadBtnClick()
-                    }
+            },
+            text = {
+                RegularAppText(
+                    modifier = Modifier.padding(vertical = 20.dp),
+                    text = "Загрузить",
+                    color = white
                 )
+            },
+            isEnabled = imageDirectory != null,
+            onClick = {
+                onLoadBtnClick()
             }
-        }
+        )
     }
 }
 
@@ -252,6 +218,32 @@ fun CoffeeInfoContent(
                     onEditBtnClick()
                 }
             }
+        )
+    }
+}
+
+@Composable
+private fun ColumnScope.CoffeeImageView(
+    modifier: Modifier = Modifier,
+    imageDirectory: String?,
+    onClick: () -> Unit,
+) {
+    if (imageDirectory != null) {
+        CoffeeImage(
+            modifier = modifier,
+            model = imageDirectory
+        )
+    } else {
+        RegularAppText(
+            modifier = Modifier
+                .align(Alignment.End),
+            text = "Тыкни, чтобы загрузить",
+            color = blueGrayText,
+            fontSize = 16.sp
+        )
+        CoffeeImagePlaceholder(
+            modifier = modifier,
+            onClick = { onClick() }
         )
     }
 }

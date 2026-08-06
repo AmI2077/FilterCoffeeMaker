@@ -4,136 +4,59 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.ismoy.imagepickerkmp.domain.extensions.loadBytes
 import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.example.project.core.domain.api.ImageSaver
-import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
-import org.example.project.features.addCoffee.domain.AddCoffeeInteractor
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenIntents
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiEvents
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiState
-import org.example.project.features.addCoffee.ui.states.AddCoffeeScreenUiStatus
+import kotlinx.coroutines.CoroutineScope
+import org.example.project.features.addCoffee.store.AddCoffeeIntent
+import org.example.project.features.addCoffee.store.AddCoffeeStore
 
 class AddCoffeeScreenModel(
-    private val addCoffeeInteractor: AddCoffeeInteractor,
-    private val imageSaver: ImageSaver
+    storeFactory: (CoroutineScope) -> AddCoffeeStore
 ) : ScreenModel {
-    private var _state = MutableStateFlow(AddCoffeeScreenUiState())
-    val state = _state.asStateFlow()
+    private val store = storeFactory(screenModelScope)
 
-    private var _uiEvents = MutableSharedFlow<AddCoffeeScreenUiEvents>()
-    val uiEvents = _uiEvents.asSharedFlow()
+    val state = store.state
 
-    fun onIntent(intent: AddCoffeeScreenIntents) {
-        when (intent) {
-            AddCoffeeScreenIntents.AddCoffee -> {
-                addCoffee()
-            }
+    val uiActions = store.uiActions
 
-            is AddCoffeeScreenIntents.ImagePicked -> {
-                imagePicked(intent.result)
-            }
-
-            AddCoffeeScreenIntents.LoadImage -> {
-                loadImage()
-            }
-
-            AddCoffeeScreenIntents.PickImage -> {
-                pickImage()
-            }
-        }
-    }
-
-    private fun pickImage() {
-        screenModelScope.launch {
-            _uiEvents.emit(AddCoffeeScreenUiEvents.PickPhoto)
-        }
-    }
-
-    fun loadImage() {
-        updateUiState(
-            newStatus = AddCoffeeScreenUiStatus.Loading
-        )
-        screenModelScope.launch {
-
-            _state.value.imageByteArray?.let {
-                when (val result = addCoffeeInteractor.getCoffeeDetailsFromImage(it)) {
-                    is AddCoffeeRepositoryResult.Error -> {
-                        updateUiState(
-                            newStatus = AddCoffeeScreenUiStatus.Error(result.errorMessage)
-                        )
-                    }
-
-                    is AddCoffeeRepositoryResult.Success -> {
-                        updateUiState(
-                            newStatus = AddCoffeeScreenUiStatus.Content(
-                                result.coffee.copy(imagePath = _state.value.imageName)
-                            )
-                        )
-                    }
-                }
-            }
-        }
+    fun pickImage() {
+        store.onIntent(AddCoffeeIntent.PickImage)
     }
 
     fun addCoffee() {
-        screenModelScope.launch {
-            if (_state.value.status is AddCoffeeScreenUiStatus.Content) {
-                val coffee = (_state.value.status as AddCoffeeScreenUiStatus.Content).coffee
-                addCoffeeInteractor.saveCoffee(coffee)
-            } else {
-                throw IllegalArgumentException("Coffee == null")
-            }
-            _uiEvents.emit(AddCoffeeScreenUiEvents.NavigateToCoffeeScreen)
-        }
+        store.onIntent(AddCoffeeIntent.AddCoffee(state.value.coffeeInfo!!))
+        // TODO "handle nullable coffeeInfo in store"
     }
 
-    fun imagePicked(result: ImagePickerResult) {
-        when (result) {
-            is ImagePickerResult.Success -> {
-                screenModelScope.launch(Dispatchers.IO) {
-                    val imageByteArray = result.first?.loadBytes()
-                    val imageName = result.first?.fileName
-                    println("COFFEE_IMAGE: $imageName")
-
-                    if (imageByteArray != null && imageName != null) {
-                        imageSaver.saveImage(imageName, imageByteArray)
-                        println("COFFEE_IMAGE_NAME: $imageName")
-                        updateUiState(
-                            imageName = imageName,
-                            imageDirectory = imageSaver.getDirectory(imageName),
-                            imageByteArray = imageByteArray,
-                            newStatus = AddCoffeeScreenUiStatus.PhotoLoaded
-                        )
-                    } else {
-                        throw Exception("Не удалось загрузить фотографию")
-                    }
-                }
-            }
-
-            else -> updateUiState(newStatus = AddCoffeeScreenUiStatus.Idle)
-        }
+    fun loadCoffeeInfo() {
+        store.onIntent(AddCoffeeIntent.LoadCoffeeInfo(
+            state.value.imageByteArray!!
+        ))
+        /**
+         * TODO "handle nullable imageByteArray in store"
+         * **/
     }
 
-    private fun updateUiState(
-        imageName: String? = null,
-        imageDirectory: String? = null,
-        imageByteArray: ByteArray? = null,
-        newStatus: AddCoffeeScreenUiStatus
+    fun loadPickedImage(
+        result: ImagePickerResult
     ) {
-        _state.update {
-            it.copy(
-                imageName = imageName ?: it.imageName,
-                imageDirectory = imageDirectory ?: it.imageDirectory,
-                imageByteArray = imageByteArray ?: it.imageByteArray,
-                status = newStatus
-            )
+        when (result) {
+            ImagePickerResult.Dismissed -> Unit
+            is ImagePickerResult.Error -> Unit
+            ImagePickerResult.Idle -> Unit
+            ImagePickerResult.Loading -> Unit
+            is ImagePickerResult.Success -> onSuccessImagePickerResult(result)
         }
+    }
+
+    private fun onSuccessImagePickerResult(result: ImagePickerResult.Success) {
+        val result = result.photos.first()
+        val imageName = result.fileName
+        val imageByteArray = result.loadBytes()
+
+        store.onIntent(
+            AddCoffeeIntent.ImagePicked(
+                imageName = imageName,
+                imageByteArray = imageByteArray
+            )
+        )
     }
 }
