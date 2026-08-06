@@ -8,6 +8,7 @@ import org.example.project.core.data.extensions.toEntity
 import org.example.project.core.data.local.db.dao.CoffeeDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
+import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.domain.model.Coffee
@@ -24,8 +25,6 @@ class AddCoffeeRepositoryImpl(
         return withContext(dispatcher) {
             val prompt = resourceManager.getFileResource("files/testCoffeePrompt.txt")
 
-            println("PROMPT_TEXT: $prompt")
-
             val result = aiClient.makeRequest(
                 AiRequestDto.makeRequest(
                     instructions = prompt,
@@ -39,12 +38,9 @@ class AddCoffeeRepositoryImpl(
                 is NetworkResult.Error -> {
                     AddCoffeeRepositoryResult.Error(result.error.message)
                 }
-
                 is NetworkResult.Success -> {
                     val rawJson = result.data
-                    val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson)
-
-                    AddCoffeeRepositoryResult.Success(coffee)
+                    handleSerializeResult(rawJson)
                 }
             }
         }
@@ -53,6 +49,15 @@ class AddCoffeeRepositoryImpl(
     override suspend fun saveCoffee(coffee: Coffee) {
         withContext(dispatcher) {
             coffeeDao.insertCoffee(coffee.toEntity())
+        }
+    }
+
+    private fun handleSerializeResult(rawJson: String): AddCoffeeRepositoryResult {
+        return try {
+            val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson)
+            AddCoffeeRepositoryResult.Success(coffee)
+        } catch (e: Exception) {
+            AddCoffeeRepositoryResult.Error(NetworkErrors.UnknownError.message)
         }
     }
 }

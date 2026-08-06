@@ -16,7 +16,7 @@ sealed class NetworkErrors(val message: String) {
         private const val INTERNAL_SERVER_ERROR = "Похоже нет интернета, проверь подключение"
         private const val BAD_GATEWAY = "Неполадки на сервере, уже чиню"
         private const val GATEWAY_TIMEOUT = "Сервер не отвечает, попробуй позже"
-        private const val UNKNOWN_ERROR = "Какая-то непонятная ошибка"
+        private const val UNKNOWN_ERROR = "Нейронка не смогла, попробуй еще раз"
     }
 }
 

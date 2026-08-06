@@ -9,7 +9,8 @@ class AddCoffeeReducer: MviReducer<AddCoffeeScreenUiState, AddCoffeeResults> {
     ): AddCoffeeScreenUiState {
         return when(result) {
             is AddCoffeeResults.CoffeeInfoError -> oldState.copy(
-                error = result.message
+                error = result.message,
+                isLoading = false
             )
             is AddCoffeeResults.CoffeeInfoSuccess -> oldState.copy(
                 coffeeInfo = result.coffeeInfo,
