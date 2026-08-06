@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeList.ui.vm
+package org.example.project.features.savedCoffee.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.features.coffeeList.domain.api.CoffeeInteractor
-import org.example.project.features.coffeeList.ui.states.CoffeeScreenUiState
+import org.example.project.features.savedCoffee.domain.api.CoffeeInteractor
+import org.example.project.features.savedCoffee.ui.states.CoffeeScreenUiState
 
-class CoffeeScreenModel(
+class SavedCoffeeScreenModel(
     private val coffeeInteractor: CoffeeInteractor,
     private val imageSaver: ImageSaver,
 ) : ScreenModel {

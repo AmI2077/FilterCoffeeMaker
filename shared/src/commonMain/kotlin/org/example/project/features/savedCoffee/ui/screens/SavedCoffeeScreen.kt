@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeList.ui.screens
+package org.example.project.features.savedCoffee.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,16 +22,16 @@ import coffee.shared.generated.resources.coffeeScreenTitle
 import coffee.shared.generated.resources.ic_add_24
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.HeaderAppText
-import org.example.project.features.coffeeList.ui.components.CoffeeItem
-import org.example.project.features.coffeeList.ui.states.CoffeeScreenUiState
-import org.example.project.features.coffeeList.ui.vm.CoffeeScreenModel
+import org.example.project.features.savedCoffee.ui.components.CoffeeItem
+import org.example.project.features.savedCoffee.ui.states.CoffeeScreenUiState
+import org.example.project.features.savedCoffee.ui.vm.SavedCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun CoffeeScreen(
+fun SavedCoffeeScreen(
     modifier: Modifier = Modifier,
-    screenModel: CoffeeScreenModel,
+    screenModel: SavedCoffeeScreenModel,
     onAddCoffeeClick: () -> Unit,
     onRecipeBtnClick: (coffeeId: Int) -> Unit,
     onItemClick: (coffeeId: Int) -> Unit,
@@ -44,7 +43,7 @@ fun CoffeeScreen(
             onAddCoffeeClick = { onAddCoffeeClick() }
         )
         Spacer(Modifier.height(10.dp))
-        CoffeeScreenContent(
+        SavedCoffeeScreenContent(
             state = state.value,
             onItemClick = { coffeeId: Int ->
                 onItemClick(coffeeId)
@@ -90,7 +89,7 @@ fun CoffeeHeader(
 }
 
 @Composable
-fun CoffeeScreenContent(
+fun SavedCoffeeScreenContent(
     modifier: Modifier = Modifier,
     state: CoffeeScreenUiState,
     onItemClick: (coffeeId: Int) -> Unit,

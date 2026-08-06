@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeList.ui.states
+package org.example.project.features.savedCoffee.ui.states
 
 import org.example.project.core.domain.model.Coffee
 
