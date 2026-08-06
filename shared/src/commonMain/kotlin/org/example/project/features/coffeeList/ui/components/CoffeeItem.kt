@@ -2,6 +2,8 @@ package org.example.project.features.coffeeList.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,13 +40,13 @@ import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-@Preview
 @Composable
 fun CoffeeItem(
     modifier: Modifier = Modifier,
-    coffee: Coffee = mockCoffee,
-    onRecipeClick: (coffeeId: Int) -> Unit = {},
-    onClick: (coffeeId: Int) -> Unit = {},
+    coffee: Coffee,
+    onRecipeBtnClick: (coffeeId: Int) -> Unit,
+    onClick: (coffeeId: Int) -> Unit,
+    onLongClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -59,10 +61,9 @@ fun CoffeeItem(
                 color = white,
                 shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)
             )
-            .clickable(
-                onClick = {
-                    onClick(coffee.id)
-                }
+            .combinedClickable(
+                onClick = { onClick(coffee.id) },
+                onLongClick = { onLongClick() }
             )
             .padding(10.dp)
     ) {
@@ -84,7 +85,7 @@ fun CoffeeItem(
             tasteDescription = coffee.tasteDescription,
             processingMethod = coffee.processingMethod,
         ) {
-            onRecipeClick(coffee.id)
+            onRecipeBtnClick(coffee.id)
         }
     }
 }

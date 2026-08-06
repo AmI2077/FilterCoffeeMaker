@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +34,7 @@ fun CoffeeScreen(
     modifier: Modifier = Modifier,
     screenModel: CoffeeScreenModel,
     onAddCoffeeClick: () -> Unit,
-    onRecipeClick: (coffeeId: Int) -> Unit,
+    onRecipeBtnClick: (coffeeId: Int) -> Unit,
     onItemClick: (coffeeId: Int) -> Unit,
 ) {
     val state = screenModel.state.collectAsStateWithLifecycle()
@@ -42,14 +43,17 @@ fun CoffeeScreen(
         CoffeeHeader(
             onAddCoffeeClick = { onAddCoffeeClick() }
         )
-        Spacer(Modifier.padding(top = 10.dp))
+        Spacer(Modifier.height(10.dp))
         CoffeeScreenContent(
             state = state.value,
             onItemClick = { coffeeId: Int ->
                 onItemClick(coffeeId)
             },
-            onRecipeClick = { coffeeId ->
-                onRecipeClick(coffeeId)
+            onLongItemClick = {
+
+            },
+            onRecipeBtnClick = { coffeeId ->
+                onRecipeBtnClick(coffeeId)
             }
         )
     }
@@ -90,7 +94,8 @@ fun CoffeeScreenContent(
     modifier: Modifier = Modifier,
     state: CoffeeScreenUiState,
     onItemClick: (coffeeId: Int) -> Unit,
-    onRecipeClick: (coffeeId: Int) -> Unit,
+    onLongItemClick: () -> Unit,
+    onRecipeBtnClick: (coffeeId: Int) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -102,11 +107,14 @@ fun CoffeeScreenContent(
                 modifier = Modifier
                     .fillMaxWidth(),
                 coffee = coffee,
-                onRecipeClick = { coffeeId ->
-                    onRecipeClick(coffeeId)
+                onRecipeBtnClick = { coffeeId ->
+                    onRecipeBtnClick(coffeeId)
                 },
                 onClick = { coffeeId ->
                     onItemClick(coffeeId)
+                },
+                onLongClick = {
+                    onLongItemClick()
                 }
             )
         }
