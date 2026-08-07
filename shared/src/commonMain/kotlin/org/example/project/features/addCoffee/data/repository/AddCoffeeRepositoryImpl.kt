@@ -54,10 +54,19 @@ class AddCoffeeRepositoryImpl(
 
     private fun handleSerializeResult(rawJson: String): AddCoffeeRepositoryResult {
         return try {
-            val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson)
-                AddCoffeeRepositoryResult.Success(coffee)
+            val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson).copy()
+
+            AddCoffeeRepositoryResult.Success(
+                coffee.copy(
+                    id = getId(coffee.title)
+                )
+            )
         } catch (e: Exception) {
             AddCoffeeRepositoryResult.Error(NetworkErrors.UnknownError.message)
         }
+    }
+
+    private fun getId(title: String): String {
+        return title.substring(0, 4).lowercase()
     }
 }

@@ -15,7 +15,7 @@ fun AiRequestDto.toJson(): JsonElement {
 
 fun Coffee.toEntity(): CoffeeEntity {
     return CoffeeEntity(
-        id = title.substring(0, 4),
+        id = id,
         title = title,
         imagePath = imagePath ?: "",
         roasting = roasting,
