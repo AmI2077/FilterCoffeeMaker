@@ -17,7 +17,7 @@ import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.koin.core.parameter.parametersOf
 
 class NewRecipeScreen(
-    private val coffeeId: Int?,
+    private val coffeeId: String?,
     private val recipe: Recipe? = null
 ) : Screen {
     @Composable

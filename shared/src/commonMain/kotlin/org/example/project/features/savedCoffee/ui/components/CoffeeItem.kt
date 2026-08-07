@@ -40,8 +40,8 @@ import org.jetbrains.compose.resources.stringResource
 fun CoffeeItem(
     modifier: Modifier = Modifier,
     coffee: Coffee,
-    onRecipeBtnClick: (coffeeId: Int) -> Unit,
-    onClick: (coffeeId: Int) -> Unit,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
+    onClick: (coffeeId: String) -> Unit,
     onLongClick: (coffee: Coffee) -> Unit
 ) {
     Row(

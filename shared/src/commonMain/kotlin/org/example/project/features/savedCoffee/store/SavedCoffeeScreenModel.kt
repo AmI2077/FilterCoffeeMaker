@@ -23,7 +23,7 @@ class SavedCoffeeScreenModel(
         store.onIntent(SavedCoffeeScreenIntent.LoadSavedCoffee)
     }
 
-    fun onCoffeeItemClick(coffeeId: Int) {
+    fun onCoffeeItemClick(coffeeId: String) {
         store.onIntent(SavedCoffeeScreenIntent.CoffeeItemClick(coffeeId))
     }
 
@@ -31,7 +31,7 @@ class SavedCoffeeScreenModel(
         store.onIntent(SavedCoffeeScreenIntent.CoffeeItemLongClick(coffee))
     }
 
-    fun onRecipeBtnClick(coffeeId: Int) {
+    fun onRecipeBtnClick(coffeeId: String) {
         store.onIntent(SavedCoffeeScreenIntent.RecipeBtnClick(coffeeId))
     }
 

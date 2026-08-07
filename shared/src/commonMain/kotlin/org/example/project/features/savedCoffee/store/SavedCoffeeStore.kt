@@ -49,7 +49,7 @@ class SavedCoffeeStore(
         }
     }
 
-    private fun onCoffeeItemClick(coffeeId: Int) {
+    private fun onCoffeeItemClick(coffeeId: String) {
         emitAction(SavedCoffeeScreenActions.CoffeeItemClicked(coffeeId))
     }
 
@@ -59,7 +59,7 @@ class SavedCoffeeStore(
         )
     }
 
-    private fun onRecipeBtnClick(coffeeId: Int) {
+    private fun onRecipeBtnClick(coffeeId: String) {
         emitAction(SavedCoffeeScreenActions.RecipeBtnClicked(coffeeId))
     }
 

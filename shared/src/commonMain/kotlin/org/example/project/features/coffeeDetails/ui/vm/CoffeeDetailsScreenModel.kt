@@ -18,7 +18,7 @@ class CoffeeDetailsScreenModel(
         MutableStateFlow<CoffeeDetailsScreenUiState>(CoffeeDetailsScreenUiState.Loading)
     val state = _state.asStateFlow()
 
-    fun getCoffeeDetails(coffeeId: Int) {
+    fun getCoffeeDetails(coffeeId: String) {
         _state.update {
             CoffeeDetailsScreenUiState.Loading
         }

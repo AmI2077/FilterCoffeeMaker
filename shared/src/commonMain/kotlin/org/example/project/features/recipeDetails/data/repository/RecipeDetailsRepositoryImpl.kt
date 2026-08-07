@@ -52,7 +52,7 @@ class RecipeDetailsRepositoryImpl(
         }
     }
 
-    override suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: Int) {
+    override suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: String) {
         withContext(dispatcher) {
             recipeDao.insertRecipe(recipe.toEntity(coffeeId))
         }

@@ -39,7 +39,7 @@ val vmModule = module {
             get(),
         )
     }
-    factory { (coffeeId: Int?, recipe: Recipe?) ->
+    factory { (coffeeId: String?, recipe: Recipe?) ->
         RecipeDetailsScreenModel(
             coffeeId = coffeeId,
             recipe = recipe,

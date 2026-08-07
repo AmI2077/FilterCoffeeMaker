@@ -39,8 +39,8 @@ fun SavedCoffeeScreen(
     modifier: Modifier = Modifier,
     screenModel: SavedCoffeeScreenModel,
     onAddCoffeeClick: () -> Unit,
-    onRecipeBtnClick: (coffeeId: Int) -> Unit,
-    onItemClick: (coffeeId: Int) -> Unit,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
+    onItemClick: (coffeeId: String) -> Unit,
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
 
@@ -73,7 +73,7 @@ fun SavedCoffeeScreen(
         Spacer(Modifier.height(10.dp))
         SavedCoffeeScreenContent(
             state = state,
-            onItemClick = { coffeeId: Int ->
+            onItemClick = { coffeeId: String ->
                 screenModel.onCoffeeItemClick(coffeeId)
             },
             onLongItemClick = { coffee: Coffee ->
@@ -120,9 +120,9 @@ fun CoffeeHeader(
 fun SavedCoffeeScreenContent(
     modifier: Modifier = Modifier,
     state: SavedCoffeeScreenUiState,
-    onItemClick: (coffeeId: Int) -> Unit,
+    onItemClick: (coffeeId: String) -> Unit,
     onLongItemClick: (coffee: Coffee) -> Unit,
-    onRecipeBtnClick: (coffeeId: Int) -> Unit,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,

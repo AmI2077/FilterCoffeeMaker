@@ -55,7 +55,7 @@ class AddCoffeeRepositoryImpl(
     private fun handleSerializeResult(rawJson: String): AddCoffeeRepositoryResult {
         return try {
             val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson)
-            AddCoffeeRepositoryResult.Success(coffee)
+                AddCoffeeRepositoryResult.Success(coffee)
         } catch (e: Exception) {
             AddCoffeeRepositoryResult.Error(NetworkErrors.UnknownError.message)
         }

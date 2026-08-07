@@ -15,7 +15,7 @@ fun AiRequestDto.toJson(): JsonElement {
 
 fun Coffee.toEntity(): CoffeeEntity {
     return CoffeeEntity(
-        id = id,
+        id = title.substring(0, 4),
         title = title,
         imagePath = imagePath ?: "",
         roasting = roasting,
@@ -43,7 +43,7 @@ fun CoffeeEntity.toModel(): Coffee {
     )
 }
 
-fun Recipe.toEntity(coffeeId: Int): RecentRecipeEntity {
+fun Recipe.toEntity(coffeeId: String): RecentRecipeEntity {
     return RecentRecipeEntity(
         id = this.id,
         coffeeEntityId = coffeeId,
