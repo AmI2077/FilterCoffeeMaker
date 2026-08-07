@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_ai_24
+import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
@@ -31,19 +32,24 @@ import org.jetbrains.compose.resources.painterResource
 fun RecipesScreen(
     modifier: Modifier = Modifier,
     screenModel: RecipesScreenModel,
+    onRecipeClick: (recipe: Recipe) -> Unit
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
 
     RecipesScreenContent(
         modifier = modifier,
-        state = state
+        state = state,
+        onRecipeClick = {
+            onRecipeClick(it)
+        }
     )
 }
 
 @Composable
 fun RecipesScreenContent(
     modifier: Modifier = Modifier,
-    state: RecipesScreenUiState
+    state: RecipesScreenUiState,
+    onRecipeClick: (recipe: Recipe) -> Unit,
 ) {
     Column(modifier = modifier) {
         RecipeHeader()
@@ -62,7 +68,10 @@ fun RecipesScreenContent(
         ) {
             items(state.recentRecipes) { recipe ->
                 RecipeCard(
-                    recipe = recipe
+                    recipe = recipe,
+                    onRecipeClick = {
+                        onRecipeClick(it)
+                    }
                 )
             }
         }
@@ -71,9 +80,7 @@ fun RecipesScreenContent(
 }
 
 @Composable
-fun RecipeHeader(
-    modifier: Modifier = Modifier,
-) {
+fun RecipeHeader() {
     HeaderAppText(
         text = "Привет!)"
     )

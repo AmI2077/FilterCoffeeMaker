@@ -44,10 +44,10 @@ fun AppButton(
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             text?.let {
-                text()
+                text.invoke()
             }
             icon?.let {
-                icon()
+                icon.invoke()
             }
         }
     }

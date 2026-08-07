@@ -1,14 +1,15 @@
 package org.example.project.core.data.local.db.entities
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "Coffee"
+    tableName = "Coffee",
 )
 data class CoffeeEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: String,
     val title: String,
     val imagePath: String,
     val roasting: String,

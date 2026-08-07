@@ -19,7 +19,7 @@ data class RecentRecipeEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val coffeeEntityId: Int,
+    val coffeeEntityId: String,
     val userRating: String? = null,
     val brewTime: Int,
     val coffeeAmount: Int,

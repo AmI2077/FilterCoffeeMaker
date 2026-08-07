@@ -43,7 +43,7 @@ fun CoffeeEntity.toModel(): Coffee {
     )
 }
 
-fun Recipe.toEntity(coffeeId: Int): RecentRecipeEntity {
+fun Recipe.toEntity(coffeeId: String): RecentRecipeEntity {
     return RecentRecipeEntity(
         id = this.id,
         coffeeEntityId = coffeeId,

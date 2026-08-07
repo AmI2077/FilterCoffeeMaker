@@ -15,7 +15,7 @@ import org.example.project.core.ui.theme.backgroundPrimary
 import org.example.project.features.coffeeDetails.ui.composables.CoffeeDetailsScreen
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
 
-class CoffeeDetailsScreen(private val coffeeId: Int) : Screen {
+class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current

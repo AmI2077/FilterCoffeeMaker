@@ -81,7 +81,6 @@ class YandexAiClient(
 
             NetworkResult.Error(NetworkErrors.UnknownError)
         }
-
     }
 
     private suspend fun handleResponse(response: HttpResponse): NetworkResult<String> {
