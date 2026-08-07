@@ -21,7 +21,7 @@ sealed interface Routes {
     }
 
     @Serializable
-    data class CoffeeDetailsScreen(val coffeeId: Int) : Routes
+    data class CoffeeDetailsScreen(val coffeeId: String) : Routes
 
     @Serializable
     data object NewRecipeScreen : Routes

@@ -15,10 +15,10 @@ import coffee.shared.generated.resources.ic_saved_recipes_screen_24
 import org.example.project.core.ui.navigation.voyager.screens.AddCoffeeScreen
 import org.example.project.core.ui.navigation.voyager.screens.CoffeeDetailsScreen
 import org.example.project.core.ui.navigation.voyager.screens.NewRecipeScreen
-import org.example.project.features.coffeeList.ui.screens.CoffeeScreen
-import org.example.project.features.coffeeList.ui.vm.CoffeeScreenModel
+import org.example.project.features.savedCoffee.ui.screens.SavedCoffeeScreen
 import org.example.project.features.recipesList.ui.composables.RecipesScreen
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.ui.screens.SavedRecipesScreen
 import org.jetbrains.compose.resources.painterResource
 
@@ -81,15 +81,15 @@ object CoffeeTab : Tab {
     override fun Content() {
         val tabNavigator = LocalNavigator.current
         val root = tabNavigator?.parent
-        CoffeeScreen(
+        SavedCoffeeScreen(
             onAddCoffeeClick = {
                 root?.push(AddCoffeeScreen())
             },
-            onRecipeClick = {},
+            onRecipeBtnClick = {},
             onItemClick = { coffeeId ->
                 root?.push(CoffeeDetailsScreen(coffeeId))
             },
-            screenModel = koinScreenModel<CoffeeScreenModel>()
+            screenModel = koinScreenModel<SavedCoffeeScreenModel>()
         )
     }
 

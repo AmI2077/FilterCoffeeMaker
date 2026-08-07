@@ -6,6 +6,7 @@ import org.example.project.features.addCoffee.store.AddCoffeeReducer
 import org.example.project.features.addCoffee.store.AddCoffeeResults
 import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
 import org.example.project.features.addCoffee.store.AddCoffeeStore
+import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.koin.dsl.module
 
 val storeModule = module {
@@ -15,6 +16,14 @@ val storeModule = module {
             get(),
             get(),
             scope,
+        )
+    }
+
+    factory {  (scope: CoroutineScope) ->
+        SavedCoffeeStore(
+            get(),
+            get(),
+            scope
         )
     }
 

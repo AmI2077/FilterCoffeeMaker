@@ -50,9 +50,9 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun CoffeeDetailsScreen(
     modifier: Modifier = Modifier,
-    coffeeId: Int,
+    coffeeId: String,
     screenModel: CoffeeDetailsScreenModel,
-    onRecipeBtnClick: (coffeeId: Int) -> Unit
+    onRecipeBtnClick: (coffeeId: String) -> Unit
 ) {
     val scrollState = rememberScrollState()
 

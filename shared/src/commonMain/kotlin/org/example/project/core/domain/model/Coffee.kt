@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Coffee(
-    val id: Int = 0,
+    val id: String = "",
     val title: String,
     val imagePath: String? = null,
     val roasting: String,
@@ -17,7 +17,7 @@ data class Coffee(
 )
 
 val mockCoffee = Coffee(
-    id = 42,
+    id = "",
     title = "Эфиопия Иргачефф",
     imagePath = null, // Сюда можно подставить ByteArray или ByteArray.toImageBitmap() в Coil
     roasting = "Под фильтр",

@@ -1,7 +1,7 @@
-package org.example.project.features.coffeeList.ui.components
+package org.example.project.features.savedCoffee.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
@@ -25,7 +24,6 @@ import coffee.shared.generated.resources.ic_ai_24
 import coffee.shared.generated.resources.ic_coffee_image_placeholder
 import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
-import org.example.project.core.domain.model.mockCoffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
@@ -38,13 +36,13 @@ import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-@Preview
 @Composable
 fun CoffeeItem(
     modifier: Modifier = Modifier,
-    coffee: Coffee = mockCoffee,
-    onRecipeClick: (coffeeId: Int) -> Unit = {},
-    onClick: (coffeeId: Int) -> Unit = {},
+    coffee: Coffee,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
+    onClick: (coffeeId: String) -> Unit,
+    onLongClick: (coffee: Coffee) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -59,10 +57,9 @@ fun CoffeeItem(
                 color = white,
                 shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)
             )
-            .clickable(
-                onClick = {
-                    onClick(coffee.id)
-                }
+            .combinedClickable(
+                onClick = { onClick(coffee.id) },
+                onLongClick = { onLongClick(coffee) }
             )
             .padding(10.dp)
     ) {
@@ -84,7 +81,7 @@ fun CoffeeItem(
             tasteDescription = coffee.tasteDescription,
             processingMethod = coffee.processingMethod,
         ) {
-            onRecipeClick(coffee.id)
+            onRecipeBtnClick(coffee.id)
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeList.ui.components
+package org.example.project.features.savedCoffee.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

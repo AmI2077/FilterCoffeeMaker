@@ -1,20 +1,14 @@
 package org.example.project.core.di
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.ScreenModelStore
-import io.ktor.http.parametersOf
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.SupervisorJob
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
-import org.example.project.features.coffeeList.ui.vm.CoffeeScreenModel
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.example.project.features.timer.ui.vm.TimerScreenModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
@@ -30,7 +24,11 @@ val vmModule = module {
         }
     }
     factory {
-        CoffeeScreenModel(get(), get())
+        SavedCoffeeScreenModel { scope ->
+            get<SavedCoffeeStore> {
+                parametersOf(scope)
+            }
+        }
     }
     factory {
         CoffeeDetailsScreenModel(get(), get())
@@ -41,7 +39,7 @@ val vmModule = module {
             get(),
         )
     }
-    factory { (coffeeId: Int?, recipe: Recipe?) ->
+    factory { (coffeeId: String?, recipe: Recipe?) ->
         RecipeDetailsScreenModel(
             coffeeId = coffeeId,
             recipe = recipe,

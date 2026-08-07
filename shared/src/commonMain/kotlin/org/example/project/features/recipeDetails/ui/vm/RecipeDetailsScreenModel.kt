@@ -17,7 +17,7 @@ import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUi
 import kotlin.time.Duration.Companion.seconds
 
 class RecipeDetailsScreenModel(
-    private val coffeeId: Int?,
+    private val coffeeId: String?,
     private val recipe: Recipe? = null,
     private val imageSaver: ImageSaver,
     private val recipeDetailsRepository: RecipeDetailsRepository,
@@ -46,7 +46,7 @@ class RecipeDetailsScreenModel(
         }
     }
 
-    private fun saveRecipeToRecents(recipe: Recipe, coffeeId: Int) {
+    private fun saveRecipeToRecents(recipe: Recipe, coffeeId: String) {
         screenModelScope.launch {
             recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
         }

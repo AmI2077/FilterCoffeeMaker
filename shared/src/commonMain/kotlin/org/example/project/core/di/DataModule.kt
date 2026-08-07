@@ -14,8 +14,8 @@ import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.data.resources.ResourceManagerImpl
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepositoryImpl
-import org.example.project.features.coffeeList.data.repository.CoffeeRepositoryImpl
-import org.example.project.features.coffeeList.domain.api.CoffeeRepository
+import org.example.project.features.savedCoffee.data.repository.CoffeeRepositoryImpl
+import org.example.project.features.savedCoffee.domain.api.CoffeeRepository
 import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryImpl
 import org.example.project.features.addCoffee.domain.AddCoffeeRepository
 import org.example.project.features.recipeDetails.data.repository.LoaderScreenRepositoryImpl
@@ -25,6 +25,7 @@ import org.example.project.features.recipeDetails.domain.api.RecipeDetailsReposi
 import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
 import org.example.project.features.recipesList.domain.api.RecipesRepository
 import org.koin.dsl.module
+import org.koin.plugin.module.dsl.single
 
 val dataModule = module {
     single<AiClient> {
@@ -35,6 +36,7 @@ val dataModule = module {
         ResourceManagerImpl()
     }
 
+    // TODO "передавать dispatcher через самописный интерфейс"
     single<CoroutineDispatcher> { Dispatchers.IO }
 
     single<AddCoffeeRepository> {
@@ -46,7 +48,7 @@ val dataModule = module {
     }
 
     single<CoffeeRepository> {
-        CoffeeRepositoryImpl(get())
+        CoffeeRepositoryImpl(get(), get())
     }
 
     single<CoffeeDetailsRepository> {

@@ -7,5 +7,5 @@ interface RecipeDetailsRepository {
 
     suspend fun getRecipe(recipeRequest: RecipeRequest): Recipe
 
-    suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: Int)
+    suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: String)
 }

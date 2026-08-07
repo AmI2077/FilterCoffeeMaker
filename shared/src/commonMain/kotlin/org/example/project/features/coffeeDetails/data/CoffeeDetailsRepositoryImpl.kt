@@ -10,7 +10,7 @@ class CoffeeDetailsRepositoryImpl(
     private val coffeeDao: CoffeeDao,
     private val dispatcher: CoroutineDispatcher
 ) : CoffeeDetailsRepository {
-    override suspend fun getCoffeeDetails(coffeeId: Int): Coffee =
+    override suspend fun getCoffeeDetails(coffeeId: String): Coffee =
         withContext(dispatcher) {
             coffeeDao.getCoffeeDetails(coffeeId).toModel()
         }
