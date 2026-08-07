@@ -42,7 +42,7 @@ fun CoffeeItem(
     coffee: Coffee,
     onRecipeBtnClick: (coffeeId: Int) -> Unit,
     onClick: (coffeeId: Int) -> Unit,
-    onLongClick: () -> Unit
+    onLongClick: (coffee: Coffee) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -59,7 +59,7 @@ fun CoffeeItem(
             )
             .combinedClickable(
                 onClick = { onClick(coffee.id) },
-                onLongClick = { onLongClick() }
+                onLongClick = { onLongClick(coffee) }
             )
             .padding(10.dp)
     ) {

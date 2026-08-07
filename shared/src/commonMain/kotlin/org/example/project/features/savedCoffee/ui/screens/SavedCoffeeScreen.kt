@@ -12,6 +12,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,11 +22,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.coffeeScreenTitle
 import coffee.shared.generated.resources.ic_add_24
+import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.HeaderAppText
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenActions
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenUiState
 import org.example.project.features.savedCoffee.ui.components.CoffeeItem
-import org.example.project.features.savedCoffee.ui.states.CoffeeScreenUiState
-import org.example.project.features.savedCoffee.ui.vm.SavedCoffeeScreenModel
+import org.example.project.features.savedCoffee.ui.components.DeleteCoffeeDialog
+import org.example.project.features.savedCoffee.ui.components.DialogResult
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -36,7 +42,29 @@ fun SavedCoffeeScreen(
     onRecipeBtnClick: (coffeeId: Int) -> Unit,
     onItemClick: (coffeeId: Int) -> Unit,
 ) {
-    val state = screenModel.state.collectAsStateWithLifecycle()
+    val state by screenModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        screenModel.uiActions.collect { action ->
+            when(action) {
+                is SavedCoffeeScreenActions.CoffeeItemClicked -> {
+                    onItemClick(action.coffeeId)
+                }
+                is SavedCoffeeScreenActions.RecipeBtnClicked -> {
+                    onRecipeBtnClick(action.coffeeId)
+                }
+            }
+        }
+    }
+    val showDialog = state.showDialog
+
+    if (showDialog != null) {
+        DeleteCoffeeDialog(
+            coffeeTitle = showDialog.coffee.title,
+            onConfirmRequest = { screenModel.onDialogResult(DialogResult.Confirm(showDialog.coffee)) },
+            onDismissRequest = { screenModel.onDialogResult(DialogResult.Dismiss) }
+        )
+    }
 
     Column(modifier = modifier) {
         CoffeeHeader(
@@ -44,15 +72,15 @@ fun SavedCoffeeScreen(
         )
         Spacer(Modifier.height(10.dp))
         SavedCoffeeScreenContent(
-            state = state.value,
+            state = state,
             onItemClick = { coffeeId: Int ->
-                onItemClick(coffeeId)
+                screenModel.onCoffeeItemClick(coffeeId)
             },
-            onLongItemClick = {
-
+            onLongItemClick = { coffee: Coffee ->
+                screenModel.onCoffeeItemLongClick(coffee)
             },
             onRecipeBtnClick = { coffeeId ->
-                onRecipeBtnClick(coffeeId)
+                screenModel.onRecipeBtnClick(coffeeId)
             }
         )
     }
@@ -91,9 +119,9 @@ fun CoffeeHeader(
 @Composable
 fun SavedCoffeeScreenContent(
     modifier: Modifier = Modifier,
-    state: CoffeeScreenUiState,
+    state: SavedCoffeeScreenUiState,
     onItemClick: (coffeeId: Int) -> Unit,
-    onLongItemClick: () -> Unit,
+    onLongItemClick: (coffee: Coffee) -> Unit,
     onRecipeBtnClick: (coffeeId: Int) -> Unit,
 ) {
     LazyColumn(
@@ -101,7 +129,7 @@ fun SavedCoffeeScreenContent(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {
-        items(state.coffeeList) { coffee ->
+        items(state.savedCoffee) { coffee ->
             CoffeeItem(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -112,8 +140,8 @@ fun SavedCoffeeScreenContent(
                 onClick = { coffeeId ->
                     onItemClick(coffeeId)
                 },
-                onLongClick = {
-                    onLongItemClick()
+                onLongClick = { coffee ->
+                    onLongItemClick(coffee)
                 }
             )
         }

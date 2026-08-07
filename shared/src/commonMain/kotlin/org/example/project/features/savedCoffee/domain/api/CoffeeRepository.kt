@@ -6,4 +6,6 @@ import org.example.project.core.domain.model.Coffee
 interface CoffeeRepository {
 
     fun getCoffeeList(): Flow<List<Coffee>>
+
+    suspend fun deleteCoffee(coffee: Coffee)
 }

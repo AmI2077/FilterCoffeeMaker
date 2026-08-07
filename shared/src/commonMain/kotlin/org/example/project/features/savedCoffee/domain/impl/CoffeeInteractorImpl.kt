@@ -12,4 +12,8 @@ class CoffeeInteractorImpl(
     override fun getCoffeeList(): Flow<List<Coffee>> {
         return coffeeRepository.getCoffeeList()
     }
+
+    override suspend fun deleteCoffee(coffee: Coffee) {
+        coffeeRepository.deleteCoffee(coffee)
+    }
 }

@@ -23,7 +23,7 @@ class AddCoffeeScreenModel(
 
     fun addCoffee() {
         store.onIntent(AddCoffeeIntent.AddCoffee(state.value.coffeeInfo!!))
-        // TODO "handle nullable coffeeInfo in store"
+        // TODO "пофиксить nullable coffeeInfo"
     }
 
     fun loadCoffeeInfo() {
@@ -31,7 +31,7 @@ class AddCoffeeScreenModel(
             state.value.imageByteArray!!
         ))
         /**
-         * TODO "handle nullable imageByteArray in store"
+         * TODO "пофиксить nullable imageByteArray"
          * **/
     }
 

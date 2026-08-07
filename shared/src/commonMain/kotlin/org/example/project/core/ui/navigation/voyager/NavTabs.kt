@@ -16,9 +16,9 @@ import org.example.project.core.ui.navigation.voyager.screens.AddCoffeeScreen
 import org.example.project.core.ui.navigation.voyager.screens.CoffeeDetailsScreen
 import org.example.project.core.ui.navigation.voyager.screens.NewRecipeScreen
 import org.example.project.features.savedCoffee.ui.screens.SavedCoffeeScreen
-import org.example.project.features.savedCoffee.ui.vm.SavedCoffeeScreenModel
 import org.example.project.features.recipesList.ui.composables.RecipesScreen
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.ui.screens.SavedRecipesScreen
 import org.jetbrains.compose.resources.painterResource
 
@@ -85,7 +85,7 @@ object CoffeeTab : Tab {
             onAddCoffeeClick = {
                 root?.push(AddCoffeeScreen())
             },
-            onRecipeClick = {},
+            onRecipeBtnClick = {},
             onItemClick = { coffeeId ->
                 root?.push(CoffeeDetailsScreen(coffeeId))
             },
