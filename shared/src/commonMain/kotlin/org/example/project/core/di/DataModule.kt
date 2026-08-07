@@ -25,6 +25,7 @@ import org.example.project.features.recipeDetails.domain.api.RecipeDetailsReposi
 import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
 import org.example.project.features.recipesList.domain.api.RecipesRepository
 import org.koin.dsl.module
+import org.koin.plugin.module.dsl.single
 
 val dataModule = module {
     single<AiClient> {
@@ -35,6 +36,7 @@ val dataModule = module {
         ResourceManagerImpl()
     }
 
+    // TODO "передавать dispatcher через самописный интерфейс"
     single<CoroutineDispatcher> { Dispatchers.IO }
 
     single<AddCoffeeRepository> {
@@ -46,7 +48,7 @@ val dataModule = module {
     }
 
     single<CoffeeRepository> {
-        CoffeeRepositoryImpl(get())
+        CoffeeRepositoryImpl(get(), get())
     }
 
     single<CoffeeDetailsRepository> {

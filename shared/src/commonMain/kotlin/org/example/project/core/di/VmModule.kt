@@ -3,11 +3,12 @@ package org.example.project.core.di
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
-import org.example.project.features.savedCoffee.ui.vm.SavedCoffeeScreenModel
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
+import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.example.project.features.timer.ui.vm.TimerScreenModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
@@ -23,7 +24,11 @@ val vmModule = module {
         }
     }
     factory {
-        SavedCoffeeScreenModel(get(), get())
+        SavedCoffeeScreenModel { scope ->
+            get<SavedCoffeeStore> {
+                parametersOf(scope)
+            }
+        }
     }
     factory {
         CoffeeDetailsScreenModel(get(), get())
