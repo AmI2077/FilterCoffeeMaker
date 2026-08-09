@@ -20,6 +20,8 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.getComfortaRegular
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
+import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsAction
+import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsIntent
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
 
 @Composable
@@ -32,7 +34,15 @@ fun CoffeeDetailsScreen(
     val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
-        screenModel.getCoffeeDetails(coffeeId)
+        screenModel.onIntent(CoffeeDetailsIntent.LoadCoffeeDetails(coffeeId))
+    }
+
+    LaunchedEffect(Unit) {
+        screenModel.uiActions.collect { action ->
+            when(action) {
+                CoffeeDetailsAction.ClickOnRecipeBtn -> onRecipeBtnClick(coffeeId)
+            }
+        }
     }
 
     val state by screenModel.state.collectAsStateWithLifecycle()
@@ -44,8 +54,14 @@ fun CoffeeDetailsScreen(
             coffee = coffee,
             onRecipeBtnClick = { onRecipeBtnClick(coffeeId) },
             onEditBtnClick = { },
-            onAddDescriptionBtnClick = { },
-            showEditDescriptionField = state.showEditDescriptionField
+            onAddDescriptionBtnClick = { screenModel.onIntent(CoffeeDetailsIntent.AddDescriptionBtnClicked) },
+            showEditDescriptionField = state.showEditDescriptionField,
+            onSaveDescription = { desc ->
+                screenModel.onIntent(CoffeeDetailsIntent.SaveDescriptionBtnClicked(desc))
+            },
+            onCancellationClick = {
+                screenModel.onIntent(CoffeeDetailsIntent.CancelDescriptionBtnClicked)
+            }
         )
     }
 }
@@ -58,6 +74,8 @@ fun CoffeeDetailsScreenContent(
     onEditBtnClick: () -> Unit,
     onRecipeBtnClick: () -> Unit,
     onAddDescriptionBtnClick: () -> Unit,
+    onSaveDescription: (String) -> Unit,
+    onCancellationClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -91,7 +109,10 @@ fun CoffeeDetailsScreenContent(
         )
         Spacer(Modifier.height(5.dp))
         if (showEditDescriptionField) {
-            EditDescriptionView()
+            EditDescriptionView(
+                onSaveBtnClick = { onSaveDescription(it) },
+                onCancellationClick = onCancellationClick,
+            )
         } else {
             DescriptionView(
                 description = coffee.userDescription,
