@@ -25,6 +25,14 @@ class AddCoffeeReducer: MviReducer<AddCoffeeScreenUiState, AddCoffeeResults> {
                 isLoading = true,
                 error = null
             )
+
+            AddCoffeeResults.ShowCoffeeAlreadyExistDialog -> oldState.copy(
+                showAlreadyExistDialog = true
+            )
+
+            AddCoffeeResults.CloseCoffeeAlreadyExistDialog -> oldState.copy(
+                showAlreadyExistDialog = false
+            )
         }
     }
 }
