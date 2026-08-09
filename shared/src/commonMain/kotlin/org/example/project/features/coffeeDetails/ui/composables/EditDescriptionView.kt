@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.AppButton
+import org.example.project.core.ui.components.AppOutlinedTextField
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
@@ -38,9 +39,10 @@ fun EditDescriptionView(
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        EditDescriptionField(
+        AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             text = description,
+            label = "Введите описание",
             onTextChange = { description = it }
         )
         Spacer(Modifier.height(5.dp))
@@ -94,33 +96,5 @@ private fun SaveAndCancelButtons(
                 onClick = onSaveBtnClick
             )
         }
-    )
-}
-
-@Composable
-private fun EditDescriptionField(
-    modifier: Modifier = Modifier,
-    text: String,
-    onTextChange: (String) -> Unit = {},
-) {
-    OutlinedTextField(
-        modifier = modifier,
-        value = text,
-        onValueChange = onTextChange,
-        label = {
-            RegularAppText(
-                text = "Введите описание",
-                fontSize = 16.sp
-            )
-        },
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedLabelColor = black,
-            unfocusedLabelColor = black,
-            focusedBorderColor = black,
-            unfocusedBorderColor = black,
-            focusedContainerColor = white,
-            unfocusedContainerColor = white
-        ),
-        shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS)
     )
 }
