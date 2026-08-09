@@ -24,10 +24,13 @@ import org.example.project.features.recipeDetails.domain.api.LoaderScreenReposit
 import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
 import org.example.project.features.recipesList.domain.api.RecipesRepository
+import org.jetbrains.compose.resources.Resource
 import org.koin.dsl.module
 import org.koin.plugin.module.dsl.single
 
 val dataModule = module {
+    includes(repositoryModule)
+
     single<AiClient> {
         YandexAiClient(get(), get())
     }
@@ -38,34 +41,6 @@ val dataModule = module {
 
     // TODO "передавать dispatcher через самописный интерфейс"
     single<CoroutineDispatcher> { Dispatchers.IO }
-
-    single<AddCoffeeRepository> {
-        AddCoffeeRepositoryImpl(get(), get(), get(), get())
-    }
-
-    single<RecipeDetailsRepository> {
-        RecipeDetailsRepositoryImpl(get(), get(), get(), get())
-    }
-
-    single<CoffeeRepository> {
-        CoffeeRepositoryImpl(get(), get())
-    }
-
-    single<CoffeeDetailsRepository> {
-        CoffeeDetailsRepositoryImpl(get(), get())
-    }
-
-    single<LoaderScreenRepository> {
-        LoaderScreenRepositoryImpl(get(), get())
-    }
-
-    single<RecipesRepository> {
-        RecipesRepositoryImpl(
-            get(),
-            get(),
-            get(),
-        )
-    }
 
     single<CoffeeDao> { get<AppDatabase>().getCoffeeDao() }
     single<RecipeDao> { get<AppDatabase>().getRecipeDao() }

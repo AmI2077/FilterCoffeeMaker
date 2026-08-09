@@ -13,6 +13,10 @@ class AddCoffeeInteractorImpl(
         )
     }
 
+    override suspend fun isCoffeeExist(coffee: Coffee): Boolean {
+        return repository.isCoffeeExist(coffee)
+    }
+
     override suspend fun saveCoffee(coffee: Coffee) {
         repository.saveCoffee(coffee)
     }

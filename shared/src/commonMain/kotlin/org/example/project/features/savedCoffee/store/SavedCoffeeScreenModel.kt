@@ -4,7 +4,7 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
 import org.example.project.core.domain.model.Coffee
-import org.example.project.features.savedCoffee.ui.components.DialogResult
+import org.example.project.features.savedCoffee.ui.screens.SavedCoffeeDialogResult
 
 class SavedCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> SavedCoffeeStore
@@ -35,12 +35,12 @@ class SavedCoffeeScreenModel(
         store.onIntent(SavedCoffeeScreenIntent.RecipeBtnClick(coffeeId))
     }
 
-    fun onDialogResult(result: DialogResult) {
+    fun onDialogResult(result: SavedCoffeeDialogResult) {
         when(result) {
-            is DialogResult.Confirm -> {
+            is SavedCoffeeDialogResult.Confirm -> {
                 store.onIntent(SavedCoffeeScreenIntent.ConfirmDeleteDialog(result.coffee))
             }
-            DialogResult.Dismiss -> {
+            SavedCoffeeDialogResult.Dismiss -> {
                 store.onIntent(SavedCoffeeScreenIntent.DismissDeleteDialog)
             }
         }

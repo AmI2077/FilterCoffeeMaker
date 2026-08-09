@@ -6,5 +6,7 @@ import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositor
 interface AddCoffeeInteractor {
     suspend fun getCoffeeDetailsFromImage(imageByteArray: ByteArray): AddCoffeeRepositoryResult
 
+    suspend fun isCoffeeExist(coffee: Coffee): Boolean
+
     suspend fun saveCoffee(coffee: Coffee)
 }

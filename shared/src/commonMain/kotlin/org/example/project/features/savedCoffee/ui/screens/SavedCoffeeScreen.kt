@@ -24,15 +24,19 @@ import coffee.shared.generated.resources.coffeeScreenTitle
 import coffee.shared.generated.resources.ic_add_24
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
+import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenActions
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenUiState
 import org.example.project.features.savedCoffee.ui.components.CoffeeItem
-import org.example.project.features.savedCoffee.ui.components.DeleteCoffeeDialog
-import org.example.project.features.savedCoffee.ui.components.DialogResult
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+
+sealed interface SavedCoffeeDialogResult {
+    data class Confirm(val coffee: Coffee) : SavedCoffeeDialogResult
+    data object Dismiss : SavedCoffeeDialogResult
+}
 
 @Composable
 fun SavedCoffeeScreen(
@@ -59,10 +63,10 @@ fun SavedCoffeeScreen(
     val showDialog = state.showDialog
 
     if (showDialog != null) {
-        DeleteCoffeeDialog(
-            coffeeTitle = showDialog.coffee.title,
-            onConfirmRequest = { screenModel.onDialogResult(DialogResult.Confirm(showDialog.coffee)) },
-            onDismissRequest = { screenModel.onDialogResult(DialogResult.Dismiss) }
+        AppDialog(
+            message = "Вы хотите удалить ${showDialog.coffee.title}?",
+            onConfirmClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Confirm(showDialog.coffee)) },
+            onDismissClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Dismiss) }
         )
     }
 

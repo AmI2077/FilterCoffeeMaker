@@ -37,7 +37,10 @@ class AddCoffeeStore(
                 imageByteArray = intent.imageByteArray
             )
 
-            is AddCoffeeIntent.AddCoffee -> addCoffee(intent.coffeeInfo)
+            is AddCoffeeIntent.AddCoffeeBtnClicked -> onAddCoffeeBtnClicked(intent.coffeeInfo)
+            // оператор "!!" используется потому что диалог не может быть показан, если coffeeInfo == null
+            AddCoffeeIntent.ConfirmAlreadyExistDialog -> addCoffee(_state.value.coffeeInfo!!)
+            AddCoffeeIntent.DismissAlreadyExistDialog -> updateState(AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
         }
     }
 
@@ -82,14 +85,26 @@ class AddCoffeeStore(
         }
     }
 
+    private fun onAddCoffeeBtnClicked(coffee: Coffee) {
+        scope.launch {
+            val isExist = addCoffeeInteractor.isCoffeeExist(coffee)
+            if (isExist) {
+                updateState(AddCoffeeResults.ShowCoffeeAlreadyExistDialog)
+            } else {
+                addCoffee(coffee)
+            }
+        }
+
+    }
+
     private fun addCoffee(coffeeInfo: Coffee) {
         val coffee = coffeeInfo.copy(
             imagePath = _state.value.imageName
         )
-
         scope.launch {
             addCoffeeInteractor.saveCoffee(coffee)
         }
+        updateState(AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
         emitAction(AddCoffeeActions.AddCoffeeBtnClicked)
     }
 

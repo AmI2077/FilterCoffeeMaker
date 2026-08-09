@@ -24,15 +24,19 @@ class CoffeeDetailsScreenModel(
         }
         screenModelScope.launch {
             val coffee = repository.getCoffeeDetails(coffeeId)
-            val directory = coffee.imagePath?.let {
-                imageSaver.getDirectory(it)
-            }
-            _state.update {
-                CoffeeDetailsScreenUiState.Content(
-                    coffee = coffee.copy(
-                        imagePath = directory
+            if (coffee != null) {
+                val directory = coffee.imagePath?.let {
+                    imageSaver.getDirectory(it)
+                }
+                _state.update {
+                    CoffeeDetailsScreenUiState.Content(
+                        coffee = coffee.copy(
+                            imagePath = directory
+                        )
                     )
-                )
+                }
+            } else {
+                println("COFFEE_DETAILS: $coffee")
             }
         }
     }
