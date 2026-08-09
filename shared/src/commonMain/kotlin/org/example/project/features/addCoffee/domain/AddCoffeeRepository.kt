@@ -7,5 +7,7 @@ interface AddCoffeeRepository {
 
     suspend fun getCoffeeDetailsFromImage(imageBase64: String): AddCoffeeRepositoryResult
 
+    suspend fun isCoffeeExist(coffee: Coffee): Boolean
+
     suspend fun saveCoffee(coffee: Coffee)
 }

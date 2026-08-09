@@ -10,6 +10,7 @@ import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
+import org.example.project.core.data.resources.Directories
 import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.addCoffee.data.extensions.CoffeeResponseSerializer
@@ -23,7 +24,7 @@ class AddCoffeeRepositoryImpl(
 ) : AddCoffeeRepository {
     override suspend fun getCoffeeDetailsFromImage(imageBase64: String): AddCoffeeRepositoryResult {
         return withContext(dispatcher) {
-            val prompt = resourceManager.getFileResource("files/testCoffeePrompt.txt")
+            val prompt = resourceManager.getFileResource(Directories.AI_PROMPT_FILE_PATH)
 
             val result = aiClient.makeRequest(
                 AiRequestDto.makeRequest(
@@ -34,21 +35,29 @@ class AddCoffeeRepositoryImpl(
                 )
             )
 
-            when (result) {
-                is NetworkResult.Error -> {
-                    AddCoffeeRepositoryResult.Error(result.error.message)
-                }
-                is NetworkResult.Success -> {
-                    val rawJson = result.data
-                    handleSerializeResult(rawJson)
-                }
-            }
+            handleNetworkResult(result)
         }
+    }
+
+    override suspend fun isCoffeeExist(coffee: Coffee): Boolean {
+        return coffeeDao.getCoffeeDetails(coffee.id) != null
     }
 
     override suspend fun saveCoffee(coffee: Coffee) {
         withContext(dispatcher) {
             coffeeDao.insertCoffee(coffee.toEntity())
+        }
+    }
+
+    private fun handleNetworkResult(result: NetworkResult<String>): AddCoffeeRepositoryResult {
+        return when (result) {
+            is NetworkResult.Error -> {
+                AddCoffeeRepositoryResult.Error(result.error.message)
+            }
+            is NetworkResult.Success -> {
+                val rawJson = result.data
+                handleSerializeResult(rawJson)
+            }
         }
     }
 

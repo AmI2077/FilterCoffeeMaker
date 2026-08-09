@@ -1,38 +1,110 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+<div align="center">
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with
-  Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for
-  your project.
+# ☕ Coffee
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform
-  applications.
-  It contains several subfolders:
-    - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the
-      folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part,
-      the [jvmMain](./shared/src/jvmMain/kotlin)
-      folder is the appropriate location.
+**Kotlin Multiplatform-приложение для любителей фильтр-кофе:**
+личная коллекция кофе, рецепты заваривания, сгенерированные нейросетью, и пошаговый таймер.
 
-### Running the apps
+Android 🤖 · iOS 🍎 · 100% общего UI на Compose Multiplatform
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these
-commands and options:
-
-- Android app: `./gradlew :androidApp:assembleDebug`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
-
-### Running tests
-
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
-
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
+</div>
 
 ---
 
-Learn more
-about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## ✨ Возможности
+
+- **Коллекция кофе** — библиотека кофе с фотографией, степенью обжарки, оценкой Q-градера, вкусовыми нотами, плотностью и кислотностью. Добавление из галереи, редактирование и удаление с подтверждением.
+- **AI-генерация рецептов** — рецепт заваривания (V60) собирается нейросетью под выбранный кофе и объём воды. Генерация через **Yandex Cloud AI** (YandexGPT / Qwen) с последующей валидацией и парсингом ответа.
+- **Пошаговый таймер** — таймер ведёт по этапам рецепта: подсказки о вливании воды, объём воды на каждом шаге, прогресс заваривания в реальном времени.
+- **Недавние рецепты** — сетка сохранённых рецептов на главном экране.
+- **Анимация загрузки** — Lottie-анимация и ротация фактов о кофе, пока нейросеть готовит рецепт.
+
+> Проект — учебно-портфолио: интерфейс на русском языке.
+
+## 🛠 Стек технологий
+
+| Категория | Технологии |
+| --- | --- |
+| Язык | Kotlin, Swift (только точка входа) |
+| UI | Compose Multiplatform, Material 3 |
+| Архитектура | MVVM + MVI (StateFlow), Clean-ish структура по фичам |
+| Навигация | Voyager (Navigator + TabNavigator) |
+| Инъекция зависимостей | Koin |
+| Локальная БД | Room + SQLite (androidx.sqlite bundled), KSP |
+| Сеть | Ktor Client (OkHttp / Darwin), kotlinx.serialization |
+| Image loading | Coil 3 |
+| Анимации | Compottie (Lottie) |
+| AI | OpenAI-совместимый API Yandex Cloud (YandexGPT 5.1, Qwen 3.6) |
+| Платформы | Android (minSdk 24), iOS (Xcode) |
+
+## 🏗 Архитектура и структура
+
+Проект — стандартный Kotlin Multiplatform: весь код и UI живут в общем модуле, нативные обёртки минимальны.
+
+```
+Coffee/
+├── androidApp/                       # Точка входа Android (MainActivity, AndroidApp)
+├── iosApp/                           # Точка входа iOS (SwiftUI обёртка)
+└── shared/                           # Общий код (business logic + UI)
+    └── src/
+        ├── commonMain/kotlin/
+        │   └── org/example/project/
+        │       ├── App.kt            # Корень приложения (Navigator + MainScreen)
+        │       ├── core/             # Сеть, БД, DI, навигация, тема, MVI-фреймворк
+        │       └── features/         # Фичи приложения
+        ├── androidMain/kotlin/       # Платформенные реализации (OkHttp, ImageSaver и т.д.)
+        └── iosMain/kotlin/           # Платформенные реализации (Darwin, ImageSaver и т.д.)
+```
+
+**Фичи** (`features/`):
+
+- `recipesList` — главный экран «Недавние рецепты» (сетка, карточка рецепта);
+- `recipeDetails` — экран рецепта: параметры, шаги заваривания, запуск таймера;
+- `coffeeDetails` / `savedCoffee` — экран кофе и коллекция «Мой кофе» (MVI store);
+- `addCoffee` — добавление кофе (фото, характеристики);
+- `timer` — пошаговый таймер заваривания.
+
+**Паттерны**: данные проходят слой `domain → data`, экраны управляются `ScreenModel`'ами (Voyager) , сложные экраны («Мой кофе») построены на собственном компактном MVI-`Store` в `core/ui/store`.
+
+## 🌐 AI-интеграция
+
+`YandexAiClient` отправляет запрос в OpenAI-совместимый endpoint Yandex Cloud. `RecipeResponseSerializer` разбирает сгенерированную нейросетью строку в структурированную модель `Recipe` с шагами заваривания `BrewStep` (временные интервалы, объём воды, подсказки к каждому шагу).
+
+> ⚠️ Для работы AI-функций необходимо указать свои ключи API в `shared/src/commonMain/kotlin/org/example/project/core/data/AiConfig.kt`.
+
+## 📸 Скриншоты
+
+| Главный экран | Коллекция кофе | Рецепт | Таймер |
+| --- | --- | --- | --- |
+| _добавьте скриншот_ | _добавьте скриншот_ | _добавьте скриншот_ | _добавьте скриншот_ |
+
+## 🚀 Запуск
+
+### Требования
+
+- JDK 11+
+- Android Studio (последняя версия) с Android SDK
+- Для iOS: macOS с Xcode
+
+### Android
+
+```bash
+./gradlew :androidApp:assembleDebug
+```
+
+Либо откройте проект в Android Studio и запустите конфигурацию `androidApp`.
+
+### iOS
+
+Откройте папку [`iosApp`](./iosApp) в Xcode и запустите приложение из него.
+
+### Тесты
+
+```bash
+./gradlew :shared:testAndroidHostTest     # тесты общих модулей на JVM-хост
+./gradlew :shared:iosSimulatorArm64Test   # тесты iOS-таргета
+```
+
+## 📄 Лицензия
+
+Проект создан в учебных целях. Лицензия — [MIT](./LICENSE).

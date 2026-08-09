@@ -1,4 +1,4 @@
-package org.example.project.features.savedCoffee.ui.components
+package org.example.project.core.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,52 +9,40 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import org.example.project.core.domain.model.Coffee
-import org.example.project.core.ui.components.AppButton
-import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.red
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 
-sealed interface DialogResult {
-    data class Confirm(val coffee: Coffee): DialogResult
-    data object Dismiss: DialogResult
-}
-
 @Composable
-fun DeleteCoffeeDialog(
+fun AppDialog(
     modifier: Modifier = Modifier,
-    onConfirmRequest: () -> Unit,
-    coffeeTitle: String,
-    onDismissRequest: () -> Unit
+    message: String,
+    onDismissClick: () -> Unit,
+    onConfirmClick: () -> Unit,
 ) {
     Dialog(
-        onDismissRequest = {
-
-        }
+        onDismissRequest = {}
     ) {
-        DeleteCoffeeDialogContent(
+        DialogContent(
             modifier = modifier,
-            onConfirmRequest = onConfirmRequest,
-            coffeeTitle = coffeeTitle,
-            onDismissRequest = onDismissRequest
+            message = message,
+            onDismissClick = onDismissClick,
+            onConfirmClick = onConfirmClick
         )
     }
 }
 
-@Preview
 @Composable
-private fun DeleteCoffeeDialogContent(
+private fun DialogContent(
     modifier: Modifier = Modifier,
-    onConfirmRequest: () -> Unit = {},
-    coffeeTitle: String = "Гватемала Сантьяго",
-    onDismissRequest: () -> Unit = {}
+    message: String,
+    onDismissClick: () -> Unit,
+    onConfirmClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -66,21 +54,21 @@ private fun DeleteCoffeeDialogContent(
             .padding(25.dp)
     ) {
         RegularAppText(
-            text = "Удалить $coffeeTitle?",
+            text = message,
             color = black,
             fontSize = 20.sp,
             fontFamily = getComfortaBold(),
-            maxLines = 2
+            maxLines = Int.MAX_VALUE
         )
         Spacer(Modifier.padding(top = 30.dp))
         ButtonRow(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             firstBtn = {
-                DismissBtn(onClick = { onDismissRequest() })
+                DismissBtn(onClick = { onDismissClick() })
             },
             secondBtn = {
-                AcceptBtn(onClick = { onConfirmRequest() })
+                AcceptBtn(onClick = { onConfirmClick() })
             }
         )
     }

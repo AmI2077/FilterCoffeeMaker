@@ -60,21 +60,23 @@ class RecipeDetailsScreenModel(
             delay(10.seconds)
             val coffee = coffeeDetailsRepository.getCoffeeDetails(coffeeId!!)
 
-            val directory = coffee.imagePath?.let {
-                imageSaver.getDirectory(it)
-            }
-            val recipeRequest = RecipeRequest(
-                coffee = coffee,
-                waterAmount = waterAmount,
-            )
-            val recipe = recipeDetailsRepository.getRecipe(recipeRequest)
-
-            recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
-            _state.update {
-                RecipeDetailsScreenUiState.Content(
-                    imagePath = directory,
-                    recipe = recipe
+            if (coffee != null) {
+                val directory = coffee.imagePath?.let {
+                    imageSaver.getDirectory(it)
+                }
+                val recipeRequest = RecipeRequest(
+                    coffee = coffee,
+                    waterAmount = waterAmount,
                 )
+                val recipe = recipeDetailsRepository.getRecipe(recipeRequest)
+
+                recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
+                _state.update {
+                    RecipeDetailsScreenUiState.Content(
+                        imagePath = directory,
+                        recipe = recipe
+                    )
+                }
             }
         }
     }

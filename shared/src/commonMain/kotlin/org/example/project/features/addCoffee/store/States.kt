@@ -20,6 +20,7 @@ data class AddCoffeeScreenUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val coffeeInfo: Coffee? = null,
+    val showAlreadyExistDialog: Boolean = false
 )
 
 /**
@@ -49,7 +50,7 @@ sealed interface AddCoffeeIntent {
      *
      * @property coffeeInfo передается для сохранения информации о кофе в бд.
      */
-    data class AddCoffee(val coffeeInfo: Coffee) : AddCoffeeIntent
+    data class AddCoffeeBtnClicked(val coffeeInfo: Coffee) : AddCoffeeIntent
 
     /**
      * Отправляется когда пользователь нажимает кнопку "Загрузить" после выбора фото.
@@ -57,6 +58,9 @@ sealed interface AddCoffeeIntent {
      * @property imageByteArray передается для отправки в нейронку.
      */
     data class LoadCoffeeInfo(val imageByteArray: ByteArray) : AddCoffeeIntent
+
+    data object ConfirmAlreadyExistDialog : AddCoffeeIntent
+    data object DismissAlreadyExistDialog : AddCoffeeIntent
 }
 
 /**
@@ -72,6 +76,9 @@ sealed interface AddCoffeeResults {
      * Обозначает состояние загрузки.
      */
     data object Loading : AddCoffeeResults
+
+    data object ShowCoffeeAlreadyExistDialog : AddCoffeeResults
+    data object CloseCoffeeAlreadyExistDialog : AddCoffeeResults
 
     /**
      * Обозначает состояние когда изображение успешно загружено из галереи.

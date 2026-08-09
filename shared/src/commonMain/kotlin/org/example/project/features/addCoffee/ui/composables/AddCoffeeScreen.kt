@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import io.github.ismoy.imagepickerkmp.features.imagepicker.config.ImagePickerKMP
 import io.github.ismoy.imagepickerkmp.features.imagepicker.ui.rememberImagePickerKMP
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
+import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
@@ -38,13 +40,18 @@ import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
 
+sealed interface AlreadyExistDialogResult {
+    data object Confirm: AlreadyExistDialogResult
+    data object Dismiss: AlreadyExistDialogResult
+}
+
 @Composable
 fun AddCoffeeScreen(
     modifier: Modifier = Modifier,
     screenModel: AddCoffeeScreenModel,
     onAddBtnClick: () -> Unit
 ) {
-    val state = screenModel.state.collectAsStateWithLifecycle()
+    val state by screenModel.state.collectAsStateWithLifecycle()
 
     val photoPicker = rememberImagePickerKMP(
         config = ImagePickerKMPConfig(
@@ -68,9 +75,17 @@ fun AddCoffeeScreen(
         }
     }
 
+    if (state.showAlreadyExistDialog) {
+        AppDialog(
+            message = "Ты уже добавлял такой кофе. Хочешь заменить?",
+            onDismissClick = { screenModel.onDialogResult(AlreadyExistDialogResult.Dismiss) },
+            onConfirmClick = { screenModel.onDialogResult(AlreadyExistDialogResult.Confirm) }
+        )
+    }
+
     AddCoffeeScreenContent(
         modifier = modifier,
-        state = state.value,
+        state = state,
         onPickImageClick = {
             screenModel.pickImage()
         },

@@ -7,6 +7,7 @@ import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResu
 import kotlinx.coroutines.CoroutineScope
 import org.example.project.features.addCoffee.store.AddCoffeeIntent
 import org.example.project.features.addCoffee.store.AddCoffeeStore
+import org.example.project.features.addCoffee.ui.composables.AlreadyExistDialogResult
 
 class AddCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> AddCoffeeStore
@@ -22,7 +23,7 @@ class AddCoffeeScreenModel(
     }
 
     fun addCoffee() {
-        store.onIntent(AddCoffeeIntent.AddCoffee(state.value.coffeeInfo!!))
+        store.onIntent(AddCoffeeIntent.AddCoffeeBtnClicked(state.value.coffeeInfo!!))
         // TODO "пофиксить nullable coffeeInfo"
     }
 
@@ -44,6 +45,13 @@ class AddCoffeeScreenModel(
             ImagePickerResult.Idle -> Unit
             ImagePickerResult.Loading -> Unit
             is ImagePickerResult.Success -> onSuccessImagePickerResult(result)
+        }
+    }
+
+    fun onDialogResult(result: AlreadyExistDialogResult) {
+        when(result) {
+            AlreadyExistDialogResult.Confirm -> store.onIntent(AddCoffeeIntent.ConfirmAlreadyExistDialog)
+            AlreadyExistDialogResult.Dismiss -> store.onIntent(AddCoffeeIntent.DismissAlreadyExistDialog)
         }
     }
 
