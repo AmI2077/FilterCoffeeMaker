@@ -19,8 +19,8 @@ class RecipesRepositoryImpl(
         return recipeDao.getRecentRecipes()
             .map { recipeList ->
                 recipeList.map {
-                    val coffee = coffeeDao.getCoffeeDetails(it.coffeeEntityId).toModel()
-                    it.toModel(coffee)
+                    val coffee = coffeeDao.getCoffeeDetails(it.coffeeEntityId)?.toModel()
+                    it.toModel(coffee!!)
                 }
             }
             .flowOn(dispatcher)
