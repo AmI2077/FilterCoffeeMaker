@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeDetails.ui.vm
+package org.example.project.features.coffeeDetails.store
 
 import org.example.project.core.domain.model.Coffee
 
@@ -16,6 +16,15 @@ sealed interface CoffeeDetailsIntent {
     data object AddDescriptionBtnClicked: CoffeeDetailsIntent
     data class SaveDescriptionBtnClicked(val description: String): CoffeeDetailsIntent
     data object CancelDescriptionBtnClicked: CoffeeDetailsIntent
+}
+
+sealed interface CoffeeDetailsResult {
+    data class CoffeeSuccessLoaded(val coffee: Coffee): CoffeeDetailsResult
+    data object OpenEditDialog: CoffeeDetailsResult
+    data object CloseEditDialog: CoffeeDetailsResult
+    data object ShowDescriptionEditField: CoffeeDetailsResult
+    data class SaveDescription(val coffeeWithUpdatedDesc: Coffee): CoffeeDetailsResult
+    data object CancelDescriptionEditField: CoffeeDetailsResult
 }
 
 sealed interface CoffeeDetailsAction {

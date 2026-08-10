@@ -20,9 +20,8 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.getComfortaRegular
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
-import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsAction
-import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsIntent
-import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
+import org.example.project.features.coffeeDetails.store.CoffeeDetailsAction
+import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
 import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
 
 @Composable
@@ -35,7 +34,7 @@ fun CoffeeDetailsScreen(
     val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
-        screenModel.onIntent(CoffeeDetailsIntent.LoadCoffeeDetails(coffeeId))
+        screenModel.loadCoffeeDetails(coffeeId)
     }
 
     LaunchedEffect(Unit) {
@@ -53,7 +52,7 @@ fun CoffeeDetailsScreen(
             EditBottomSheet(
                 show = true,
                 onDismissRequest = {
-                    screenModel.onIntent(CoffeeDetailsIntent.DismissEditBottomSheet)
+                    screenModel.dismissEditBottomSheet()
                 }
             )
         }
@@ -62,16 +61,14 @@ fun CoffeeDetailsScreen(
                 .verticalScroll(scrollState),
             coffee = coffee,
             onRecipeBtnClick = { onRecipeBtnClick(coffeeId) },
-            onEditBtnClick = {
-                screenModel.onIntent(CoffeeDetailsIntent.EditBtnClicked)
-            },
-            onAddDescriptionBtnClick = { screenModel.onIntent(CoffeeDetailsIntent.AddDescriptionBtnClicked) },
+            onEditBtnClick = { screenModel.onEditButton() },
+            onAddDescriptionBtnClick = { screenModel.onAddDescription() },
             showEditDescriptionField = state.showEditDescriptionField,
             onSaveDescription = { desc ->
-                screenModel.onIntent(CoffeeDetailsIntent.SaveDescriptionBtnClicked(desc))
+                screenModel.saveDescription(desc)
             },
             onCancellationClick = {
-                screenModel.onIntent(CoffeeDetailsIntent.CancelDescriptionBtnClicked)
+                screenModel.onCancelDescription()
             }
         )
     }
