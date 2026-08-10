@@ -39,6 +39,12 @@ class CoffeeDetailsScreenModel(
                 showEditDescriptionField = false
             )
             is CoffeeDetailsIntent.LoadCoffeeDetails -> loadCoffeeDetails(intent.coffeeId)
+            CoffeeDetailsIntent.EditBtnClicked -> updateState(
+                showEditBottomSheet = true
+            )
+            CoffeeDetailsIntent.DismissEditBottomSheet -> updateState(
+                showEditBottomSheet = false
+            )
         }
     }
 
@@ -63,12 +69,15 @@ class CoffeeDetailsScreenModel(
 
     private fun updateState(
         content: Coffee? = null,
-        showEditDescriptionField: Boolean? = null
+        showEditDescriptionField: Boolean? = null,
+        showEditBottomSheet: Boolean? = null,
     ) {
         _state.update { oldState ->
             CoffeeDetailsScreenUiState(
                 content = content ?: oldState.content,
                 showEditDescriptionField = showEditDescriptionField
+                    ?: oldState.showEditDescriptionField,
+                showEditBottomSheet = showEditBottomSheet
                     ?: oldState.showEditDescriptionField
             )
         }

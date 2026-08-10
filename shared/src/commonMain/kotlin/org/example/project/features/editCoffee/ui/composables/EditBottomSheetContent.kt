@@ -35,9 +35,7 @@ fun EditBottomSheetContent(
     var editableCoffee by remember { mutableStateOf(coffee) }
 
     Column(
-        modifier = modifier
-            .background(white)
-            .padding(20.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         RegularAppText(

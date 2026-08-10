@@ -23,6 +23,7 @@ import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsAction
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsIntent
 import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
+import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
 
 @Composable
 fun CoffeeDetailsScreen(
@@ -48,12 +49,22 @@ fun CoffeeDetailsScreen(
     val state by screenModel.state.collectAsStateWithLifecycle()
 
     state.content?.let { coffee ->
+        if (state.showEditBottomSheet) {
+            EditBottomSheet(
+                show = true,
+                onDismissRequest = {
+                    screenModel.onIntent(CoffeeDetailsIntent.DismissEditBottomSheet)
+                }
+            )
+        }
         CoffeeDetailsScreenContent(
             modifier = modifier
                 .verticalScroll(scrollState),
             coffee = coffee,
             onRecipeBtnClick = { onRecipeBtnClick(coffeeId) },
-            onEditBtnClick = { },
+            onEditBtnClick = {
+                screenModel.onIntent(CoffeeDetailsIntent.EditBtnClicked)
+            },
             onAddDescriptionBtnClick = { screenModel.onIntent(CoffeeDetailsIntent.AddDescriptionBtnClicked) },
             showEditDescriptionField = state.showEditDescriptionField,
             onSaveDescription = { desc ->
