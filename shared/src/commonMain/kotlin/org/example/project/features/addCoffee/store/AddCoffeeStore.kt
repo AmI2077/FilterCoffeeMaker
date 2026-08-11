@@ -9,13 +9,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Coffee
-import org.example.project.core.ui.store.MviReducer
 import org.example.project.core.ui.store.MviStore
 import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
 import org.example.project.features.addCoffee.domain.AddCoffeeInteractor
 
 class AddCoffeeStore(
-    private val reducer: MviReducer<AddCoffeeScreenUiState, AddCoffeeResults>,
+    private val reducer: AddCoffeeReducer,
     private val addCoffeeInteractor: AddCoffeeInteractor,
     private val imageSaver: ImageSaver,
     private val scope: CoroutineScope
