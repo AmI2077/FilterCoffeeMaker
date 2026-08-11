@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
+import kotlin.math.round
+import kotlin.math.pow
 
 @Preview
 @Composable
@@ -52,7 +54,7 @@ fun AppSlider(
             modifier = Modifier
                 .weight(0.2f),
             textAlign = TextAlign.Center,
-            text = "${sliderState.value}",
+            text = "${roundFloatValue(sliderState.value, 2)}",
             fontFamily = getComfortaBold(),
             fontSize = 24.sp
         )
@@ -73,4 +75,8 @@ private fun SliderThumb(
                 shape = RoundedCornerShape(50)
             )
     )
+}
+
+fun roundFloatValue(value: Float, level: Int): Float {
+    return round(value * 10f.pow(level)) / 10f.pow(level)
 }

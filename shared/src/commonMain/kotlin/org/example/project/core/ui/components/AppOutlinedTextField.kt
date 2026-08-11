@@ -5,6 +5,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
@@ -17,6 +18,8 @@ fun AppOutlinedTextField(
     modifier: Modifier = Modifier,
     text: String,
     label: String,
+    borderColor: Color = black,
+    labelColor: Color = black,
     readOnly: Boolean = false,
     trailingIcon: @Composable (() -> Unit)? = null,
     onTextChange: (String) -> Unit = {},
@@ -35,10 +38,10 @@ fun AppOutlinedTextField(
             )
         },
         colors = OutlinedTextFieldDefaults.colors(
-            focusedLabelColor = black,
-            unfocusedLabelColor = black,
-            focusedBorderColor = black,
-            unfocusedBorderColor = black,
+            focusedLabelColor = labelColor,
+            unfocusedLabelColor = labelColor,
+            focusedBorderColor = borderColor,
+            unfocusedBorderColor = borderColor,
             focusedContainerColor = white,
             unfocusedContainerColor = white
         ),
