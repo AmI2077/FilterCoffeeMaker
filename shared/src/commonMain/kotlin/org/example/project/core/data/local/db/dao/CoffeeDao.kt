@@ -19,6 +19,10 @@ interface CoffeeDao {
     @Query("SELECT * FROM Coffee WHERE id = :coffeeId")
     suspend fun getCoffeeDetails(coffeeId: String): CoffeeEntity?
 
+
+    @Query("SELECT * FROM Coffee WHERE id = :coffeeId")
+    fun getFlowCoffeeDetails(coffeeId: String): Flow<CoffeeEntity>
+
     @Insert(onConflict = REPLACE)
     suspend fun insertCoffee(coffeeEntity: CoffeeEntity)
 

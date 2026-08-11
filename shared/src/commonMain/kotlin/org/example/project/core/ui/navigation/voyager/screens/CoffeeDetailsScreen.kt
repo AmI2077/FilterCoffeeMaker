@@ -10,10 +10,14 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
 import org.example.project.features.coffeeDetails.ui.composables.CoffeeDetailsScreen
-import org.example.project.features.coffeeDetails.ui.vm.CoffeeDetailsScreenModel
+import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
+import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
+import org.koin.core.parameter.parametersOf
 
 class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
     @Composable
@@ -30,11 +34,12 @@ class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
                         top = paddingValues.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding(),
                     ),
-                screenModel = koinScreenModel<CoffeeDetailsScreenModel>(),
+                detailsScreenModel = koinScreenModel<CoffeeDetailsScreenModel>(),
+                editScreenModel = koinScreenModel<EditCoffeeScreenModel>(),
                 coffeeId = coffeeId,
                 onRecipeBtnClick = { coffeeId ->
                     navigator?.push(NewRecipeScreen(coffeeId))
-                }
+                },
             )
         }
     }
