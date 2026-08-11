@@ -56,6 +56,7 @@ fun CoffeeDetailsScreen(
                 coffeeId = coffeeId,
                 onDismissRequest = {
                     detailsScreenModel.dismissEditBottomSheet()
+                    detailsScreenModel.loadCoffeeDetails(coffeeId)
                 }
             )
         }

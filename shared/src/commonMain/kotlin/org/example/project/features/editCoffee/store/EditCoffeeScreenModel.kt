@@ -11,16 +11,18 @@ import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 
 class EditCoffeeScreenModel(
     private val coffeeRepository: CoffeeDetailsRepository
-): ScreenModel {
+) : ScreenModel {
     private var _state = MutableStateFlow(EditCoffeeUiState())
     val state = _state.asStateFlow()
 
     fun loadCoffee(coffeeId: String) {
         screenModelScope.launch {
-            val coffee = coffeeRepository.getCoffeeDetails(coffeeId)
-            _state.update {
-                EditCoffeeUiState(coffee)
-            }
+            coffeeRepository.getCoffeeDetailsFlow(coffeeId)
+                .collect { coffee ->
+                    _state.update {
+                        EditCoffeeUiState(coffee)
+                    }
+                }
         }
     }
 

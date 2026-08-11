@@ -2,21 +2,20 @@ package org.example.project.core.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.rememberSliderState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
@@ -25,22 +24,27 @@ import org.example.project.core.ui.theme.getComfortaBold
 import kotlin.math.round
 import kotlin.math.pow
 
-@Preview
 @Composable
 fun AppSlider(
     modifier: Modifier = Modifier,
-    value: Float = 0.6f
+    value: Float = 0.6f,
+    onValueChangeFinished: (Float) -> Unit,
 ) {
-    val sliderState = rememberSliderState(
-        value = value
-    )
+    var sliderValue by remember { mutableStateOf(value) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Slider(
             modifier = modifier
                 .weight(0.8f),
-            state = sliderState,
+            value = sliderValue,
+            onValueChange = { value ->
+                sliderValue = value
+            },
+            onValueChangeFinished = {
+                onValueChangeFinished(sliderValue)
+            },
             colors = SliderDefaults.colors(
                 thumbColor = black,
                 activeTrackColor = black,
@@ -48,13 +52,13 @@ fun AppSlider(
             ),
             thumb = {
                 SliderThumb()
-            }
+            },
         )
         RegularAppText(
             modifier = Modifier
                 .weight(0.2f),
             textAlign = TextAlign.Center,
-            text = "${roundFloatValue(sliderState.value, 2)}",
+            text = "${roundFloatValue(sliderValue, 2)}",
             fontFamily = getComfortaBold(),
             fontSize = 24.sp
         )

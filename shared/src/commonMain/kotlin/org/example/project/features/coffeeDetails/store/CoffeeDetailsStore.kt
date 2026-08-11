@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Coffee
@@ -42,19 +43,17 @@ class CoffeeDetailsStore(
 
     fun loadCoffeeDetails(coffeeId: String) {
         scope.launch {
-            val coffee = repository.getCoffeeDetails(coffeeId)
-            // TODO "Реализовать отображение ошибки, если из базы данных приходит null"
-            if (coffee != null) {
-                val directory = coffee.imagePath?.let {
-                    imageSaver.getDirectory(it)
+            repository.getCoffeeDetailsFlow(coffeeId)
+                .catch { e -> println("COFFEE_ERROR: $e") }
+                .collect { coffee ->
+                    val directory = coffee.imagePath?.let {
+                        imageSaver.getDirectory(it)
+                    }
+                    _state.updateState(
+                        reducer,
+                        CoffeeDetailsResult.CoffeeSuccessLoaded(coffee.copy(imagePath = directory))
+                    )
                 }
-                _state.updateState(
-                    reducer,
-                    CoffeeDetailsResult.CoffeeSuccessLoaded(coffee.copy(imagePath = directory))
-                )
-            } else {
-                println("COFFEE_DETAILS: $coffee")
-            }
         }
     }
 
