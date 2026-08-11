@@ -22,37 +22,40 @@ import org.example.project.core.ui.theme.getComfortaRegular
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsAction
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
+import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
 
 @Composable
 fun CoffeeDetailsScreen(
     modifier: Modifier = Modifier,
     coffeeId: String,
-    screenModel: CoffeeDetailsScreenModel,
-    onRecipeBtnClick: (coffeeId: String) -> Unit
+    detailsScreenModel: CoffeeDetailsScreenModel,
+    editScreenModel: EditCoffeeScreenModel,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
 ) {
     val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
-        screenModel.loadCoffeeDetails(coffeeId)
+        detailsScreenModel.loadCoffeeDetails(coffeeId)
     }
 
     LaunchedEffect(Unit) {
-        screenModel.uiActions.collect { action ->
+        detailsScreenModel.uiActions.collect { action ->
             when(action) {
                 CoffeeDetailsAction.ClickOnRecipeBtn -> onRecipeBtnClick(coffeeId)
             }
         }
     }
 
-    val state by screenModel.state.collectAsStateWithLifecycle()
+    val state by detailsScreenModel.state.collectAsStateWithLifecycle()
 
     state.content?.let { coffee ->
         if (state.showEditBottomSheet) {
             EditBottomSheet(
-                show = true,
+                screenModel = editScreenModel,
+                coffeeId = coffeeId,
                 onDismissRequest = {
-                    screenModel.dismissEditBottomSheet()
+                    detailsScreenModel.dismissEditBottomSheet()
                 }
             )
         }
@@ -61,14 +64,14 @@ fun CoffeeDetailsScreen(
                 .verticalScroll(scrollState),
             coffee = coffee,
             onRecipeBtnClick = { onRecipeBtnClick(coffeeId) },
-            onEditBtnClick = { screenModel.onEditButton() },
-            onAddDescriptionBtnClick = { screenModel.onAddDescription() },
+            onEditBtnClick = { detailsScreenModel.onEditButton() },
+            onAddDescriptionBtnClick = { detailsScreenModel.onAddDescription() },
             showEditDescriptionField = state.showEditDescriptionField,
             onSaveDescription = { desc ->
-                screenModel.saveDescription(desc)
+                detailsScreenModel.saveDescription(desc)
             },
             onCancellationClick = {
-                screenModel.onCancelDescription()
+                detailsScreenModel.onCancelDescription()
             }
         )
     }

@@ -5,4 +5,6 @@ import org.example.project.core.domain.model.Coffee
 interface CoffeeDetailsRepository {
 
     suspend fun getCoffeeDetails(coffeeId: String): Coffee?
+
+    suspend fun editCoffee(coffee: Coffee)
 }

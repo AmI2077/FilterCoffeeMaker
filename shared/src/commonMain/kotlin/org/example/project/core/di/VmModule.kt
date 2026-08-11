@@ -1,9 +1,12 @@
 package org.example.project.core.di
 
+import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
+import org.example.project.features.coffeeDetails.store.CoffeeDetailsStore
+import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
@@ -31,7 +34,11 @@ val vmModule = module {
         }
     }
     factory {
-        CoffeeDetailsScreenModel(get())
+        CoffeeDetailsScreenModel { scope ->
+            get<CoffeeDetailsStore> {
+                parametersOf(scope)
+            }
+        }
     }
     factory {
         RecipesScreenModel(
@@ -53,5 +60,8 @@ val vmModule = module {
     }
     factory {
         RecipeLoaderScreenModel(get())
+    }
+    factory {
+        EditCoffeeScreenModel(get())
     }
 }

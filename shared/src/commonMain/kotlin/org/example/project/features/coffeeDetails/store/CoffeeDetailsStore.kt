@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.core.ui.store.MviReducer
+import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateState
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 
 class CoffeeDetailsStore(
-    private val reducer: MviReducer<CoffeeDetailsScreenUiState, CoffeeDetailsResult>,
+    private val reducer: CoffeeDetailsReducer,
     private val scope: CoroutineScope,
     private val repository: CoffeeDetailsRepository,
     private val imageSaver: ImageSaver
