@@ -37,7 +37,7 @@ fun CoffeeDetailsButtons(
                         style = regularTextStyle.copy(
                             fontFamily = getComfortaRegular(),
                             color = white,
-                            fontSize = 20.sp,
+                            fontSize = 18.sp,
                         )
                     )
                 },
@@ -53,7 +53,7 @@ fun CoffeeDetailsButtons(
                 icon = {
                     Icon(
                         modifier = Modifier
-                            .size(24.dp),
+                            .size(20.dp),
                         painter = painterResource(Res.drawable.ic_edit_24),
                         contentDescription = null,
                     )

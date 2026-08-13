@@ -11,7 +11,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.features.timer.ui.composables.TimerScreen
 import org.example.project.features.timer.ui.vm.TimerScreenModel
 import org.koin.core.parameter.parametersOf
@@ -23,7 +23,7 @@ class TimerScreen(private val recipe: Recipe) : Screen {
             TimerScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundPrimary)
+                    .background(backgroundColor)
                     .padding(
                         start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
                         end = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,

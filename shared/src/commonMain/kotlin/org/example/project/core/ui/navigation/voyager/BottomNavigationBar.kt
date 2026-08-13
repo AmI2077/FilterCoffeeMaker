@@ -12,13 +12,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.tab.Tab
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.transparent
 import org.example.project.core.ui.theme.white
 
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    containerColor: Color = transparent,
+    containerColor: Color = Color.Transparent,
     currentTab: Tab,
     onItemClick: (Tab) -> Unit,
 ) {

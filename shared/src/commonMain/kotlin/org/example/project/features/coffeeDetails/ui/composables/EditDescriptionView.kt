@@ -24,7 +24,6 @@ import org.example.project.core.ui.components.AppOutlinedTextField
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.red
 import org.example.project.core.ui.theme.white
 
 @Preview
@@ -70,13 +69,13 @@ private fun SaveAndCancelButtons(
                 text = {
                     RegularAppText(
                         text = "Отмена",
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = white
                     )
                 },
                 contentPadding =
                     PaddingValues(horizontal = 5.dp, vertical = 10.dp),
-                containerColor = red,
+                containerColor = black,
                 icon = null,
                 onClick = onCancellationClick
             )
@@ -86,7 +85,7 @@ private fun SaveAndCancelButtons(
                 text = {
                     RegularAppText(
                         text = "Сохранить",
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = white
                     )
                 },

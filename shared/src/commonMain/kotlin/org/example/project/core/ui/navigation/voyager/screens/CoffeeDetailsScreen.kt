@@ -12,7 +12,7 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
 import org.example.project.features.coffeeDetails.ui.composables.CoffeeDetailsScreen
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
@@ -27,7 +27,7 @@ class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
             CoffeeDetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundPrimary)
+                    .background(backgroundColor)
                     .padding(
                         start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
                         end = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,

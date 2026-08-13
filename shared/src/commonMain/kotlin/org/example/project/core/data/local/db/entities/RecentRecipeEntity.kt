@@ -11,7 +11,8 @@ import org.example.project.core.domain.model.BrewStep
         ForeignKey(
             entity = CoffeeEntity::class,
             parentColumns = ["id"],
-            childColumns = ["coffeeEntityId"]
+            childColumns = ["coffeeEntityId"],
+            onDelete = ForeignKey.CASCADE
         ),
     ]
 )

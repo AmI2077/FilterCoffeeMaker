@@ -26,7 +26,8 @@ import org.example.project.core.ui.components.AppDropdownMenu
 import org.example.project.core.ui.components.AppOutlinedTextField
 import org.example.project.core.ui.components.AppSlider
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
 
@@ -53,8 +54,8 @@ fun EditBottomSheetContent(
         AppOutlinedTextField(
             text = editableCoffee.title,
             label = "Введи название",
-            borderColor = blueGrayText,
-            labelColor = blueGrayText,
+            borderColor = lightGray,
+            labelColor = textSecondaryColor,
             onTextChange = { newTitle ->
                 editableCoffee = editableCoffee.copy(title = newTitle)
             }
@@ -62,8 +63,8 @@ fun EditBottomSheetContent(
         AppOutlinedTextField(
             text = editableCoffee.qGrade ?: "",
             label = "Введи QGrade",
-            borderColor = blueGrayText,
-            labelColor = blueGrayText,
+            borderColor = lightGray,
+            labelColor = textSecondaryColor,
             onTextChange = { qGrade ->
                 editableCoffee = editableCoffee.copy(qGrade = qGrade)
             }
@@ -82,7 +83,7 @@ fun EditBottomSheetContent(
         RegularAppText(
             text = "Плотность",
             fontSize = 20.sp,
-            color = blueGrayText
+            color = textSecondaryColor
         )
         AppSlider(
             value = coffee.density,
@@ -93,7 +94,7 @@ fun EditBottomSheetContent(
         RegularAppText(
             text = "Кислотность",
             fontSize = 20.sp,
-            color = blueGrayText
+            color = textSecondaryColor
         )
         AppSlider(
             value = coffee.acidity,
@@ -105,8 +106,8 @@ fun EditBottomSheetContent(
             modifier = Modifier.fillMaxWidth(),
             text = editableCoffee.userDescription ?: "",
             label = "Введи описание",
-            borderColor = blueGrayText,
-            labelColor = blueGrayText,
+            borderColor = lightGray,
+            labelColor = textSecondaryColor,
             onTextChange = { desc ->
                 editableCoffee = editableCoffee.copy(userDescription = desc)
             }

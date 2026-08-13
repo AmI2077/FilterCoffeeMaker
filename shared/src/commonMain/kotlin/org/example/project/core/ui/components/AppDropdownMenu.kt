@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import org.example.project.core.domain.model.roastingTypes
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.textSecondaryColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,8 +24,8 @@ fun AppDropdownMenu(
     modifier: Modifier = Modifier,
     value: String = "Светлая",
     label: String,
-    borderColor: Color = blueGrayText,
-    labelColor: Color = blueGrayText,
+    borderColor: Color = lightGray,
+    labelColor: Color = textSecondaryColor,
     onValueChange: (String) -> Unit = {},
     values: List<String> = roastingTypes
 ) {

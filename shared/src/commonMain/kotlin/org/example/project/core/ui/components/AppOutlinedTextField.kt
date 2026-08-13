@@ -34,7 +34,7 @@ fun AppOutlinedTextField(
         label = {
             RegularAppText(
                 text = label,
-                fontSize = 16.sp
+                fontSize = 14.sp
             )
         },
         colors = OutlinedTextFieldDefaults.colors(

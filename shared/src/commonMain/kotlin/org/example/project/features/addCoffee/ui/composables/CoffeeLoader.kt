@@ -24,7 +24,7 @@ import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kotlinx.coroutines.delay
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -59,7 +59,7 @@ fun CoffeeInfoLoading(
         ) {
             RegularAppText(
                 text = "Смотрю, что за кофе...",
-                color = blueGrayText,
+                color = textSecondaryColor,
                 fontSize = 16.sp
             )
         }

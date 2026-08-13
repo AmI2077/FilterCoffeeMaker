@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_coffee_image_placeholder
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 
@@ -27,7 +29,7 @@ fun CoffeeImageWithQGrade(
             modifier = modifier
                 .border(
                     width = 2.dp,
-                    color = blueGrayText,
+                    color = lightGray,
                     shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)
                 )
                 .aspectRatio(UiDefaults.IMAGE_ASPECT_RATIO)
@@ -38,6 +40,7 @@ fun CoffeeImageWithQGrade(
         qGrade?.let { grade ->
             QGradeBox(
                 modifier = Modifier
+                    .align(Alignment.TopEnd)
                     .padding(15.dp),
                 qGrade = grade
             )

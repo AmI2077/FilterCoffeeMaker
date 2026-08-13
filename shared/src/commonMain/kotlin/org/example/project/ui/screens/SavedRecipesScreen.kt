@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.headerTextStyle
 
 @Composable
@@ -30,7 +30,7 @@ fun SavedRecipesPreview() {
     SavedRecipesScreen(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundPrimary)
+            .background(backgroundColor)
             .padding(horizontal = 20.dp, vertical = 20.dp)
     )
 }

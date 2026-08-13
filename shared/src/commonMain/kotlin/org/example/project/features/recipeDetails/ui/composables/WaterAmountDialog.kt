@@ -22,7 +22,8 @@ import androidx.compose.ui.window.Dialog
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 
 @Composable
@@ -47,7 +48,7 @@ fun WaterAmountDialog(
         ) {
             RegularAppText(
                 text = "Введи сколько хочешь кофе)",
-                color = blueGrayText,
+                color = textSecondaryColor,
                 fontSize = 18.sp
             )
             Spacer(Modifier.padding(top = 30.dp))
@@ -59,7 +60,7 @@ fun WaterAmountDialog(
                 suffix = {
                     RegularAppText(
                         text = "мл",
-                        color = blueGrayText,
+                        color = textSecondaryColor,
                         fontSize = 18.sp
                     )
                 },
@@ -68,8 +69,8 @@ fun WaterAmountDialog(
                 ),
                 shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = blueGrayText,
-                    unfocusedBorderColor = blueGrayText
+                    focusedBorderColor = lightGray,
+                    unfocusedBorderColor = lightGray
                 )
             )
             Spacer(Modifier.padding(top = 30.dp))

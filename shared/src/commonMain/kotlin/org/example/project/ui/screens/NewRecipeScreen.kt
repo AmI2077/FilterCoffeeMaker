@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.headerTextStyle
 
 @Composable
@@ -31,6 +31,6 @@ fun NewRecipeScreenPreview() {
     NewRecipeScreen(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundPrimary)
+            .background(backgroundColor)
     )
 }

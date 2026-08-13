@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.example.project.core.domain.model.Coffee
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,7 @@ fun EditBottomSheet(
         state.coffee?.let { coffee ->
             EditBottomSheetContent(
                 modifier = Modifier
-                    .background(backgroundPrimary)
+                    .background(backgroundColor)
                     .padding(contentPadding),
                 coffee = coffee,
                 onSaveClick = { editedCoffee ->

@@ -30,9 +30,8 @@ import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.gray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.store.AddCoffeeActions
 import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
@@ -179,7 +178,7 @@ fun CoffeeInfoContent(
     ) {
         RegularAppText(
             text = coffee.roasting,
-            color = blueGrayText,
+            color = textSecondaryColor,
             fontSize = 18.sp,
         )
         Spacer(Modifier.padding(top = 10.dp))
@@ -193,7 +192,7 @@ fun CoffeeInfoContent(
             modifier = Modifier
                 .align(Alignment.End),
             text = coffee.tasteDescription,
-            color = gray,
+            color = textSecondaryColor,
             fontSize = 18.sp,
         )
         Spacer(Modifier.padding(top = 30.dp))
@@ -261,7 +260,7 @@ private fun ColumnScope.CoffeeImageView(
             modifier = Modifier
                 .align(Alignment.End),
             text = "Тыкни, чтобы загрузить",
-            color = blueGrayText,
+            color = textSecondaryColor,
             fontSize = 16.sp
         )
         CoffeeImagePlaceholder(

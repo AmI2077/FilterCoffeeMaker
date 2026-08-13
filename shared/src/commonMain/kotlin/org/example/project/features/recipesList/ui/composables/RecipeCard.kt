@@ -28,7 +28,7 @@ import org.example.project.core.domain.model.Recipe
 import org.example.project.core.domain.model.mockRecipe
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
@@ -78,7 +78,7 @@ fun RecipeCard(
             text = "Время: ${recipe.brewTime.toTimeString()}",
             fontSize = 16.sp,
             maxLines = 2,
-            color = blueGrayText
+            color = textSecondaryColor
         )
         Spacer(Modifier.padding(top = 20.dp))
         DetailsColumn(
@@ -112,7 +112,7 @@ fun DetailsColumn(
             RegularAppText(
                 text = "Кофе",
                 fontSize = 12.sp,
-                color = blueGrayText
+                color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(
@@ -132,7 +132,7 @@ fun DetailsColumn(
             RegularAppText(
                 text = "Вода",
                 fontSize = 12.sp,
-                color = blueGrayText
+                color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(
@@ -152,7 +152,7 @@ fun DetailsColumn(
             RegularAppText(
                 text = "Темп.",
                 fontSize = 12.sp,
-                color = blueGrayText
+                color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(

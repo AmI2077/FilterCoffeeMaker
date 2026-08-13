@@ -24,7 +24,8 @@ fun RegularAppText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     textAlign: TextAlign? = null,
     fontSize: TextUnit = 20.sp,
-    fontFamily: FontFamily = getComfortaRegular()
+    fontFamily: FontFamily = getComfortaRegular(),
+    lineHeight: TextUnit = TextUnit.Unspecified
 ) {
     Text(
         modifier = modifier,
@@ -32,6 +33,7 @@ fun RegularAppText(
         maxLines = maxLines,
         overflow = overflow,
         textAlign = textAlign,
+        lineHeight = lineHeight,
         style = regularTextStyle.copy(
             fontFamily = fontFamily,
             color = color,

@@ -64,7 +64,7 @@ fun SavedCoffeeScreen(
 
     if (showDialog != null) {
         AppDialog(
-            message = "Вы хотите удалить ${showDialog.coffee.title}?",
+            message = "Вы хотите удалить ${showDialog.coffee.title}?\n\nВсе рецепты с этим кофе также будут удалены.",
             onConfirmClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Confirm(showDialog.coffee)) },
             onDismissClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Dismiss) }
         )

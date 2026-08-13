@@ -19,7 +19,7 @@ import coffee.shared.generated.resources.ic_coffee_beans_24
 import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_temperature_24
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -41,7 +41,7 @@ fun ComponentsRow(
             modifier = Modifier
                 .padding(horizontal = 5.dp)
                 .height(80.dp),
-            color = blueGrayText
+            color = textSecondaryColor
         )
         ComponentItem(
             modifier = Modifier.weight(1f),
@@ -52,7 +52,7 @@ fun ComponentsRow(
             modifier = Modifier
                 .padding(horizontal = 5.dp)
                 .height(80.dp),
-            color = blueGrayText
+            color = textSecondaryColor
         )
         ComponentItem(
             modifier = Modifier.weight(1f),

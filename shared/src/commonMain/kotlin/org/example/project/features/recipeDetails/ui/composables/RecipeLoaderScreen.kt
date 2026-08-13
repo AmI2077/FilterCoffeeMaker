@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.recipe_loading_image_2
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.features.addCoffee.ui.composables.RecipeLoader
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.jetbrains.compose.resources.painterResource
@@ -54,7 +54,7 @@ fun RecipeLoaderScreen(
                 )
                 RegularAppText(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    color = blueGrayText,
+                    color = textSecondaryColor,
                     text = "А ты знала, что...",
                 )
                 Spacer(Modifier.padding(top = 20.dp))

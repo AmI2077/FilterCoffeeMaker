@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.red
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 
@@ -112,7 +111,7 @@ private fun AcceptBtn(
             )
         },
         icon = null,
-        containerColor = red
+        containerColor = black
     ) {
         onClick()
     }

@@ -15,7 +15,7 @@ import org.example.project.core.data.local.db.entities.CoffeeEntity
 import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 
 @Database(
-    version = 4,
+    version = 5,
     entities = [CoffeeEntity::class, RecentRecipeEntity::class]
 )
 @TypeConverters(Converters::class)

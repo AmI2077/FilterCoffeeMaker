@@ -20,7 +20,8 @@ import coffee.shared.generated.resources.ic_coffee_image_placeholder
 import coffee.shared.generated.resources.ic_load_coffee_photo
 import coil3.compose.AsyncImage
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -55,7 +56,7 @@ fun CoffeeImagePlaceholder(
             )
             .border(
                 width = 2.dp,
-                color = blueGrayText,
+                color = lightGray,
                 shape = shape
             )
     ) {
@@ -64,7 +65,7 @@ fun CoffeeImagePlaceholder(
                 .size(200.dp)
                 .align(Alignment.Center),
             painter = painterResource(Res.drawable.ic_load_coffee_photo),
-            tint = blueGrayText,
+            tint = textSecondaryColor,
             contentDescription = null,
         )
     }
