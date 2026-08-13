@@ -57,6 +57,7 @@ fun CoffeeDetailsScreen(
     detailsScreenModel: CoffeeDetailsScreenModel,
     editScreenModel: EditCoffeeScreenModel,
     onRecipeBtnClick: (coffeeId: String) -> Unit,
+    onBackBtnClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -98,7 +99,8 @@ fun CoffeeDetailsScreen(
             },
             onCancellationClick = {
                 detailsScreenModel.onCancelDescription()
-            }
+            },
+            onBackBtnClick = onBackBtnClick
         )
     }
 }
@@ -116,13 +118,15 @@ fun CoffeeDetailsScreenContent(
     onAddDescriptionBtnClick: () -> Unit = {},
     onSaveDescription: (String) -> Unit = {},
     onCancellationClick: () -> Unit = {},
+    onBackBtnClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
     ) {
-        CoffeeImageWithQGrade(
+        CoffeeImageWithQGradeAndBackButton(
             model = coffee.imagePath,
-            qGrade = coffee.qGrade
+            qGrade = coffee.qGrade,
+            onBackBtnClick = onBackBtnClick
         )
         Spacer(Modifier.height(20.dp))
         RoastingAndProcessingRow(
@@ -188,24 +192,10 @@ fun CoffeeDetailsScreenContent(
             )
         }
         Spacer(Modifier.height(20.dp))
-
-        AppButton(
+        RecipeButton(
             modifier = Modifier.fillMaxWidth(),
-            text = {
-                Text(
-                    modifier = Modifier.padding(vertical = 20.dp),
-                    text = stringResource(Res.string.recipe),
-                    style = regularTextStyle.copy(
-                        fontFamily = getComfortaBold(),
-                        color = white,
-                        fontSize = 20.sp,
-                    )
-                )
-            },
-            icon = null
-        ) {
-            onRecipeBtnClick()
-        }
+            onClick = onRecipeBtnClick
+        )
     }
 }
 

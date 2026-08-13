@@ -13,16 +13,20 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_coffee_image_placeholder
+import org.example.project.core.ui.components.AppBackButton
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 
+// TODO "слишком много ответственности"
+
 @Composable
-fun CoffeeImageWithQGrade(
+fun CoffeeImageWithQGradeAndBackButton(
     modifier: Modifier = Modifier,
     model: Any?,
     qGrade: String?,
+    onBackBtnClick: () -> Unit,
 ) {
     Box {
         CoffeeImage(
@@ -36,6 +40,12 @@ fun CoffeeImageWithQGrade(
                 .fillMaxWidth(),
             placeholder = painterResource(Res.drawable.ic_coffee_image_placeholder),
             model = model
+        )
+        AppBackButton(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(15.dp),
+            onClick = onBackBtnClick
         )
         qGrade?.let { grade ->
             QGradeBox(

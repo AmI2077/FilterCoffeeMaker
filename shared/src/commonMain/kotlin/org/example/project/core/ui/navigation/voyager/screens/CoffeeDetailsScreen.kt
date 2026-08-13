@@ -40,6 +40,7 @@ class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
                 onRecipeBtnClick = { coffeeId ->
                     navigator?.push(NewRecipeScreen(coffeeId))
                 },
+                onBackBtnClick = { navigator?.pop() }
             )
         }
     }

@@ -27,7 +27,7 @@ fun QGradeBox(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
             .background(
-                color = white.copy(alpha = 0.8f),
+                color = white.copy(alpha = 0.6f),
             )
             .border(
                 width = 2.dp,
@@ -44,7 +44,7 @@ fun QGradeBox(
             color = black
         )
         RegularAppText(
-            text = qGrade,
+            text = "$qGrade+",
             fontSize = 26.sp,
             color = black,
             fontFamily = getComfortaBold()
