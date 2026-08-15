@@ -3,6 +3,7 @@ package org.example.project.features.recipeDetails.ui.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import org.example.project.core.domain.model.mockRecipe
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
@@ -99,7 +101,7 @@ fun RecipeDetailsScreenContent(
         Column(
             modifier = Modifier
                 .background(
-                    color = white,
+                    color = backgroundColor,
                     shape = RoundedCornerShape(
                         topStart = UiDefaults.IMAGE_CORNERS_RADIUS.dp,
                         topEnd = UiDefaults.IMAGE_CORNERS_RADIUS.dp,
@@ -111,15 +113,31 @@ fun RecipeDetailsScreenContent(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Spacer(Modifier.padding(top = 10.dp))
-            RegularAppText(
-                text = "Общее время: ${recipe.brewTime.toTimeString()}",
-                color = textSecondaryColor,
-            )
-            ComponentsRow(
-                coffeeAmount = "${recipe.coffeeAmount} г.",
-                waterAmount = "${recipe.waterAmount} мл.",
-                temperature = "${recipe.waterTemperature} °C",
-            )
+            Column(
+                modifier = Modifier.background(
+                    color = white,
+                    shape = RoundedCornerShape(20.dp)
+                )
+                    .padding(vertical = 20.dp)
+            ) {
+                Row {
+                    RegularAppText(
+                        text = "Общее время: ",
+                        color = textSecondaryColor,
+                    )
+                    RegularAppText(
+                        text = recipe.brewTime.toTimeString(),
+                        color = textSecondaryColor,
+                    )
+                }
+
+                ComponentsRow(
+                    coffeeAmount = "${recipe.coffeeAmount} г.",
+                    waterAmount = "${recipe.waterAmount} мл.",
+                    temperature = "${recipe.waterTemperature} °C",
+                )
+            }
+
             RegularAppText(
                 text = "Шаги"
             )

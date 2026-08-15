@@ -10,11 +10,13 @@ import org.example.project.core.data.local.db.dao.RecipeDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkResult
-import org.example.project.core.data.resources.ResourceManager
+import org.example.project.core.data.resources.Directories
+import org.example.project.core.domain.api.ResourceManager
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.recipeDetails.data.extensions.RecipeResponseSerializer
 import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
+import kotlin.random.Random
 
 class RecipeDetailsRepositoryImpl(
     private val aiClient: AiClient,
@@ -25,7 +27,7 @@ class RecipeDetailsRepositoryImpl(
     override suspend fun getRecipe(recipeRequest: RecipeRequest): Recipe {
         return withContext(dispatcher) {
             val coffeeJson = Json.encodeToJsonElement(recipeRequest).toString()
-            val prompt = resourceManager.getFileResource("files/RecipePrompt.txt")
+            val prompt = resourceManager.getFileResource(Directories.AI_RECIPE_PROMPT_FILE_PATH)
 
             val result = aiClient.makeRequest(
                 AiRequestDto.makeRequest(
@@ -53,8 +55,13 @@ class RecipeDetailsRepositoryImpl(
     }
 
     override suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: String) {
+        // TODO "че то придумать с id рецепта (дублировать id кофе)"
+
+        val recipeWithId = recipe.copy(
+            id = Random.nextInt(0, 14315)
+        )
         withContext(dispatcher) {
-            recipeDao.insertRecipe(recipe.toEntity(coffeeId))
+            recipeDao.insertRecipe(recipeWithId.toEntity(coffeeId))
         }
     }
 }

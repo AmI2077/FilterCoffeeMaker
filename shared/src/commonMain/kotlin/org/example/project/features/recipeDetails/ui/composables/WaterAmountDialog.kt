@@ -47,7 +47,7 @@ fun WaterAmountDialog(
                 .padding(15.dp)
         ) {
             RegularAppText(
-                text = "Введи сколько хочешь кофе)",
+                text = "Введи сколько хочешь кофе",
                 color = textSecondaryColor,
                 fontSize = 18.sp
             )

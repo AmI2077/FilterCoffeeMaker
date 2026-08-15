@@ -1,4 +1,4 @@
-package org.example.project.core.data.resources
+package org.example.project.core.domain.api
 
 interface ResourceManager {
 

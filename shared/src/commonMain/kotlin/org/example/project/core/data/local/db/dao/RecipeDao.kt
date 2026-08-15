@@ -13,6 +13,6 @@ interface RecipeDao {
     @Query("SELECT * FROM RecentRecipes")
     fun getRecentRecipes(): Flow<List<RecentRecipeEntity>>
 
-    @Insert(onConflict = REPLACE)
+    @Insert
     suspend fun insertRecipe(recentRecipeEntity: RecentRecipeEntity)
 }

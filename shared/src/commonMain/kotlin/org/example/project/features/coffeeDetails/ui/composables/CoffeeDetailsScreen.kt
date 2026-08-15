@@ -105,7 +105,6 @@ fun CoffeeDetailsScreen(
     }
 }
 
-@Preview
 @Composable
 fun CoffeeDetailsScreenContent(
     modifier: Modifier = Modifier

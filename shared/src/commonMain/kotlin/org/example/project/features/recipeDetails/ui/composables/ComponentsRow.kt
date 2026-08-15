@@ -1,12 +1,16 @@
 package org.example.project.features.recipeDetails.ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -14,12 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_coffee_beans_24
 import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_temperature_24
 import org.example.project.core.ui.components.RegularAppText
+import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.textSecondaryColor
+import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -30,7 +37,12 @@ fun ComponentsRow(
     temperature: String,
 ) {
     Row(
-        modifier = modifier.wrapContentHeight(), verticalAlignment = Alignment.CenterVertically
+        modifier = modifier
+            .background(
+                color = white,
+                shape = RoundedCornerShape(20.dp)
+            ),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         ComponentItem(
             modifier = Modifier.weight(1f),
@@ -40,8 +52,8 @@ fun ComponentsRow(
         VerticalDivider(
             modifier = Modifier
                 .padding(horizontal = 5.dp)
-                .height(80.dp),
-            color = textSecondaryColor
+                .height(60.dp),
+            color = textSecondaryColor.copy(alpha = 0.4f)
         )
         ComponentItem(
             modifier = Modifier.weight(1f),
@@ -51,8 +63,8 @@ fun ComponentsRow(
         VerticalDivider(
             modifier = Modifier
                 .padding(horizontal = 5.dp)
-                .height(80.dp),
-            color = textSecondaryColor
+                .height(60.dp),
+            color = textSecondaryColor.copy(alpha = 0.4f)
         )
         ComponentItem(
             modifier = Modifier.weight(1f),
@@ -69,16 +81,21 @@ fun ComponentItem(
     text: String,
     painter: Painter,
 ) {
-    Column(
+    Row(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalAlignment = Alignment.CenterVertically,
     ) {
+        Icon(
+            modifier = Modifier
+                .size(24.dp),
+            painter = painter,
+            contentDescription = null
+        )
+        Spacer(Modifier.width(10.dp))
         RegularAppText(
             text = text,
-        )
-        Icon(
-            modifier = Modifier.size(30.dp), painter = painter, contentDescription = null
+            fontSize = 16.sp,
+            fontFamily = getComfortaBold()
         )
     }
 }
