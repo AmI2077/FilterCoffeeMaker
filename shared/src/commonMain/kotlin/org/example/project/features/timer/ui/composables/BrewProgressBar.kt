@@ -13,6 +13,9 @@ import org.example.project.core.domain.model.BrewStep
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.textSecondaryColor
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.brew_step_water
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BrewProgressRow(
@@ -40,7 +43,7 @@ fun BrewProgressRow(
                 RegularAppText(
                     fontSize = 16.sp,
                     color = if (stepProgress == 1f) black else textSecondaryColor,
-                    text = "${step.amountWater} мл"
+                    text = stringResource(Res.string.brew_step_water, step.amountWater)
                 )
             }
         }

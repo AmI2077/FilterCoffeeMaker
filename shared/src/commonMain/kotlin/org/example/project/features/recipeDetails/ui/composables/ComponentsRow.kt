@@ -20,15 +20,19 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.coffee_label
 import coffee.shared.generated.resources.ic_coffee_beans_24
 import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_temperature_24
+import coffee.shared.generated.resources.temperature_label
+import coffee.shared.generated.resources.water_label
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.getComfortaRegular
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ComponentsRow(
@@ -49,7 +53,7 @@ fun ComponentsRow(
             modifier = Modifier.weight(1f),
             text = coffeeAmount,
             painter = painterResource(Res.drawable.ic_coffee_beans_24),
-            type = "Кофе"
+            type = stringResource(Res.string.coffee_label)
         )
         VerticalDivider(
             modifier = Modifier
@@ -61,7 +65,7 @@ fun ComponentsRow(
             modifier = Modifier.weight(1f),
             text = waterAmount,
             painter = painterResource(Res.drawable.ic_cup_24),
-            type = "Вода"
+            type = stringResource(Res.string.water_label)
         )
         VerticalDivider(
             modifier = Modifier
@@ -73,7 +77,7 @@ fun ComponentsRow(
             modifier = Modifier.weight(1f),
             text = temperature,
             painter = painterResource(Res.drawable.ic_temperature_24),
-            type = "Температура"
+            type = stringResource(Res.string.temperature_label)
         )
     }
 }

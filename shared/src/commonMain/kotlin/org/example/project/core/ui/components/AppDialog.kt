@@ -16,6 +16,10 @@ import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.dialog_no
+import coffee.shared.generated.resources.dialog_yes
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AppDialog(
@@ -84,7 +88,7 @@ private fun DismissBtn(
         text = {
             RegularAppText(
                 modifier = Modifier.padding(10.dp),
-                text = "Нет",
+                text = stringResource(Res.string.dialog_no),
                 color = white,
             )
         },
@@ -105,7 +109,7 @@ private fun AcceptBtn(
         text = {
             RegularAppText(
                 modifier = Modifier.padding(10.dp),
-                text = "Да",
+                text = stringResource(Res.string.dialog_yes),
                 fontFamily = getComfortaBold(),
                 color = white,
             )

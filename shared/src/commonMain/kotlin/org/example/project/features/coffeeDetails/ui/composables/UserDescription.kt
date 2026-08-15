@@ -18,6 +18,9 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.description_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun UserDescription(
@@ -41,7 +44,7 @@ fun UserDescription(
         Column {
             RegularAppText(
                 modifier = Modifier.align(Alignment.End),
-                text = "Описание",
+                text = stringResource(Res.string.description_label),
                 fontSize = 16.sp,
                 maxLines = Int.MAX_VALUE
             )

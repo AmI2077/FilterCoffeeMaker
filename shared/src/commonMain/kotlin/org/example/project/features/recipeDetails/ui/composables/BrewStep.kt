@@ -15,14 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.brew_step_water
 import coffee.shared.generated.resources.ic_clock_24
 import coffee.shared.generated.resources.ic_water_drip_24
+import coffee.shared.generated.resources.step_time_range
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BrewStep(
@@ -60,13 +63,13 @@ fun BrewStep(
         Spacer(Modifier.width(5.dp))
         RegularAppText(
             modifier = Modifier.padding(start = 5.dp),
-            text = "${startTime.toTimeString()} - ${endTime.toTimeString()}",
+            text = stringResource(Res.string.step_time_range, startTime.toTimeString(), endTime.toTimeString()),
             color = textSecondaryColor,
             fontSize = 18.sp
         )
         Spacer(Modifier.weight(1f))
         RegularAppText(
-            text = "$waterAmount мл",
+            text = stringResource(Res.string.brew_step_water, waterAmount),
             fontFamily = getComfortaBold(),
         )
         Spacer(Modifier.width(10.dp))

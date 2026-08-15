@@ -21,9 +21,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.coffee_amount_g
+import coffee.shared.generated.resources.coffee_label
 import coffee.shared.generated.resources.ic_coffee_beans_24
 import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_temperature_24
+import coffee.shared.generated.resources.recipe_card_time
+import coffee.shared.generated.resources.temp_celsius
+import coffee.shared.generated.resources.temp_label
+import coffee.shared.generated.resources.water_amount_ml_dot
+import coffee.shared.generated.resources.water_label
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.domain.model.mockRecipe
 import org.example.project.core.ui.components.RegularAppText
@@ -34,6 +41,7 @@ import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RecipeCard(
@@ -75,7 +83,7 @@ fun RecipeCard(
         )
         Spacer(Modifier.padding(top = 10.dp))
         RegularAppText(
-            text = "Время: ${recipe.brewTime.toTimeString()}",
+            text = stringResource(Res.string.recipe_card_time, recipe.brewTime.toTimeString()),
             fontSize = 16.sp,
             maxLines = 2,
             color = textSecondaryColor
@@ -110,13 +118,13 @@ fun DetailsColumn(
             )
             Spacer(Modifier.padding(start = 5.dp))
             RegularAppText(
-                text = "Кофе",
+                text = stringResource(Res.string.coffee_label),
                 fontSize = 12.sp,
                 color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(
-                text = "$coffeeAmount г.",
+                text = stringResource(Res.string.coffee_amount_g, coffeeAmount),
                 fontSize = 14.sp
             )
         }
@@ -130,13 +138,13 @@ fun DetailsColumn(
             )
             Spacer(Modifier.padding(start = 5.dp))
             RegularAppText(
-                text = "Вода",
+                text = stringResource(Res.string.water_label),
                 fontSize = 12.sp,
                 color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(
-                text = "$waterAmount мл.",
+                text = stringResource(Res.string.water_amount_ml_dot, waterAmount),
                 fontSize = 14.sp
             )
         }
@@ -150,13 +158,13 @@ fun DetailsColumn(
             )
             Spacer(Modifier.padding(start = 5.dp))
             RegularAppText(
-                text = "Темп.",
+                text = stringResource(Res.string.temp_label),
                 fontSize = 12.sp,
                 color = textSecondaryColor
             )
             Spacer(Modifier.weight(1f))
             RegularAppText(
-                text = "$temperature °C.",
+                text = stringResource(Res.string.temp_celsius, temperature),
                 fontSize = 14.sp
             )
         }

@@ -11,6 +11,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.headerTextStyle
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.my_recipes_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SavedRecipesScreen(
@@ -18,7 +21,7 @@ fun SavedRecipesScreen(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "Мои рецепты",
+            text = stringResource(Res.string.my_recipes_title),
             style = headerTextStyle
         )
     }

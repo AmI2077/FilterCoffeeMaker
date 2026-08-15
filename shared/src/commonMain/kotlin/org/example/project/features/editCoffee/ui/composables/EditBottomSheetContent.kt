@@ -30,6 +30,17 @@ import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.acidity_label
+import coffee.shared.generated.resources.density_label
+import coffee.shared.generated.resources.edit_title
+import coffee.shared.generated.resources.enter_description_label
+import coffee.shared.generated.resources.enter_name_label
+import coffee.shared.generated.resources.enter_qgrade_label
+import coffee.shared.generated.resources.processing_label
+import coffee.shared.generated.resources.roasting_label
+import coffee.shared.generated.resources.save_button
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun EditBottomSheetContent(
@@ -46,14 +57,14 @@ fun EditBottomSheetContent(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         RegularAppText(
-            text = "Редактирование",
+            text = stringResource(Res.string.edit_title),
             fontSize = 24.sp,
             fontFamily = getComfortaBold()
         )
         Spacer(Modifier.height(10.dp))
         AppOutlinedTextField(
             text = editableCoffee.title,
-            label = "Введи название",
+            label = stringResource(Res.string.enter_name_label),
             borderColor = lightGray,
             labelColor = textSecondaryColor,
             onTextChange = { newTitle ->
@@ -62,7 +73,7 @@ fun EditBottomSheetContent(
         )
         AppOutlinedTextField(
             text = editableCoffee.qGrade ?: "",
-            label = "Введи QGrade",
+            label = stringResource(Res.string.enter_qgrade_label),
             borderColor = lightGray,
             labelColor = textSecondaryColor,
             onTextChange = { qGrade ->
@@ -72,16 +83,16 @@ fun EditBottomSheetContent(
         AppDropdownMenu(
             value = editableCoffee.roasting,
             values = roastingTypes,
-            label = "Обжарка"
+            label = stringResource(Res.string.roasting_label)
         )
         AppDropdownMenu(
             value = editableCoffee.processingMethod,
             values = processingMethods,
-            label = "Обработка"
+            label = stringResource(Res.string.processing_label)
         )
         Spacer(Modifier.height(10.dp))
         RegularAppText(
-            text = "Плотность",
+            text = stringResource(Res.string.density_label),
             fontSize = 20.sp,
             color = textSecondaryColor
         )
@@ -92,7 +103,7 @@ fun EditBottomSheetContent(
             }
         )
         RegularAppText(
-            text = "Кислотность",
+            text = stringResource(Res.string.acidity_label),
             fontSize = 20.sp,
             color = textSecondaryColor
         )
@@ -105,7 +116,7 @@ fun EditBottomSheetContent(
         AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             text = editableCoffee.userDescription ?: "",
-            label = "Введи описание",
+            label = stringResource(Res.string.enter_description_label),
             borderColor = lightGray,
             labelColor = textSecondaryColor,
             onTextChange = { desc ->
@@ -117,7 +128,7 @@ fun EditBottomSheetContent(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             text = {
                 RegularAppText(
-                    text = "Сохранить",
+                    text = stringResource(Res.string.save_button),
                     color = white
                 )
             },

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.add_description
 import coffee.shared.generated.resources.ic_edit_24
 import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
@@ -205,7 +206,7 @@ private fun DescriptionView(
 ) {
     if (description.isNullOrBlank()) {
         AppOutlinedButton(
-            text = "Добавить описание +",
+            text = stringResource(Res.string.add_description),
             onClick = { onAddDescriptionBtnClick() }
         )
         Spacer(Modifier.height(40.dp))

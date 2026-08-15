@@ -25,6 +25,11 @@ import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.ml_suffix
+import coffee.shared.generated.resources.ok_button
+import coffee.shared.generated.resources.water_amount_dialog_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun WaterAmountDialog(
@@ -47,7 +52,7 @@ fun WaterAmountDialog(
                 .padding(15.dp)
         ) {
             RegularAppText(
-                text = "Введи сколько хочешь кофе",
+                text = stringResource(Res.string.water_amount_dialog_title),
                 color = textSecondaryColor,
                 fontSize = 18.sp
             )
@@ -59,7 +64,7 @@ fun WaterAmountDialog(
                 },
                 suffix = {
                     RegularAppText(
-                        text = "мл",
+                        text = stringResource(Res.string.ml_suffix),
                         color = textSecondaryColor,
                         fontSize = 18.sp
                     )
@@ -80,7 +85,7 @@ fun WaterAmountDialog(
                 text = {
                     RegularAppText(
                         modifier = Modifier.padding(horizontal = 50.dp),
-                        text = "Ок",
+                        text = stringResource(Res.string.ok_button),
                         color = white
                     )
                 },

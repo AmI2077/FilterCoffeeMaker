@@ -20,6 +20,10 @@ import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.white
 import org.example.project.ui.components.CustomProgressIndicator
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.density_label
+import coffee.shared.generated.resources.acidity_label
+import org.jetbrains.compose.resources.stringResource
 
 @Preview
 @Composable
@@ -40,7 +44,7 @@ fun CoffeeBalance(
             verticalAlignment = Alignment.CenterVertically
         ) {
             RegularAppText(
-                text = "Плотность",
+                text = stringResource(Res.string.density_label),
                 fontSize = 16.sp,
             )
             Spacer(Modifier.width(60.dp))
@@ -55,7 +59,7 @@ fun CoffeeBalance(
             verticalAlignment = Alignment.CenterVertically
         ) {
             RegularAppText(
-                text = "Кислотность",
+                text = stringResource(Res.string.acidity_label),
                 fontSize = 16.sp,
             )
             Spacer(Modifier.width(60.dp))

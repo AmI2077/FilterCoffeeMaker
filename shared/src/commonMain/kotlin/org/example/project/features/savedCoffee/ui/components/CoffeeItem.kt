@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_ai_24
 import coffee.shared.generated.resources.ic_coffee_image_placeholder
+import coffee.shared.generated.resources.processing_prefix
 import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
@@ -119,7 +120,7 @@ fun CoffeeItemContent(
         Spacer(modifier = Modifier.weight(1f))
 
         RegularAppText(
-            text = "Обработка: $processingMethod",
+            text = stringResource(Res.string.processing_prefix, processingMethod),
             fontSize = 14.sp,
             color = textSecondaryColor,
         )

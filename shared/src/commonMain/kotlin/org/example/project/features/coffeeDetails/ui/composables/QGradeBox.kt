@@ -17,6 +17,10 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.white
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.q_grade_label
+import coffee.shared.generated.resources.q_grade_value
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun QGradeBox(
@@ -39,12 +43,12 @@ fun QGradeBox(
         verticalArrangement = Arrangement.spacedBy(7.dp)
     ) {
         RegularAppText(
-            text = "Q Grade",
+            text = stringResource(Res.string.q_grade_label),
             fontSize = 12.sp,
             color = black
         )
         RegularAppText(
-            text = "$qGrade+",
+            text = stringResource(Res.string.q_grade_value, qGrade),
             fontSize = 26.sp,
             color = black,
             fontFamily = getComfortaBold()

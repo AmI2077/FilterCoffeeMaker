@@ -10,6 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.headerTextStyle
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.add_recipe_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NewRecipeScreen(
@@ -19,7 +22,7 @@ fun NewRecipeScreen(
         Text(
             modifier = Modifier
                 .align(Alignment.Center),
-            text = "Add recipe",
+            text = stringResource(Res.string.add_recipe_placeholder),
             style = headerTextStyle
         )
     }

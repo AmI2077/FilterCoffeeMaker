@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.coffee_loading
 import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.ExperimentalCompottieApi
 import io.github.alexzhirkevich.compottie.Lottie
@@ -26,6 +27,7 @@ import kotlinx.coroutines.delay
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.milliseconds
 
 
@@ -58,7 +60,7 @@ fun CoffeeInfoLoading(
             enter = fadeIn() + expandVertically()
         ) {
             RegularAppText(
-                text = "Смотрю, что за кофе...",
+                text = stringResource(Res.string.coffee_loading),
                 color = textSecondaryColor,
                 fontSize = 16.sp
             )

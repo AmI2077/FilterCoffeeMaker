@@ -39,6 +39,11 @@ import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIn
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.make_button
+import coffee.shared.generated.resources.recipe_total_time
+import coffee.shared.generated.resources.steps_brewing_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RecipeDetailsScreen(
@@ -132,7 +137,7 @@ fun RecipeDetailsScreenContent(
             ) {
                 Row {
                     RegularAppText(
-                        text = "Время: ",
+                        text = stringResource(Res.string.recipe_total_time),
                         color = textSecondaryColor,
                     )
                     RegularAppText(
@@ -154,7 +159,7 @@ fun RecipeDetailsScreenContent(
             }
 
             RegularAppText(
-                text = "Шаги заваривания",
+                text = stringResource(Res.string.steps_brewing_title),
                 fontFamily = getComfortaBold(),
                 fontSize = 24.sp,
                 color = textPrimaryColor
@@ -186,7 +191,7 @@ fun RecipeDetailsScreenContent(
                     RegularAppText(
                         modifier = Modifier
                             .padding(vertical = 15.dp),
-                        text = "Делаем",
+                        text = stringResource(Res.string.make_button),
                         color = white
                     )
                 },
