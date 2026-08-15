@@ -25,6 +25,7 @@ import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_temperature_24
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getComfortaRegular
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
@@ -47,7 +48,8 @@ fun ComponentsRow(
         ComponentItem(
             modifier = Modifier.weight(1f),
             text = coffeeAmount,
-            painter = painterResource(Res.drawable.ic_coffee_beans_24)
+            painter = painterResource(Res.drawable.ic_coffee_beans_24),
+            type = "Кофе"
         )
         VerticalDivider(
             modifier = Modifier
@@ -59,6 +61,7 @@ fun ComponentsRow(
             modifier = Modifier.weight(1f),
             text = waterAmount,
             painter = painterResource(Res.drawable.ic_cup_24),
+            type = "Вода"
         )
         VerticalDivider(
             modifier = Modifier
@@ -69,7 +72,8 @@ fun ComponentsRow(
         ComponentItem(
             modifier = Modifier.weight(1f),
             text = temperature,
-            painter = painterResource(Res.drawable.ic_temperature_24)
+            painter = painterResource(Res.drawable.ic_temperature_24),
+            type = "Температура"
         )
     }
 }
@@ -80,22 +84,30 @@ fun ComponentItem(
     modifier: Modifier = Modifier,
     text: String,
     painter: Painter,
+    type: String,
+) = Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
 ) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            modifier = Modifier
-                .size(24.dp),
-            painter = painter,
-            contentDescription = null
-        )
-        Spacer(Modifier.width(10.dp))
-        RegularAppText(
-            text = text,
-            fontSize = 16.sp,
-            fontFamily = getComfortaBold()
-        )
-    }
+
+    RegularAppText(
+        text = text,
+        fontSize = 18.sp,
+        fontFamily = getComfortaBold()
+    )
+    Spacer(Modifier.height(10.dp))
+    Icon(
+        modifier = Modifier
+            .size(24.dp),
+        painter = painter,
+        contentDescription = null
+    )
+    Spacer(Modifier.height(5.dp))
+    RegularAppText(
+        text = type,
+        fontSize = 14.sp,
+        fontFamily = getComfortaRegular(),
+        color = textSecondaryColor
+    )
+
 }

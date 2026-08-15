@@ -1,21 +1,27 @@
 package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.domain.model.mockRecipe
@@ -23,6 +29,8 @@ import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
+import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.textPrimaryColor
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
@@ -114,23 +122,30 @@ fun RecipeDetailsScreenContent(
         ) {
             Spacer(Modifier.padding(top = 10.dp))
             Column(
-                modifier = Modifier.background(
-                    color = white,
-                    shape = RoundedCornerShape(20.dp)
-                )
-                    .padding(vertical = 20.dp)
+                modifier = Modifier
+                    .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(20.dp))
+                    .background(
+                        color = white,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(20.dp)
             ) {
                 Row {
                     RegularAppText(
-                        text = "Общее время: ",
+                        text = "Время: ",
                         color = textSecondaryColor,
                     )
                     RegularAppText(
                         text = recipe.brewTime.toTimeString(),
-                        color = textSecondaryColor,
+                        color = textPrimaryColor,
+                        fontFamily = getComfortaBold()
                     )
                 }
-
+                Spacer(Modifier.height(10.dp))
+                HorizontalDivider(
+                    color = textSecondaryColor.copy(alpha = 0.4f)
+                )
+                Spacer(Modifier.height(15.dp))
                 ComponentsRow(
                     coffeeAmount = "${recipe.coffeeAmount} г.",
                     waterAmount = "${recipe.waterAmount} мл.",
@@ -139,15 +154,29 @@ fun RecipeDetailsScreenContent(
             }
 
             RegularAppText(
-                text = "Шаги"
+                text = "Шаги заваривания",
+                fontFamily = getComfortaBold(),
+                fontSize = 24.sp,
+                color = textPrimaryColor
+
             )
-            recipe.brewSteps.forEachIndexed { index, step ->
-                BrewStep(
-                    number = index + 1,
-                    startTime = step.startTime,
-                    endTime = step.endTime,
-                    waterAmount = step.amountWater
-                )
+            Column(
+                Modifier
+                    .background(
+                        color = white,
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(horizontal = 20.dp, vertical = 10.dp)
+            ) {
+                recipe.brewSteps.forEachIndexed { index, step ->
+                    BrewStep(
+                        modifier = Modifier.padding(vertical = 10.dp),
+                        number = index + 1,
+                        startTime = step.startTime,
+                        endTime = step.endTime,
+                        waterAmount = step.amountWater
+                    )
+                }
             }
             Spacer(Modifier.weight(1f))
             AppButton(

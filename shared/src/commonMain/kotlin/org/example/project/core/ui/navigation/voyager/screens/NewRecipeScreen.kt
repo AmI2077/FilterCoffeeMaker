@@ -11,6 +11,7 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.theme.backgroundColor
+import org.example.project.core.ui.theme.white
 import org.example.project.features.recipeDetails.ui.composables.RecipeDetailsScreen
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
@@ -28,7 +29,7 @@ class NewRecipeScreen(
             RecipeDetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundColor)
+                    .background(white)
                     .padding(
                         top = paddingValues.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding(),
