@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.greeting
 import coffee.shared.generated.resources.ic_ai_24
+import coffee.shared.generated.resources.new_recipe
+import coffee.shared.generated.resources.recent_recipes_title
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.HeaderAppText
@@ -27,6 +30,7 @@ import org.example.project.core.ui.theme.white
 import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
 import org.example.project.features.recipesList.ui.vm.RecipesScreenUiState
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RecipesScreen(
@@ -56,7 +60,7 @@ fun RecipesScreenContent(
         Spacer(Modifier.padding(top = 30.dp))
         RegularAppText(
             modifier = Modifier.align(Alignment.End),
-            text = "Недавнее",
+            text = stringResource(Res.string.recent_recipes_title),
             fontSize = 24.sp
         )
         Spacer(Modifier.padding(top = 10.dp))
@@ -82,7 +86,7 @@ fun RecipesScreenContent(
 @Composable
 fun RecipeHeader() {
     HeaderAppText(
-        text = "Привет!)"
+        text = stringResource(Res.string.greeting)
     )
     Spacer(Modifier.padding(top = 10.dp))
     AppButton(
@@ -90,7 +94,7 @@ fun RecipeHeader() {
         text = {
             RegularAppText(
                 modifier = Modifier.padding(vertical = 15.dp),
-                text = "Новый рецепт",
+                text = stringResource(Res.string.new_recipe),
                 color = white,
             )
         },

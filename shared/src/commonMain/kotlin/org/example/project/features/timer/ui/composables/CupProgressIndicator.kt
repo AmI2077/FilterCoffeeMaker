@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.example.project.core.ui.theme.backgroundPrimary
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.backgroundColor
+import org.example.project.core.ui.theme.lightGray
 
 @Preview
 @Composable
@@ -64,7 +64,7 @@ fun CupProgressBar(
 
             drawPath(
                 path = cupPath,
-                color = blueGrayText,
+                color = lightGray,
                 style = Stroke(
                     width = 20f,
                     cap = StrokeCap.Round
@@ -72,7 +72,7 @@ fun CupProgressBar(
             )
             drawPath(
                 path = cupPath,
-                color = backgroundPrimary,
+                color = backgroundColor,
             )
 
             val coffeeHeight = size.height * (1f - animatedProgress)

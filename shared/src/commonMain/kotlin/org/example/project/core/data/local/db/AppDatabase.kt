@@ -14,8 +14,10 @@ import org.example.project.core.data.local.db.dao.RecipeDao
 import org.example.project.core.data.local.db.entities.CoffeeEntity
 import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 
+// TODO "прописать миграцию для бд, чтобы не ебаться с версиями"
+
 @Database(
-    version = 4,
+    version = 6,
     entities = [CoffeeEntity::class, RecentRecipeEntity::class]
 )
 @TypeConverters(Converters::class)

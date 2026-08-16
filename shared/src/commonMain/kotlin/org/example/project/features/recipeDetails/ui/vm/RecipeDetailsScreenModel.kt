@@ -2,7 +2,6 @@ package org.example.project.features.recipeDetails.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,7 +13,6 @@ import org.example.project.features.recipeDetails.domain.api.RecipeDetailsReposi
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
-import kotlin.time.Duration.Companion.seconds
 
 class RecipeDetailsScreenModel(
     private val coffeeId: String?,
@@ -57,7 +55,7 @@ class RecipeDetailsScreenModel(
             RecipeDetailsScreenUiState.Loading
         }
         screenModelScope.launch {
-            delay(10.seconds)
+            // delay(10.seconds)
             val coffee = coffeeDetailsRepository.getCoffeeDetails(coffeeId!!)
 
             if (coffee != null) {

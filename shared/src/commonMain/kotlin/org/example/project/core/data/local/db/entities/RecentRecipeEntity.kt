@@ -11,13 +11,14 @@ import org.example.project.core.domain.model.BrewStep
         ForeignKey(
             entity = CoffeeEntity::class,
             parentColumns = ["id"],
-            childColumns = ["coffeeEntityId"]
+            childColumns = ["coffeeEntityId"],
+            onDelete = ForeignKey.CASCADE
         ),
     ]
 )
 data class RecentRecipeEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int,
     val title: String,
     val coffeeEntityId: String,
     val userRating: String? = null,

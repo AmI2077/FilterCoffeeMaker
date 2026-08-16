@@ -2,7 +2,7 @@ package org.example.project.features.recipeDetails.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.example.project.core.data.resources.ResourceManager
+import org.example.project.core.domain.api.ResourceManager
 import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
 import kotlin.random.Random
 

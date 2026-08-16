@@ -19,8 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.add_button
+import coffee.shared.generated.resources.already_exist_dialog
 import coffee.shared.generated.resources.ic_ai_24
 import coffee.shared.generated.resources.ic_edit_24
+import coffee.shared.generated.resources.load_button
+import coffee.shared.generated.resources.new_coffee_title
+import coffee.shared.generated.resources.tap_to_upload
 import io.github.ismoy.imagepickerkmp.domain.config.GalleryConfig
 import io.github.ismoy.imagepickerkmp.features.imagepicker.config.ImagePickerKMPConfig
 import io.github.ismoy.imagepickerkmp.features.imagepicker.ui.rememberImagePickerKMP
@@ -30,15 +35,15 @@ import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.gray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.store.AddCoffeeActions
 import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 sealed interface AlreadyExistDialogResult {
     data object Confirm: AlreadyExistDialogResult
@@ -77,7 +82,7 @@ fun AddCoffeeScreen(
 
     if (state.showAlreadyExistDialog) {
         AppDialog(
-            message = "Ты уже добавлял такой кофе. Хочешь заменить?",
+            message = stringResource(Res.string.already_exist_dialog),
             onDismissClick = { screenModel.onDialogResult(AlreadyExistDialogResult.Dismiss) },
             onConfirmClick = { screenModel.onDialogResult(AlreadyExistDialogResult.Confirm) }
         )
@@ -110,7 +115,7 @@ fun AddCoffeeScreenContent(
 
     Column(modifier = modifier) {
         HeaderAppText(
-            text = "Новый кофе"
+            text = stringResource(Res.string.new_coffee_title)
         )
         Spacer(Modifier.padding(top = 20.dp))
         CoffeeImageView(
@@ -154,7 +159,7 @@ fun AddCoffeeScreenContent(
             text = {
                 RegularAppText(
                     modifier = Modifier.padding(vertical = 20.dp),
-                    text = "Загрузить",
+                    text = stringResource(Res.string.load_button),
                     color = white
                 )
             },
@@ -179,7 +184,7 @@ fun CoffeeInfoContent(
     ) {
         RegularAppText(
             text = coffee.roasting,
-            color = blueGrayText,
+            color = textSecondaryColor,
             fontSize = 18.sp,
         )
         Spacer(Modifier.padding(top = 10.dp))
@@ -193,7 +198,7 @@ fun CoffeeInfoContent(
             modifier = Modifier
                 .align(Alignment.End),
             text = coffee.tasteDescription,
-            color = gray,
+            color = textSecondaryColor,
             fontSize = 18.sp,
         )
         Spacer(Modifier.padding(top = 30.dp))
@@ -213,7 +218,7 @@ fun CoffeeInfoContent(
                         RegularAppText(
                             modifier = Modifier
                                 .padding(vertical = 20.dp),
-                            text = "Добавить",
+                            text = stringResource(Res.string.add_button),
                             color = white
                         )
                     },
@@ -260,8 +265,8 @@ private fun ColumnScope.CoffeeImageView(
         RegularAppText(
             modifier = Modifier
                 .align(Alignment.End),
-            text = "Тыкни, чтобы загрузить",
-            color = blueGrayText,
+            text = stringResource(Res.string.tap_to_upload),
+            color = textSecondaryColor,
             fontSize = 16.sp
         )
         CoffeeImagePlaceholder(

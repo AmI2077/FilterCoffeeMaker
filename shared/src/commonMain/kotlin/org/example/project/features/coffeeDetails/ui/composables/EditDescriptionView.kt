@@ -24,8 +24,12 @@ import org.example.project.core.ui.components.AppOutlinedTextField
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.red
 import org.example.project.core.ui.theme.white
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.cancel_button
+import coffee.shared.generated.resources.edit_description_label
+import coffee.shared.generated.resources.save_button
+import org.jetbrains.compose.resources.stringResource
 
 @Preview
 @Composable
@@ -42,7 +46,7 @@ fun EditDescriptionView(
         AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             text = description,
-            label = "Введите описание",
+            label = stringResource(Res.string.edit_description_label),
             onTextChange = { description = it }
         )
         Spacer(Modifier.height(5.dp))
@@ -69,14 +73,14 @@ private fun SaveAndCancelButtons(
             AppButton(
                 text = {
                     RegularAppText(
-                        text = "Отмена",
-                        fontSize = 16.sp,
+                        text = stringResource(Res.string.cancel_button),
+                        fontSize = 14.sp,
                         color = white
                     )
                 },
                 contentPadding =
                     PaddingValues(horizontal = 5.dp, vertical = 10.dp),
-                containerColor = red,
+                containerColor = black,
                 icon = null,
                 onClick = onCancellationClick
             )
@@ -85,8 +89,8 @@ private fun SaveAndCancelButtons(
             AppButton(
                 text = {
                     RegularAppText(
-                        text = "Сохранить",
-                        fontSize = 16.sp,
+                        text = stringResource(Res.string.save_button),
+                        fontSize = 14.sp,
                         color = white
                     )
                 },

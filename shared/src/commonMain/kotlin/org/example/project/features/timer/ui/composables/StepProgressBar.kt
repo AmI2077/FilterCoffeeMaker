@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
 
 
 @Composable
@@ -36,7 +36,7 @@ fun StepProgressBar(
                     .width(10.dp)
                     .weight(1f)
                     .background(
-                        color = blueGrayText,
+                        color = lightGray,
                         shape = RoundedCornerShape(10.dp)
                     )
             )
@@ -47,7 +47,7 @@ fun StepProgressBar(
                         .width(10.dp)
                         .weight(1f - animatedProgress)
                         .background(
-                            color = blueGrayText,
+                            color = lightGray,
                             shape = RoundedCornerShape(10.dp)
                         )
                 )

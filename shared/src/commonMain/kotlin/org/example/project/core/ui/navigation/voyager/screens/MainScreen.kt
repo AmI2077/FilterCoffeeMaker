@@ -21,8 +21,8 @@ import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.example.project.core.ui.navigation.voyager.BottomNavigationBar
 import org.example.project.core.ui.navigation.voyager.RecentRecipesTab
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.backgroundPrimary
-import org.example.project.core.ui.theme.gray
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.white
 
 class MainScreen : Screen {
@@ -37,11 +37,6 @@ class MainScreen : Screen {
                         modifier = Modifier
                             .padding(horizontal = 12.dp, vertical = 10.dp)
                             .shadow(30.dp, shape = RoundedCornerShape(100))
-                            .border(
-                                width = 2.dp,
-                                color = gray,
-                                shape = RoundedCornerShape(100),
-                            )
                             .clip(RoundedCornerShape(100))
                             .background(white),
                         currentTab = currentTab
@@ -53,7 +48,7 @@ class MainScreen : Screen {
                     AnimatedContent(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(backgroundPrimary)
+                            .background(backgroundColor)
                             .padding(
                                 top = paddingValues.calculateTopPadding(),
                                 start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,

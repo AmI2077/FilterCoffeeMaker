@@ -2,4 +2,73 @@
     <string name="app_name">Coffee</string>
     <string name="recipe">Рецепт</string>
     <string name="coffeeScreenTitle">Кофе</string>
+
+    <!-- recipesList -->
+    <string name="greeting">Привет!)</string>
+    <string name="new_recipe">Новый рецепт</string>
+    <string name="recent_recipes_title">Недавнее</string>
+    <string name="recipe_card_time">Время: %1$s</string>
+    <string name="coffee_label">Кофе</string>
+    <string name="water_label">Вода</string>
+    <string name="temp_label">Темп.</string>
+    <string name="temperature_label">Температура</string>
+    <string name="coffee_amount_g">%1$d г.</string>
+    <string name="water_amount_ml_dot">%1$d мл.</string>
+    <string name="temp_celsius">%1$d °C.</string>
+
+    <!-- recipeDetails -->
+    <string name="recipe_total_time">Время: </string>
+    <string name="steps_title">Шаги</string>
+    <string name="steps_brewing_title">Шаги заваривания</string>
+    <string name="make_button">Делаем</string>
+    <string name="step_time_range">%1$s - %2$s</string>
+    <string name="brew_step_water">%1$d мл</string>
+    <string name="water_amount_dialog_title">Введи сколько хочешь кофе</string>
+    <string name="ml_suffix">мл</string>
+    <string name="ok_button">Ок</string>
+
+    <!-- timer -->
+    <string name="timer_step_of">%1$d из %2$d</string>
+    <string name="timer_pour_more">Влей еще %1$d до %2$d</string>
+
+    <!-- addCoffee -->
+    <string name="new_coffee_title">Новый кофе</string>
+    <string name="load_button">Загрузить</string>
+    <string name="add_button">Добавить</string>
+    <string name="tap_to_upload">Тыкни, чтобы загрузить</string>
+    <string name="coffee_loading">Смотрю, что за кофе...</string>
+    <string name="already_exist_dialog">Ты уже добавлял такой кофе. Хочешь заменить?</string>
+    <string name="density_label">Плотность</string>
+    <string name="acidity_label">Кислотность</string>
+
+    <!-- editCoffee -->
+    <string name="edit_title">Редактирование</string>
+    <string name="enter_name_label">Введи название</string>
+    <string name="enter_qgrade_label">Введи QGrade</string>
+    <string name="roasting_label">Обжарка</string>
+    <string name="processing_label">Обработка</string>
+    <string name="enter_description_label">Введи описание</string>
+    <string name="save_button">Сохранить</string>
+
+    <!-- coffeeDetails -->
+    <string name="edit_description_label">Введите описание</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="add_description">Добавить описание +</string>
+    <string name="q_grade_label">Q Grade</string>
+    <string name="q_grade_value">%1$s+</string>
+    <string name="roasting_with_comma">%1$s, </string>
+    <string name="description_label">Описание</string>
+
+    <!-- savedCoffee -->
+    <string name="processing_prefix">Обработка: %1$s</string>
+    <string name="delete_coffee_dialog">Вы хотите удалить %1$s?\n\nВсе рецепты с этим кофе также будут удалены.</string>
+
+    <!-- core -->
+    <string name="dialog_no">Нет</string>
+    <string name="dialog_yes">Да</string>
+
+    <!-- legacy placeholder screens -->
+    <string name="timer_placeholder">Timer</string>
+    <string name="my_recipes_title">Мои рецепты</string>
+    <string name="add_recipe_placeholder">Add recipe</string>
 </resources>

@@ -22,15 +22,15 @@ import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_ai_24
 import coffee.shared.generated.resources.ic_coffee_image_placeholder
+import coffee.shared.generated.resources.processing_prefix
 import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.blueGrayText
 import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.gray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
@@ -102,7 +102,7 @@ fun CoffeeItemContent(
         RegularAppText(
             text = roasting,
             fontSize = 14.sp,
-            color = blueGrayText
+            color = textSecondaryColor
         )
         Spacer(Modifier.padding(top = 15.dp))
         RegularAppText(
@@ -120,9 +120,9 @@ fun CoffeeItemContent(
         Spacer(modifier = Modifier.weight(1f))
 
         RegularAppText(
-            text = "Обработка: $processingMethod",
+            text = stringResource(Res.string.processing_prefix, processingMethod),
             fontSize = 14.sp,
-            color = gray,
+            color = textSecondaryColor,
         )
         Spacer(Modifier.padding(top = 10.dp))
         AppButton(

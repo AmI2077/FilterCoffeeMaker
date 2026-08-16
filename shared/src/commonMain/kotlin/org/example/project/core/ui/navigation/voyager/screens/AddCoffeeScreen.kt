@@ -11,7 +11,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.features.addCoffee.ui.composables.AddCoffeeScreen
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 
@@ -24,7 +24,7 @@ class AddCoffeeScreen : Screen {
             AddCoffeeScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundPrimary)
+                    .background(backgroundColor)
                     .padding(
                         start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
                         end = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,

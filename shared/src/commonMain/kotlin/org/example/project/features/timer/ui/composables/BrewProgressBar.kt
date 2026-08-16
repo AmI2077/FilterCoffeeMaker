@@ -12,7 +12,10 @@ import androidx.compose.ui.unit.sp
 import org.example.project.core.domain.model.BrewStep
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.brew_step_water
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BrewProgressRow(
@@ -39,8 +42,8 @@ fun BrewProgressRow(
                 Spacer(Modifier.padding(top = 5.dp))
                 RegularAppText(
                     fontSize = 16.sp,
-                    color = if (stepProgress == 1f) black else blueGrayText,
-                    text = "${step.amountWater} мл"
+                    color = if (stepProgress == 1f) black else textSecondaryColor,
+                    text = stringResource(Res.string.brew_step_water, step.amountWater)
                 )
             }
         }

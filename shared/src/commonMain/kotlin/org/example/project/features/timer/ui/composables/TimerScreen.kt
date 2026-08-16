@@ -21,16 +21,20 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_play_btn_24
 import coffee.shared.generated.resources.ic_playforward_24
+import coffee.shared.generated.resources.timer_pour_more
+import coffee.shared.generated.resources.timer_step_of
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import org.example.project.features.timer.ui.state.TimerScreenUiState
 import org.example.project.features.timer.ui.vm.TimerScreenModel
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TimerScreen(
@@ -82,13 +86,13 @@ fun TimerScreenContent(
         Box(
             modifier = Modifier
                 .background(
-                    color = blueGrayText.copy(alpha = 0.5f),
+                    color = lightGray,
                     shape = RoundedCornerShape(10.dp)
                 )
                 .padding(10.dp)
         ) {
             RegularAppText(
-                text = "$stepNumber из ${brewSteps.size}",
+                text = stringResource(Res.string.timer_step_of, stepNumber, brewSteps.size),
             )
         }
         Spacer(Modifier.padding(5.dp))
@@ -103,13 +107,13 @@ fun TimerScreenContent(
         if (waterStepsAmount > 0) {
             RegularAppText(
                 fontSize = 25.sp,
-                text = "Влей еще ${currentStep.amountWater} до $waterStepsAmount",
+                text = stringResource(Res.string.timer_pour_more, currentStep.amountWater, waterStepsAmount),
             )
         }
         Spacer(Modifier.padding(top = 20.dp))
         textHint?.let {
             RegularAppText(
-                color = blueGrayText,
+                color = textSecondaryColor,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Clip,
                 maxLines = Int.MAX_VALUE,
@@ -146,7 +150,7 @@ fun TimerScreenContent(
             },
             secondBtn = {
                 AppButton(
-                    containerColor = blueGrayText,
+                    containerColor = textSecondaryColor,
                     text = null,
                     icon = {
                         Icon(

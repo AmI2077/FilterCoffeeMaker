@@ -8,8 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.example.project.core.ui.theme.backgroundPrimary
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.headerTextStyle
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.timer_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TimerScreen(
@@ -19,7 +22,7 @@ fun TimerScreen(
         Text(
             modifier = Modifier
                 .align(Alignment.Center),
-            text = "Timer",
+            text = stringResource(Res.string.timer_placeholder),
             style = headerTextStyle
         )
     }
@@ -31,6 +34,6 @@ fun TimerScreenPreview() {
     TimerScreen(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundPrimary)
+            .background(backgroundColor)
     )
 }

@@ -1,29 +1,55 @@
 package org.example.project.features.coffeeDetails.ui.composables
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.add_description
+import coffee.shared.generated.resources.ic_edit_24
+import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
+import org.example.project.core.domain.model.mockCoffee
+import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.AppOutlinedButton
 import org.example.project.core.ui.components.RegularAppText
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.getComfortaBold
 import org.example.project.core.ui.theme.getComfortaRegular
+import org.example.project.core.ui.theme.regularTextStyle
+import org.example.project.core.ui.theme.textSecondaryColor
+import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsAction
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CoffeeDetailsScreen(
@@ -32,6 +58,7 @@ fun CoffeeDetailsScreen(
     detailsScreenModel: CoffeeDetailsScreenModel,
     editScreenModel: EditCoffeeScreenModel,
     onRecipeBtnClick: (coffeeId: String) -> Unit,
+    onBackBtnClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -73,53 +100,86 @@ fun CoffeeDetailsScreen(
             },
             onCancellationClick = {
                 detailsScreenModel.onCancelDescription()
-            }
+            },
+            onBackBtnClick = onBackBtnClick
         )
     }
 }
 
 @Composable
 fun CoffeeDetailsScreenContent(
-    modifier: Modifier,
-    coffee: Coffee,
-    showEditDescriptionField: Boolean,
-    onEditBtnClick: () -> Unit,
-    onRecipeBtnClick: () -> Unit,
-    onAddDescriptionBtnClick: () -> Unit,
-    onSaveDescription: (String) -> Unit,
-    onCancellationClick: () -> Unit,
+    modifier: Modifier = Modifier
+        .background(backgroundColor)
+        .padding(20.dp),
+    coffee: Coffee = mockCoffee,
+    showEditDescriptionField: Boolean = false,
+    onEditBtnClick: () -> Unit = {},
+    onRecipeBtnClick: () -> Unit = {},
+    onAddDescriptionBtnClick: () -> Unit = {},
+    onSaveDescription: (String) -> Unit = {},
+    onCancellationClick: () -> Unit = {},
+    onBackBtnClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        CoffeeImageWithQGrade(
+        CoffeeImageWithQGradeAndBackButton(
             model = coffee.imagePath,
-            qGrade = coffee.qGrade
+            qGrade = coffee.qGrade,
+            onBackBtnClick = onBackBtnClick
         )
+        Spacer(Modifier.height(20.dp))
         RoastingAndProcessingRow(
             roasting = coffee.roasting,
             processingMethod = coffee.processingMethod
         )
-        Spacer(Modifier.height(5.dp))
-        RegularAppText(
-            text = coffee.title,
-            fontSize = 30.sp,
-            fontFamily = getComfortaBold()
-        )
-        Spacer(Modifier.height(5.dp))
+        Spacer(Modifier.height(20.dp))
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RegularAppText(
+                modifier = Modifier.weight(0.6f),
+                text = coffee.title,
+                fontSize = 30.sp,
+                lineHeight = 36.sp,
+                fontFamily = getComfortaBold(),
+                maxLines = 2
+            )
+            Box(Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .border(
+                    width = 1.dp,
+                    color = textSecondaryColor.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(20.dp)
+                )
+                .clickable(onClick = onEditBtnClick)
+                .size(60.dp)
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(24.dp),
+                    painter = painterResource(Res.drawable.ic_edit_24),
+                    contentDescription = null,
+                )
+            }
+        }
+        Spacer(Modifier.height(20.dp))
         RegularAppText(
             text = coffee.tasteDescription,
             maxLines = Int.MAX_VALUE,
-            fontSize = 20.sp,
-            fontFamily = getComfortaRegular()
+            lineHeight = 25.sp,
+            fontSize = 16.sp,
+            fontFamily = getComfortaRegular(),
+            color = textSecondaryColor
         )
         Spacer(Modifier.height(20.dp))
         CoffeeBalance(
+            modifier = Modifier.fillMaxWidth(),
             density = coffee.density,
             acidity = coffee.acidity
         )
-        Spacer(Modifier.height(5.dp))
+        Spacer(Modifier.height(20.dp))
         if (showEditDescriptionField) {
             EditDescriptionView(
                 onSaveBtnClick = { onSaveDescription(it) },
@@ -131,10 +191,10 @@ fun CoffeeDetailsScreenContent(
                 onAddDescriptionBtnClick = onAddDescriptionBtnClick
             )
         }
-        CoffeeDetailsButtons(
+        Spacer(Modifier.height(20.dp))
+        RecipeButton(
             modifier = Modifier.fillMaxWidth(),
-            onRecipeBtnClick = onRecipeBtnClick,
-            onEditBtnClick = onEditBtnClick
+            onClick = onRecipeBtnClick
         )
     }
 }
@@ -146,7 +206,7 @@ private fun DescriptionView(
 ) {
     if (description.isNullOrBlank()) {
         AppOutlinedButton(
-            text = "Добавить описание +",
+            text = stringResource(Res.string.add_description),
             onClick = { onAddDescriptionBtnClick() }
         )
         Spacer(Modifier.height(40.dp))

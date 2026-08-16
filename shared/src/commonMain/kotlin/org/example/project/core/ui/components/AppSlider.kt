@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.getComfortaBold
 import kotlin.math.round
 import kotlin.math.pow
@@ -48,7 +48,7 @@ fun AppSlider(
             colors = SliderDefaults.colors(
                 thumbColor = black,
                 activeTrackColor = black,
-                inactiveTrackColor = blueGrayText
+                inactiveTrackColor = lightGray
             ),
             thumb = {
                 SliderThumb()

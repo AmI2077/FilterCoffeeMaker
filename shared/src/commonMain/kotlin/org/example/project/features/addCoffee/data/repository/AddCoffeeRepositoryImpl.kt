@@ -11,7 +11,7 @@ import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.Directories
-import org.example.project.core.data.resources.ResourceManager
+import org.example.project.core.domain.api.ResourceManager
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.addCoffee.data.extensions.CoffeeResponseSerializer
 import org.example.project.features.addCoffee.domain.AddCoffeeRepository
@@ -24,7 +24,7 @@ class AddCoffeeRepositoryImpl(
 ) : AddCoffeeRepository {
     override suspend fun getCoffeeDetailsFromImage(imageBase64: String): AddCoffeeRepositoryResult {
         return withContext(dispatcher) {
-            val prompt = resourceManager.getFileResource(Directories.AI_PROMPT_FILE_PATH)
+            val prompt = resourceManager.getFileResource(Directories.AI_COFFEE_PROMPT_FILE_PATH)
 
             val result = aiClient.makeRequest(
                 AiRequestDto.makeRequest(

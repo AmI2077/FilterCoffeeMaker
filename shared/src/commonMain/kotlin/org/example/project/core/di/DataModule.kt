@@ -10,23 +10,9 @@ import org.example.project.core.data.local.db.dao.CoffeeDao
 import org.example.project.core.data.local.db.dao.RecipeDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.client.YandexAiClient
-import org.example.project.core.data.resources.ResourceManager
 import org.example.project.core.data.resources.ResourceManagerImpl
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepositoryImpl
-import org.example.project.features.savedCoffee.data.repository.CoffeeRepositoryImpl
-import org.example.project.features.savedCoffee.domain.api.CoffeeRepository
-import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryImpl
-import org.example.project.features.addCoffee.domain.AddCoffeeRepository
-import org.example.project.features.recipeDetails.data.repository.LoaderScreenRepositoryImpl
-import org.example.project.features.recipeDetails.data.repository.RecipeDetailsRepositoryImpl
-import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
-import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
-import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
-import org.example.project.features.recipesList.domain.api.RecipesRepository
-import org.jetbrains.compose.resources.Resource
+import org.example.project.core.domain.api.ResourceManager
 import org.koin.dsl.module
-import org.koin.plugin.module.dsl.single
 
 val dataModule = module {
     includes(repositoryModule)

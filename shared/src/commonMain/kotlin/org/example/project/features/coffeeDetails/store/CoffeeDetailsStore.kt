@@ -13,6 +13,7 @@ import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateState
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
+import org.example.project.features.savedCoffee.domain.api.CoffeeInteractor
 
 class CoffeeDetailsStore(
     private val reducer: CoffeeDetailsReducer,
@@ -59,10 +60,14 @@ class CoffeeDetailsStore(
 
     fun saveDescription(description: String) {
         // TODO "пофиксить nullable coffee, ибо в этот момент он не может быть nullable"
-        _state.value.content?.copy(
+        val coffeeWithDesc = _state.value.content?.copy(
             userDescription = description
-        )?.let {
-            _state.updateState(reducer, CoffeeDetailsResult.SaveDescription(it))
+        )
+        scope.launch {
+            coffeeWithDesc?.let {
+                _state.updateState(reducer, CoffeeDetailsResult.SaveDescription(it))
+                repository.editCoffee(it)
+            }
         }
     }
 

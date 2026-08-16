@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.coffeeScreenTitle
+import coffee.shared.generated.resources.delete_coffee_dialog
 import coffee.shared.generated.resources.ic_add_24
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
@@ -64,7 +65,7 @@ fun SavedCoffeeScreen(
 
     if (showDialog != null) {
         AppDialog(
-            message = "Вы хотите удалить ${showDialog.coffee.title}?",
+            message = stringResource(Res.string.delete_coffee_dialog, showDialog.coffee.title),
             onConfirmClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Confirm(showDialog.coffee)) },
             onDismissClick = { screenModel.onDialogResult(SavedCoffeeDialogResult.Dismiss) }
         )

@@ -5,8 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.blueGrayText
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getComfortaRegular
+import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.roasting_with_comma
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RoastingAndProcessingRow(
@@ -18,15 +21,15 @@ fun RoastingAndProcessingRow(
         modifier = modifier,
     ) {
         RegularAppText(
-            text = "${roasting}, ",
-            fontSize = 20.sp,
-            color = blueGrayText,
+            text = stringResource(Res.string.roasting_with_comma, roasting),
+            fontSize = 14.sp,
+            color = textSecondaryColor,
             fontFamily = getComfortaRegular()
         )
         RegularAppText(
             text = processingMethod,
-            fontSize = 20.sp,
-            color = blueGrayText,
+            fontSize = 14.sp,
+            color = textSecondaryColor,
             fontFamily = getComfortaRegular()
         )
     }
