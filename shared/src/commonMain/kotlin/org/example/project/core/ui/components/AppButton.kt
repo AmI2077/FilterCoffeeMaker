@@ -39,7 +39,6 @@ fun AppButton(
         )
     ) {
         Row(
-            modifier = Modifier.padding(3.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {

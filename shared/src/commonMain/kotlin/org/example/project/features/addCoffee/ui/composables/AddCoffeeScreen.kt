@@ -61,7 +61,8 @@ fun AddCoffeeScreen(
     val photoPicker = rememberImagePickerKMP(
         config = ImagePickerKMPConfig(
             galleryConfig = GalleryConfig(
-                selectionLimit = 1
+                selectionLimit = 1,
+                includeExif = true
             ),
         ),
     )

@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,8 +35,10 @@ import org.example.project.core.domain.model.Recipe
 import org.example.project.core.domain.model.mockRecipe
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.getMontserratBold
+import org.example.project.core.ui.theme.getMontserratMedium
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
+import org.example.project.core.utils.toTimeString
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -47,6 +51,7 @@ fun SavedRecipeCard(
 ) {
     Row(
         modifier = modifier
+            .clip(RoundedCornerShape(20.dp))
             .clickable(
                 onClick = onClick
             )
@@ -92,7 +97,10 @@ private fun CardContent(
             waterAmount = recipe.waterAmount.toString(),
             temperature = recipe.waterTemperature.toString()
         )
-
+        Spacer(Modifier.weight(1f))
+        TimeRow(
+            time = recipe.brewTime.toTimeString()
+        )
     }
 }
 
@@ -155,15 +163,25 @@ private fun TimeRow(
     time: String,
 ) {
     Row(
-        modifier = modifier
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
+            modifier = Modifier.size(24.dp),
             painter = painterResource(Res.drawable.ic_clock_24),
             contentDescription = null,
         )
+        Spacer(Modifier.width(5.dp))
         RegularAppText(
             text = time,
-            fontSize = 14.sp
+            fontSize = 16.sp,
+            fontFamily = getMontserratMedium()
+        )
+        Spacer(Modifier.weight(1f))
+        RegularAppText(
+            text = "16 июня 2026",
+            fontSize = 14.sp,
+            color = textSecondaryColor
         )
     }
 }

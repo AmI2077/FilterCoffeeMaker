@@ -30,7 +30,8 @@ import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenActions
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenUiState
-import org.example.project.features.savedCoffee.ui.components.CoffeeItem
+import org.example.project.features.savedCoffee.ui.components.CoffeeCard
+import org.example.project.features.savedCoffee.ui.components.CoffeeVerticalCard
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -135,7 +136,7 @@ fun SavedCoffeeScreenContent(
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {
         items(state.savedCoffee) { coffee ->
-            CoffeeItem(
+            CoffeeVerticalCard(
                 modifier = Modifier
                     .fillMaxWidth(),
                 coffee = coffee,

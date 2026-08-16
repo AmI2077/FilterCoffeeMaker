@@ -48,13 +48,6 @@ class AddCoffeeScreenModel(
         }
     }
 
-    fun onDialogResult(result: AlreadyExistDialogResult) {
-        when(result) {
-            AlreadyExistDialogResult.Confirm -> store.onIntent(AddCoffeeIntent.ConfirmAlreadyExistDialog)
-            AlreadyExistDialogResult.Dismiss -> store.onIntent(AddCoffeeIntent.DismissAlreadyExistDialog)
-        }
-    }
-
     private fun onSuccessImagePickerResult(result: ImagePickerResult.Success) {
         val result = result.photos.first()
         val imageName = result.fileName
@@ -67,4 +60,12 @@ class AddCoffeeScreenModel(
             )
         )
     }
+
+    fun onDialogResult(result: AlreadyExistDialogResult) {
+        when(result) {
+            AlreadyExistDialogResult.Confirm -> store.onIntent(AddCoffeeIntent.ConfirmAlreadyExistDialog)
+            AlreadyExistDialogResult.Dismiss -> store.onIntent(AddCoffeeIntent.DismissAlreadyExistDialog)
+        }
+    }
+
 }

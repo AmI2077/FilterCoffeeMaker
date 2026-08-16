@@ -4,15 +4,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import org.example.project.core.ui.theme.getCaveatBold
+import org.example.project.core.ui.theme.getMontserratExtraBold
 import org.example.project.core.ui.theme.getMontserratRegular
-import org.example.project.core.ui.theme.headerTextStyle
-import org.example.project.core.ui.theme.regularTextStyle
 import org.example.project.core.ui.theme.textPrimaryColor
 
 @Composable
@@ -34,7 +33,7 @@ fun RegularAppText(
         overflow = overflow,
         textAlign = textAlign,
         lineHeight = lineHeight,
-        style = regularTextStyle.copy(
+        style = TextStyle(
             fontFamily = fontFamily,
             color = color,
             fontSize = fontSize
@@ -50,14 +49,14 @@ fun HeaderAppText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     color: Color = textPrimaryColor,
     fontSize: TextUnit = 42.sp,
-    fontFamily: FontFamily = getCaveatBold()
+    fontFamily: FontFamily = getMontserratExtraBold()
 ) {
     Text(
         modifier = modifier,
         text = text,
         maxLines = maxLines,
         overflow = overflow,
-        style = headerTextStyle.copy(
+        style = TextStyle(
             color = color,
             fontSize = fontSize,
             fontFamily = fontFamily
