@@ -1,4 +1,4 @@
-package org.example.project.features.recipesList.data.repository
+package org.example.project.features.recentRecipes.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -8,7 +8,7 @@ import org.example.project.core.data.extensions.toModel
 import org.example.project.core.data.local.db.dao.CoffeeDao
 import org.example.project.core.data.local.db.dao.RecipeDao
 import org.example.project.core.domain.model.Recipe
-import org.example.project.features.recipesList.domain.api.RecipesRepository
+import org.example.project.features.recentRecipes.domain.api.RecipesRepository
 
 class RecipesRepositoryImpl(
     private val recipeDao: RecipeDao,

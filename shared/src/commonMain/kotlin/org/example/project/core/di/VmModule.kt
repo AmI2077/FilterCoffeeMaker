@@ -1,6 +1,5 @@
 package org.example.project.core.di
 
-import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
@@ -9,7 +8,7 @@ import org.example.project.features.coffeeDetails.store.CoffeeDetailsStore
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
-import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
+import org.example.project.features.recentRecipes.ui.vm.RecipesScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.example.project.features.timer.ui.vm.TimerScreenModel

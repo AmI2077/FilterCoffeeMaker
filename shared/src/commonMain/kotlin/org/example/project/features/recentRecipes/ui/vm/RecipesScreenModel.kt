@@ -1,4 +1,4 @@
-package org.example.project.features.recipesList.ui.vm
+package org.example.project.features.recentRecipes.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.features.recipesList.domain.api.RecipesRepository
+import org.example.project.features.recentRecipes.domain.api.RecipesRepository
 
 class RecipesScreenModel(
     private val recipesRepository: RecipesRepository,

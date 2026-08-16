@@ -9,8 +9,8 @@ import org.example.project.features.recipeDetails.data.repository.LoaderScreenRe
 import org.example.project.features.recipeDetails.data.repository.RecipeDetailsRepositoryImpl
 import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
 import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
-import org.example.project.features.recipesList.data.repository.RecipesRepositoryImpl
-import org.example.project.features.recipesList.domain.api.RecipesRepository
+import org.example.project.features.recentRecipes.data.repository.RecipesRepositoryImpl
+import org.example.project.features.recentRecipes.domain.api.RecipesRepository
 import org.example.project.features.savedCoffee.data.repository.CoffeeRepositoryImpl
 import org.example.project.features.savedCoffee.domain.api.CoffeeRepository
 import org.koin.dsl.module

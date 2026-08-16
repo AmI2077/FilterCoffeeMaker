@@ -1,4 +1,4 @@
-package org.example.project.features.recipesList.ui.composables
+package org.example.project.features.recentRecipes.ui.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,8 +27,8 @@ import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.white
-import org.example.project.features.recipesList.ui.vm.RecipesScreenModel
-import org.example.project.features.recipesList.ui.vm.RecipesScreenUiState
+import org.example.project.features.recentRecipes.ui.vm.RecipesScreenModel
+import org.example.project.features.recentRecipes.ui.vm.RecipesScreenUiState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

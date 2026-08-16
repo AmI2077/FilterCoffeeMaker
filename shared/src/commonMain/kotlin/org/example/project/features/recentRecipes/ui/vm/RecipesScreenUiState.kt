@@ -1,4 +1,4 @@
-package org.example.project.features.recipesList.ui.vm
+package org.example.project.features.recentRecipes.ui.vm
 
 import org.example.project.core.domain.model.Recipe
 
