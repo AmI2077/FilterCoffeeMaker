@@ -1,4 +1,4 @@
-package org.example.project.ui.screens
+package org.example.project.features.savedRecipes.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

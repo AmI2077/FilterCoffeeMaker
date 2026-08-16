@@ -1,4 +1,4 @@
-package org.example.project.ui.components
+package org.example.project.core.ui.components
 
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable

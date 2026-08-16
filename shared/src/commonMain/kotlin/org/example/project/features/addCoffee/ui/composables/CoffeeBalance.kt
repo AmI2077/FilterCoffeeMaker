@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.white
-import org.example.project.ui.components.CustomProgressIndicator
+import org.example.project.core.ui.components.CustomProgressIndicator
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.density_label
 import coffee.shared.generated.resources.acidity_label

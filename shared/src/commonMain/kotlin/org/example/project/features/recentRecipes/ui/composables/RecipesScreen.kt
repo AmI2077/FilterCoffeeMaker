@@ -50,7 +50,7 @@ fun RecipesScreen(
 }
 
 @Composable
-fun RecipesScreenContent(
+private fun RecipesScreenContent(
     modifier: Modifier = Modifier,
     state: RecipesScreenUiState,
     onRecipeClick: (recipe: Recipe) -> Unit,
@@ -84,7 +84,7 @@ fun RecipesScreenContent(
 }
 
 @Composable
-fun RecipeHeader() {
+private fun RecipeHeader() {
     HeaderAppText(
         text = stringResource(Res.string.greeting)
     )
