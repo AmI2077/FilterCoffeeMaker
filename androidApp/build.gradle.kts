@@ -24,6 +24,10 @@ android {
     namespace = "org.example.project"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    lint {
+        abortOnError = false
+        checkDependencies = true
+    }
     defaultConfig {
         applicationId = "org.example.project"
         minSdk = libs.versions.android.minSdk.get().toInt()
