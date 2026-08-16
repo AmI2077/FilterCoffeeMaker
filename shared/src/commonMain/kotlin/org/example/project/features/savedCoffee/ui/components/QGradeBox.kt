@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaRegular
+import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.regularTextStyle
 import org.example.project.core.ui.theme.white
 
@@ -29,7 +29,7 @@ private fun QGradeBox(qGrade: String) {
             text = qGrade,
             style = regularTextStyle.copy(
                 fontSize = 14.sp,
-                fontFamily = getComfortaRegular(),
+                fontFamily = getMontserratRegular(),
                 color = black
             )
         )

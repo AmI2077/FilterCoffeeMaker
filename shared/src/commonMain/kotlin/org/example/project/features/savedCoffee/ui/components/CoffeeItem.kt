@@ -29,7 +29,7 @@ import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
@@ -108,7 +108,7 @@ fun CoffeeItemContent(
         RegularAppText(
             text = title,
             fontSize = 20.sp,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.padding(top = 10.dp))
         RegularAppText(

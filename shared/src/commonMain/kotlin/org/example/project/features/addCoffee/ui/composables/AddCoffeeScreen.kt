@@ -35,7 +35,7 @@ import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.store.AddCoffeeActions
@@ -191,7 +191,7 @@ fun CoffeeInfoContent(
         RegularAppText(
             text = coffee.title,
             fontSize = 28.sp,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.padding(top = 20.dp))
         RegularAppText(

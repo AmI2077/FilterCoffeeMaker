@@ -36,7 +36,7 @@ import org.example.project.core.domain.model.mockRecipe
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
@@ -79,7 +79,7 @@ fun RecipeCard(
             text = recipe.title,
             fontSize = 18.sp,
             maxLines = 2,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.padding(top = 10.dp))
         RegularAppText(

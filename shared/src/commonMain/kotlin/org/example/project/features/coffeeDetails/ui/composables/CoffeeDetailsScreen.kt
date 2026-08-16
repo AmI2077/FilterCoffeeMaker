@@ -3,7 +3,6 @@ package org.example.project.features.coffeeDetails.ui.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,37 +11,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.add_description
 import coffee.shared.generated.resources.ic_edit_24
-import coffee.shared.generated.resources.recipe
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.mockCoffee
-import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.AppOutlinedButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.backgroundColor
-import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.getComfortaRegular
-import org.example.project.core.ui.theme.regularTextStyle
+import org.example.project.core.ui.theme.getMontserratBold
+import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsAction
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
@@ -142,7 +134,7 @@ fun CoffeeDetailsScreenContent(
                 text = coffee.title,
                 fontSize = 30.sp,
                 lineHeight = 36.sp,
-                fontFamily = getComfortaBold(),
+                fontFamily = getMontserratBold(),
                 maxLines = 2
             )
             Box(Modifier
@@ -170,7 +162,7 @@ fun CoffeeDetailsScreenContent(
             maxLines = Int.MAX_VALUE,
             lineHeight = 25.sp,
             fontSize = 16.sp,
-            fontFamily = getComfortaRegular(),
+            fontFamily = getMontserratRegular(),
             color = textSecondaryColor
         )
         Spacer(Modifier.height(20.dp))

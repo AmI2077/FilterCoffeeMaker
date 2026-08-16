@@ -2,54 +2,44 @@ package org.example.project.core.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
+import coffee.shared.generated.resources.Montserrat_Bold
+import coffee.shared.generated.resources.Montserrat_ExtraBold
+import coffee.shared.generated.resources.Montserrat_Medium
+import coffee.shared.generated.resources.Montserrat_Regular
 import coffee.shared.generated.resources.Res
-import coffee.shared.generated.resources.caveat_bold
-import coffee.shared.generated.resources.caveat_regular
 import coffee.shared.generated.resources.comfortaa_bold
 import coffee.shared.generated.resources.comfortaa_regular
-import coffee.shared.generated.resources.ptsans_bold
-import coffee.shared.generated.resources.ptsans_regular
 import org.jetbrains.compose.resources.Font
 
-
-private val ptSansRegular = Res.font.ptsans_regular
-private val ptSansBold = Res.font.ptsans_bold
-private val comfortaRegular = Res.font.comfortaa_regular
-private val comfortaBold = Res.font.comfortaa_bold
-private val caveatRegular = Res.font.caveat_regular
-private val caveatBold = Res.font.caveat_bold
+private val montserratRegular = Res.font.Montserrat_Regular
+private val montserratBold = Res.font.Montserrat_Bold
+private val montserratExtraBold = Res.font.Montserrat_ExtraBold
+private val montserratMedium = Res.font.Montserrat_Medium
 
 @Composable
-fun getPtSansRegular(): FontFamily {
+fun getMontserratRegular(): FontFamily {
     return FontFamily(
-        Font(ptSansRegular)
+        Font(montserratRegular)
     )
 }
 
 @Composable
-fun getPtSansBold(): FontFamily {
+fun getMontserratMedium(): FontFamily {
     return FontFamily(
-        Font(Res.font.ptsans_bold)
+        Font(montserratMedium)
     )
 }
 
 @Composable
-fun getComfortaRegular(): FontFamily {
+fun getMontserratBold(): FontFamily {
     return FontFamily(
-        Font(comfortaRegular)
+        Font(montserratBold)
     )
 }
 
 @Composable
-fun getComfortaBold(): FontFamily {
+fun getMontserratExtraBold(): FontFamily {
     return FontFamily(
-        Font(comfortaBold)
-    )
-}
-
-@Composable
-fun getCaveatBold(): FontFamily {
-    return FontFamily(
-        Font(caveatBold)
+        Font(montserratExtraBold)
     )
 }

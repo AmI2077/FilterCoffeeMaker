@@ -28,7 +28,7 @@ import org.example.project.core.ui.components.AppSlider
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.white
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.acidity_label
@@ -59,7 +59,7 @@ fun EditBottomSheetContent(
         RegularAppText(
             text = stringResource(Res.string.edit_title),
             fontSize = 24.sp,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.height(10.dp))
         AppOutlinedTextField(

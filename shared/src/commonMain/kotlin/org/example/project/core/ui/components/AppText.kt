@@ -9,22 +9,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getCaveatBold
-import org.example.project.core.ui.theme.getComfortaRegular
+import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.headerTextStyle
 import org.example.project.core.ui.theme.regularTextStyle
+import org.example.project.core.ui.theme.textPrimaryColor
 
 @Composable
 fun RegularAppText(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = black,
+    color: Color = textPrimaryColor,
     maxLines: Int = 1,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     textAlign: TextAlign? = null,
     fontSize: TextUnit = 20.sp,
-    fontFamily: FontFamily = getComfortaRegular(),
+    fontFamily: FontFamily = getMontserratRegular(),
     lineHeight: TextUnit = TextUnit.Unspecified
 ) {
     Text(
@@ -48,7 +48,7 @@ fun HeaderAppText(
     text: String,
     maxLines: Int = 1,
     overflow: TextOverflow = TextOverflow.Ellipsis,
-    color: Color = black,
+    color: Color = textPrimaryColor,
     fontSize: TextUnit = 42.sp,
     fontFamily: FontFamily = getCaveatBold()
 ) {

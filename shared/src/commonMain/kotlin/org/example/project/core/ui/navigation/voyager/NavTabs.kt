@@ -1,5 +1,6 @@
 package org.example.project.core.ui.navigation.voyager
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -15,6 +16,7 @@ import coffee.shared.generated.resources.ic_saved_recipes_screen_24
 import org.example.project.core.ui.navigation.voyager.screens.AddCoffeeScreen
 import org.example.project.core.ui.navigation.voyager.screens.CoffeeDetailsScreen
 import org.example.project.core.ui.navigation.voyager.screens.NewRecipeScreen
+import org.example.project.core.ui.theme.white
 import org.example.project.features.savedCoffee.ui.screens.SavedCoffeeScreen
 import org.example.project.features.recentRecipes.ui.composables.RecipesScreen
 import org.example.project.features.recentRecipes.ui.vm.RecipesScreenModel
@@ -58,7 +60,11 @@ object RecentRecipesTab : Tab {
 object SavedRecipesTab : Tab {
     @Composable
     override fun Content() {
-        SavedRecipesScreen(modifier = Modifier.fillMaxSize())
+        SavedRecipesScreen(
+            modifier = Modifier
+                .background(white)
+                .fillMaxSize()
+        )
     }
 
     override val options: TabOptions

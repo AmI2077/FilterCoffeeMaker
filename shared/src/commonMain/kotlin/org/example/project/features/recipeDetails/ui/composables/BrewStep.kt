@@ -20,9 +20,8 @@ import coffee.shared.generated.resources.ic_clock_24
 import coffee.shared.generated.resources.ic_water_drip_24
 import coffee.shared.generated.resources.step_time_range
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -50,7 +49,7 @@ fun BrewStep(
             RegularAppText(
                 text = number.toString(),
                 fontSize = 18.sp,
-                fontFamily = getComfortaBold()
+                fontFamily = getMontserratBold()
             )
         }
 
@@ -70,7 +69,7 @@ fun BrewStep(
         Spacer(Modifier.weight(1f))
         RegularAppText(
             text = stringResource(Res.string.brew_step_water, waterAmount),
-            fontFamily = getComfortaBold(),
+            fontFamily = getMontserratBold(),
         )
         Spacer(Modifier.width(10.dp))
         Icon(

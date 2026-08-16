@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.recipe
 import org.example.project.core.ui.components.AppButton
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.regularTextStyle
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.stringResource
@@ -27,7 +27,7 @@ fun RecipeButton(
                 modifier = Modifier.padding(vertical = 20.dp),
                 text = stringResource(Res.string.recipe),
                 style = regularTextStyle.copy(
-                    fontFamily = getComfortaBold(),
+                    fontFamily = getMontserratBold(),
                     color = white,
                     fontSize = 20.sp,
                 )

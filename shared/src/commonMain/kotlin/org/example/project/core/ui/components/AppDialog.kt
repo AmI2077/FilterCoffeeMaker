@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.white
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import coffee.shared.generated.resources.Res
@@ -60,7 +60,7 @@ private fun DialogContent(
             text = message,
             color = black,
             fontSize = 20.sp,
-            fontFamily = getComfortaBold(),
+            fontFamily = getMontserratBold(),
             maxLines = Int.MAX_VALUE
         )
         Spacer(Modifier.padding(top = 30.dp))
@@ -110,7 +110,7 @@ private fun AcceptBtn(
             RegularAppText(
                 modifier = Modifier.padding(10.dp),
                 text = stringResource(Res.string.dialog_yes),
-                fontFamily = getComfortaBold(),
+                fontFamily = getMontserratBold(),
                 color = white,
             )
         },

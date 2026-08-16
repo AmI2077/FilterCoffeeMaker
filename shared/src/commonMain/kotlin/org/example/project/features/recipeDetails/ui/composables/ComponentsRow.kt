@@ -1,15 +1,12 @@
 package org.example.project.features.recipeDetails.ui.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.VerticalDivider
@@ -27,8 +24,8 @@ import coffee.shared.generated.resources.ic_temperature_24
 import coffee.shared.generated.resources.temperature_label
 import coffee.shared.generated.resources.water_label
 import org.example.project.core.ui.components.RegularAppText
-import org.example.project.core.ui.theme.getComfortaBold
-import org.example.project.core.ui.theme.getComfortaRegular
+import org.example.project.core.ui.theme.getMontserratBold
+import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
@@ -97,7 +94,7 @@ fun ComponentItem(
     RegularAppText(
         text = text,
         fontSize = 18.sp,
-        fontFamily = getComfortaBold()
+        fontFamily = getMontserratBold()
     )
     Spacer(Modifier.height(10.dp))
     Icon(
@@ -110,7 +107,7 @@ fun ComponentItem(
     RegularAppText(
         text = type,
         fontSize = 14.sp,
-        fontFamily = getComfortaRegular(),
+        fontFamily = getMontserratRegular(),
         color = textSecondaryColor
     )
 

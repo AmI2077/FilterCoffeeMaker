@@ -3,7 +3,6 @@ package org.example.project.features.recipeDetails.ui.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +28,7 @@ import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.textPrimaryColor
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
@@ -143,7 +142,7 @@ fun RecipeDetailsScreenContent(
                     RegularAppText(
                         text = recipe.brewTime.toTimeString(),
                         color = textPrimaryColor,
-                        fontFamily = getComfortaBold()
+                        fontFamily = getMontserratBold()
                     )
                 }
                 Spacer(Modifier.height(10.dp))
@@ -160,7 +159,7 @@ fun RecipeDetailsScreenContent(
 
             RegularAppText(
                 text = stringResource(Res.string.steps_brewing_title),
-                fontFamily = getComfortaBold(),
+                fontFamily = getMontserratBold(),
                 fontSize = 24.sp,
                 color = textPrimaryColor
 

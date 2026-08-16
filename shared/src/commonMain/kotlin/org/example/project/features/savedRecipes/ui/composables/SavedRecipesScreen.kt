@@ -27,6 +27,13 @@ fun SavedRecipesScreen(
     }
 }
 
+@Composable
+fun SavedRecipesContent(
+    modifier: Modifier = Modifier,
+) {
+
+}
+
 @Preview
 @Composable
 fun SavedRecipesPreview() {

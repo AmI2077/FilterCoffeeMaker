@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.white
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.q_grade_label
@@ -51,7 +51,7 @@ fun QGradeBox(
             text = stringResource(Res.string.q_grade_value, qGrade),
             fontSize = 26.sp,
             color = black,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
     }
 }
