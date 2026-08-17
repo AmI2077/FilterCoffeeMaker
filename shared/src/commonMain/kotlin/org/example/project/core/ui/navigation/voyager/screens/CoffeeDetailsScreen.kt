@@ -1,6 +1,7 @@
 package org.example.project.core.ui.navigation.voyager.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -10,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import kotlinx.datetime.format.Padding
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
@@ -27,13 +29,11 @@ class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
             CoffeeDetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundColor)
-                    .padding(
-                        start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
-                        end = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding(),
-                    ),
+                    .background(backgroundColor),
+                verticalPaddings = PaddingValues(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateTopPadding()
+                ),
                 detailsScreenModel = koinScreenModel<CoffeeDetailsScreenModel>(),
                 editScreenModel = koinScreenModel<EditCoffeeScreenModel>(),
                 coffeeId = coffeeId,

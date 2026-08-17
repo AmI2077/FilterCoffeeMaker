@@ -30,6 +30,7 @@ import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
+import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenActions
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenUiState
@@ -106,7 +107,7 @@ fun CoffeeHeader(
     ) {
         HeaderAppText(
             text = stringResource(Res.string.coffeeScreenTitle),
-            fontSize = 46.sp,
+            fontSize = UiDefaults.SCREEN_HEADER_TEXT_SIZE.sp,
         )
         Spacer(Modifier.weight(1f))
         AppButton(
@@ -140,28 +141,6 @@ fun SavedCoffeeScreenContent(
         onLongItemClick = onLongItemClick,
         onRecipeBtnClick = onRecipeBtnClick
     )
-//    LazyColumn(
-//        modifier = modifier,
-//        verticalArrangement = Arrangement.spacedBy(10.dp),
-//        contentPadding = PaddingValues(vertical = 10.dp)
-//    ) {
-//        items(state.savedCoffee) { coffee ->
-//            CoffeeVerticalCard(
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//                coffee = coffee,
-//                onRecipeBtnClick = { coffeeId ->
-//                    onRecipeBtnClick(coffeeId)
-//                },
-//                onClick = { coffeeId ->
-//                    onItemClick(coffeeId)
-//                },
-//                onLongClick = { coffee ->
-//                    onLongItemClick(coffee)
-//                }
-//            )
-//        }
-//    }
 }
 
 @Composable

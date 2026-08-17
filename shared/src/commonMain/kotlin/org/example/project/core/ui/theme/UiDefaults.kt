@@ -10,4 +10,6 @@ object UiDefaults {
     const val CARD_SMALL_TEXT_SIZE = 12
     const val CARD_REGULAR_TEXT_SIZE = 14
     const val CARD_HEADER_TEXT_SIZE = 18
+
+    const val SCREEN_HEADER_TEXT_SIZE = 36
 }
