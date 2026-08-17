@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.white
 
 @Composable
 fun AppOutlinedButton(

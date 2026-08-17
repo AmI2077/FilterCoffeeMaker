@@ -2,9 +2,8 @@ package org.example.project.features.addCoffee.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.ismoy.imagepickerkmp.domain.extensions.loadBytes
-import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResult
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.utils.getCoffeeImageName
 import org.example.project.features.addCoffee.store.AddCoffeeIntent
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.composables.AlreadyExistDialogResult
@@ -36,15 +35,14 @@ class AddCoffeeScreenModel(
          * **/
     }
 
-    fun loadPickedImage(
-        result: ImagePickerResult
-    ) {
-        when (result) {
-            ImagePickerResult.Dismissed -> Unit
-            is ImagePickerResult.Error -> Unit
-            ImagePickerResult.Idle -> Unit
-            ImagePickerResult.Loading -> Unit
-            is ImagePickerResult.Success -> onSuccessImagePickerResult(result)
+    fun loadImage(bytes: ByteArray?) {
+        bytes?.let { bytes ->
+            store.onIntent(
+                AddCoffeeIntent.ImagePicked(
+                    imageName = getCoffeeImageName(),
+                    imageByteArray = bytes
+                )
+            )
         }
     }
 
@@ -53,18 +51,5 @@ class AddCoffeeScreenModel(
             AlreadyExistDialogResult.Confirm -> store.onIntent(AddCoffeeIntent.ConfirmAlreadyExistDialog)
             AlreadyExistDialogResult.Dismiss -> store.onIntent(AddCoffeeIntent.DismissAlreadyExistDialog)
         }
-    }
-
-    private fun onSuccessImagePickerResult(result: ImagePickerResult.Success) {
-        val result = result.photos.first()
-        val imageName = result.fileName
-        val imageByteArray = result.loadBytes()
-
-        store.onIntent(
-            AddCoffeeIntent.ImagePicked(
-                imageName = imageName,
-                imageByteArray = imageByteArray
-            )
-        )
     }
 }

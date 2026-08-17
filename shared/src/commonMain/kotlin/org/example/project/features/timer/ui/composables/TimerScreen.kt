@@ -28,7 +28,7 @@ import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import org.example.project.features.timer.ui.state.TimerScreenUiState
@@ -101,7 +101,7 @@ fun TimerScreenContent(
             maxLines = 2,
             textAlign = TextAlign.Center,
             fontSize = 90.sp,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.padding(top = 10.dp))
         if (waterStepsAmount > 0) {

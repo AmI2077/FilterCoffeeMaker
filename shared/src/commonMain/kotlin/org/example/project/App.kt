@@ -6,11 +6,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import org.example.project.core.ui.navigation.voyager.screens.MainScreen
+import org.example.project.core.ui.theme.AppTheme
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    AppTheme {
         Navigator(MainScreen()) { navigator ->
             SlideTransition(
                 navigator = navigator

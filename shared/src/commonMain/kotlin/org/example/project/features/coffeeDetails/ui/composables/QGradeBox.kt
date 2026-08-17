@@ -15,11 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.white
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.q_grade_label
 import coffee.shared.generated.resources.q_grade_value
+import org.example.project.core.ui.theme.UiDefaults
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -34,24 +35,24 @@ fun QGradeBox(
                 color = white.copy(alpha = 0.6f),
             )
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = Color.White,
                 shape = RoundedCornerShape(10.dp)
             )
-            .padding(10.dp),
+            .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(7.dp)
     ) {
         RegularAppText(
             text = stringResource(Res.string.q_grade_label),
-            fontSize = 12.sp,
+            fontSize = UiDefaults.CARD_SMALL_TEXT_SIZE.sp,
             color = black
         )
         RegularAppText(
             text = stringResource(Res.string.q_grade_value, qGrade),
-            fontSize = 26.sp,
+            fontSize = UiDefaults.CARD_HEADER_TEXT_SIZE.sp,
             color = black,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
     }
 }

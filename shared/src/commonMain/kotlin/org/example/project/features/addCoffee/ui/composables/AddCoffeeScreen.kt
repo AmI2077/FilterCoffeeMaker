@@ -26,18 +26,16 @@ import coffee.shared.generated.resources.ic_edit_24
 import coffee.shared.generated.resources.load_button
 import coffee.shared.generated.resources.new_coffee_title
 import coffee.shared.generated.resources.tap_to_upload
-import io.github.ismoy.imagepickerkmp.domain.config.GalleryConfig
-import io.github.ismoy.imagepickerkmp.features.imagepicker.config.ImagePickerKMPConfig
-import io.github.ismoy.imagepickerkmp.features.imagepicker.ui.rememberImagePickerKMP
+import org.example.project.core.domain.impl.rememberImagePicker
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.AppDialog
 import org.example.project.core.ui.components.HeaderAppText
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
+import org.example.project.core.ui.theme.textPrimaryColorLight
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.store.AddCoffeeActions
 import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
 import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
@@ -58,21 +56,14 @@ fun AddCoffeeScreen(
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
 
-    val photoPicker = rememberImagePickerKMP(
-        config = ImagePickerKMPConfig(
-            galleryConfig = GalleryConfig(
-                selectionLimit = 1
-            ),
-        ),
-    )
-    LaunchedEffect(photoPicker.result) {
-        screenModel.loadPickedImage(photoPicker.result)
+    val imagePicker = rememberImagePicker { bytes ->
+        screenModel.loadImage(bytes)
     }
 
     LaunchedEffect(Unit) {
         screenModel.uiActions.collect { action ->
             when (action) {
-                AddCoffeeActions.OpenGallery -> photoPicker.launchGallery()
+                AddCoffeeActions.OpenGallery -> imagePicker.launchGallery()
                 is AddCoffeeActions.AddCoffeeBtnClicked -> {
                     onAddBtnClick()
                 }
@@ -160,7 +151,7 @@ fun AddCoffeeScreenContent(
                 RegularAppText(
                     modifier = Modifier.padding(vertical = 20.dp),
                     text = stringResource(Res.string.load_button),
-                    color = white
+                    color = textPrimaryColorLight
                 )
             },
             isEnabled = imageDirectory != null,
@@ -191,7 +182,7 @@ fun CoffeeInfoContent(
         RegularAppText(
             text = coffee.title,
             fontSize = 28.sp,
-            fontFamily = getComfortaBold()
+            fontFamily = getMontserratBold()
         )
         Spacer(Modifier.padding(top = 20.dp))
         RegularAppText(
@@ -219,7 +210,7 @@ fun CoffeeInfoContent(
                             modifier = Modifier
                                 .padding(vertical = 20.dp),
                             text = stringResource(Res.string.add_button),
-                            color = white
+                            color = textPrimaryColorLight
                         )
                     },
                     icon = null,

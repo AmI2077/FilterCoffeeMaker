@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.lightGray
-import org.example.project.core.ui.theme.getComfortaBold
+import org.example.project.core.ui.theme.getMontserratBold
 import kotlin.math.round
 import kotlin.math.pow
 
@@ -59,7 +59,7 @@ fun AppSlider(
                 .weight(0.2f),
             textAlign = TextAlign.Center,
             text = "${roundFloatValue(sliderValue, 2)}",
-            fontFamily = getComfortaBold(),
+            fontFamily = getMontserratBold(),
             fontSize = 24.sp
         )
     }

@@ -6,11 +6,11 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.getComfortaRegular
-import org.example.project.core.ui.theme.regularTextStyle
+import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.white
 
 @Composable
@@ -27,8 +27,8 @@ fun AppOutlinedTextField(
     OutlinedTextField(
         modifier = modifier,
         value = text,
-        textStyle = regularTextStyle.copy(
-            fontFamily = getComfortaRegular()
+        textStyle = TextStyle(
+            fontFamily = getMontserratRegular()
         ),
         onValueChange = onTextChange,
         label = {

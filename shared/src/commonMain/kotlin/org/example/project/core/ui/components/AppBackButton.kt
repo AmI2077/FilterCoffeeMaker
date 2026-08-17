@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.ic_back_button_24
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
 
@@ -27,11 +28,11 @@ fun AppBackButton(
         modifier = modifier
             .clip(RoundedCornerShape(15.dp))
             .background(
-                color = white.copy(alpha = 0.8f),
+                color = backgroundColor.copy(alpha = 0.6f),
             )
             .border(
                 width = 1.dp,
-                color = Color.White,
+                color = white,
                 shape = RoundedCornerShape(15.dp)
             )
             .padding(10.dp),
