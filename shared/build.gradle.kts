@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.ktor.client.darwin)
         }
         androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.exifinterface)
             implementation(libs.koin.android)
             implementation(libs.compose.uiToolingPreview)

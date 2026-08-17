@@ -2,12 +2,17 @@ package org.example.project.features.addCoffee.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.ismoy.imagepickerkmp.domain.extensions.loadBytes
-import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResult
+import io.github.ismoy.imagepickerkmp.extensions.loadBytes
+import io.github.ismoy.imagepickerkmp.picker.ImagePickerResult
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.TimeZone
+import okio.Timeout
+import org.example.project.core.utils.getCoffeeImageName
 import org.example.project.features.addCoffee.store.AddCoffeeIntent
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.composables.AlreadyExistDialogResult
+import kotlin.time.Clock
 
 class AddCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> AddCoffeeStore
@@ -36,29 +41,15 @@ class AddCoffeeScreenModel(
          * **/
     }
 
-    fun loadPickedImage(
-        result: ImagePickerResult
-    ) {
-        when (result) {
-            ImagePickerResult.Dismissed -> Unit
-            is ImagePickerResult.Error -> Unit
-            ImagePickerResult.Idle -> Unit
-            ImagePickerResult.Loading -> Unit
-            is ImagePickerResult.Success -> onSuccessImagePickerResult(result)
-        }
-    }
-
-    private fun onSuccessImagePickerResult(result: ImagePickerResult.Success) {
-        val result = result.photos.first()
-        val imageName = result.fileName
-        val imageByteArray = result.loadBytes()
-
-        store.onIntent(
-            AddCoffeeIntent.ImagePicked(
-                imageName = imageName,
-                imageByteArray = imageByteArray
+    fun loadImage(bytes: ByteArray?) {
+        bytes?.let { bytes ->
+            store.onIntent(
+                AddCoffeeIntent.ImagePicked(
+                    imageName = getCoffeeImageName(),
+                    imageByteArray = bytes
+                )
             )
-        )
+        }
     }
 
     fun onDialogResult(result: AlreadyExistDialogResult) {
@@ -67,5 +58,4 @@ class AddCoffeeScreenModel(
             AlreadyExistDialogResult.Dismiss -> store.onIntent(AddCoffeeIntent.DismissAlreadyExistDialog)
         }
     }
-
 }

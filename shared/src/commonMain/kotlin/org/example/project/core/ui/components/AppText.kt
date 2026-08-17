@@ -12,13 +12,13 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.getMontserratExtraBold
 import org.example.project.core.ui.theme.getMontserratRegular
-import org.example.project.core.ui.theme.textPrimaryColor
+import org.example.project.core.ui.theme.textPrimaryColorDark
 
 @Composable
 fun RegularAppText(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = textPrimaryColor,
+    color: Color = textPrimaryColorDark,
     maxLines: Int = 1,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     textAlign: TextAlign? = null,
@@ -47,7 +47,7 @@ fun HeaderAppText(
     text: String,
     maxLines: Int = 1,
     overflow: TextOverflow = TextOverflow.Ellipsis,
-    color: Color = textPrimaryColor,
+    color: Color = textPrimaryColorDark,
     fontSize: TextUnit = 42.sp,
     fontFamily: FontFamily = getMontserratExtraBold()
 ) {

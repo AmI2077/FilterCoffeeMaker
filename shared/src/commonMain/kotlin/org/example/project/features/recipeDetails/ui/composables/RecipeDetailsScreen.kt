@@ -29,7 +29,7 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.getMontserratBold
-import org.example.project.core.ui.theme.textPrimaryColor
+import org.example.project.core.ui.theme.textPrimaryColorDark
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
@@ -141,7 +141,7 @@ fun RecipeDetailsScreenContent(
                     )
                     RegularAppText(
                         text = recipe.brewTime.toTimeString(),
-                        color = textPrimaryColor,
+                        color = textPrimaryColorDark,
                         fontFamily = getMontserratBold()
                     )
                 }
@@ -161,7 +161,7 @@ fun RecipeDetailsScreenContent(
                 text = stringResource(Res.string.steps_brewing_title),
                 fontFamily = getMontserratBold(),
                 fontSize = 24.sp,
-                color = textPrimaryColor
+                color = textPrimaryColorDark
 
             )
             Column(
