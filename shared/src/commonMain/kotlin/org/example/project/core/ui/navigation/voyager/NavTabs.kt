@@ -10,9 +10,13 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.coffeeScreenTitle
+import coffee.shared.generated.resources.ic_cup_24
 import coffee.shared.generated.resources.ic_filter_recepies_screen_24
 import coffee.shared.generated.resources.ic_mycoffee_screen_24
 import coffee.shared.generated.resources.ic_saved_recipes_screen_24
+import coffee.shared.generated.resources.mainScreenTitle
+import coffee.shared.generated.resources.recipeScreenTitle
 import org.example.project.core.ui.navigation.voyager.screens.AddCoffeeScreen
 import org.example.project.core.ui.navigation.voyager.screens.CoffeeDetailsScreen
 import org.example.project.core.ui.navigation.voyager.screens.NewRecipeScreen
@@ -23,6 +27,7 @@ import org.example.project.features.recentRecipes.ui.vm.RecipesScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedRecipes.ui.composables.SavedRecipesScreen
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 object RecentRecipesTab : Tab {
     @Composable
@@ -45,12 +50,13 @@ object RecentRecipesTab : Tab {
     override val options: TabOptions
         @Composable
         get() {
-            val icon = painterResource(Res.drawable.ic_filter_recepies_screen_24)
+            val icon = painterResource(Res.drawable.ic_saved_recipes_screen_24)
+            val title = stringResource(Res.string.mainScreenTitle)
 
             return remember {
                 TabOptions(
                     index = 0u,
-                    title = "",
+                    title = title,
                     icon = icon
                 )
             }
@@ -70,12 +76,13 @@ object SavedRecipesTab : Tab {
     override val options: TabOptions
         @Composable
         get() {
-            val icon = painterResource(Res.drawable.ic_saved_recipes_screen_24)
+            val icon = painterResource(Res.drawable.ic_filter_recepies_screen_24)
+            val title = stringResource(Res.string.recipeScreenTitle)
 
             return remember {
                 TabOptions(
                     index = 0u,
-                    title = "",
+                    title = title,
                     icon = icon
                 )
             }
@@ -103,11 +110,12 @@ object CoffeeTab : Tab {
         @Composable
         get() {
             val icon = painterResource(Res.drawable.ic_mycoffee_screen_24)
+            val title = stringResource(Res.string.coffeeScreenTitle)
 
             return remember {
                 TabOptions(
                     index = 0u,
-                    title = "",
+                    title = title,
                     icon = icon
                 )
             }
