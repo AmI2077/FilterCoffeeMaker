@@ -31,7 +31,6 @@ import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.textPrimaryColorDark
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.white
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent.LoadRecipeDetails
@@ -42,6 +41,7 @@ import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.make_button
 import coffee.shared.generated.resources.recipe_total_time
 import coffee.shared.generated.resources.steps_brewing_title
+import org.example.project.core.ui.theme.textPrimaryColorLight
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -73,7 +73,7 @@ fun RecipeDetailsScreen(
         RecipeDetailsScreenUiState.Loading -> {
             RecipeLoaderScreen(
                 modifier = modifier
-                    .background(white),
+                    .background(backgroundColor),
                 screenModel = loaderScreenModel
             )
         }
@@ -129,7 +129,7 @@ fun RecipeDetailsScreenContent(
                 modifier = Modifier
                     .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(20.dp))
                     .background(
-                        color = white,
+                        color = backgroundColor,
                         shape = RoundedCornerShape(20.dp)
                     )
                     .padding(20.dp)
@@ -167,7 +167,7 @@ fun RecipeDetailsScreenContent(
             Column(
                 Modifier
                     .background(
-                        color = white,
+                        color = backgroundColor,
                         shape = RoundedCornerShape(20.dp)
                     )
                     .padding(horizontal = 20.dp, vertical = 10.dp)
@@ -191,7 +191,7 @@ fun RecipeDetailsScreenContent(
                         modifier = Modifier
                             .padding(vertical = 15.dp),
                         text = stringResource(Res.string.make_button),
-                        color = white
+                        color = textPrimaryColorLight
                     )
                 },
                 icon = null

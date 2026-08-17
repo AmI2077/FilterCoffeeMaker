@@ -2,17 +2,11 @@ package org.example.project.features.addCoffee.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.ismoy.imagepickerkmp.extensions.loadBytes
-import io.github.ismoy.imagepickerkmp.picker.ImagePickerResult
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.TimeZone
-import okio.Timeout
 import org.example.project.core.utils.getCoffeeImageName
 import org.example.project.features.addCoffee.store.AddCoffeeIntent
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.composables.AlreadyExistDialogResult
-import kotlin.time.Clock
 
 class AddCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> AddCoffeeStore

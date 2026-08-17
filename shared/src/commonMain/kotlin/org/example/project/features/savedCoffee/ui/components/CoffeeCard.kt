@@ -5,11 +5,9 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
@@ -34,11 +31,12 @@ import org.example.project.core.domain.model.mockCoffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
-import org.example.project.core.ui.theme.black
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.getMontserratMedium
+import org.example.project.core.ui.theme.shadowColor
+import org.example.project.core.ui.theme.textPrimaryColorLight
 import org.example.project.core.ui.theme.textSecondaryColor
-import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -70,11 +68,11 @@ fun CoffeeCard(
             .shadow(
                 elevation = 5.dp,
                 shape = RoundedCornerShape(UiDefaults.CARD_CORNERS_RADIUS.dp),
-                spotColor = black.copy(alpha = 0.3f),
-                ambientColor = black.copy(alpha = 0.3f),
+                spotColor = shadowColor,
+                ambientColor = shadowColor,
             )
             .background(
-                color = white,
+                color = backgroundColor,
                 shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)
             )
             .combinedClickable(
@@ -155,7 +153,7 @@ fun CoffeeCardContent(
                 RegularAppText(
                     text = stringResource(Res.string.recipe),
                     fontSize = UiDefaults.CARD_REGULAR_TEXT_SIZE.sp,
-                    color = white,
+                    color = textPrimaryColorLight,
                     fontFamily = getMontserratMedium()
                 )
             },

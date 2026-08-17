@@ -8,6 +8,6 @@ actual fun rememberImagePicker(onResult: (ByteArray?) -> Unit): ImagePicker {
 }
 
 actual class ImagePicker {
-    actual fun pickImage(onResult: (ByteArray?) -> Unit) {
+    actual fun launchGallery() {
     }
 }

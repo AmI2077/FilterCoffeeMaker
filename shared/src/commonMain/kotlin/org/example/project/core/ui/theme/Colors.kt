@@ -2,9 +2,10 @@ package org.example.project.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-private val black = Color(0xFF1A1A1A) // цвет кнопок
-private val white = Color(0xFFFFFFFF) // цвет карточек
+val black = Color(0xFF1A1A1A) // цвет кнопок
+val white = Color(0xFFFFFFFF) // цвет карточек
 val backgroundColor = white // фон
+val shadowColor = black.copy(alpha = 0.3f) // фон
 val accentColor = Color(0xFF321A15)
 val textPrimaryColorDark = black // текст заголовков
 val textPrimaryColorLight = white // текст заголовков

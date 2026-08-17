@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -130,10 +133,51 @@ fun SavedCoffeeScreenContent(
     onLongItemClick: (coffee: Coffee) -> Unit,
     onRecipeBtnClick: (coffeeId: String) -> Unit,
 ) {
-    LazyColumn(
+    CoffeeGrid(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        contentPadding = PaddingValues(vertical = 10.dp)
+        state = state,
+        onItemClick = onItemClick,
+        onLongItemClick = onLongItemClick,
+        onRecipeBtnClick = onRecipeBtnClick
+    )
+//    LazyColumn(
+//        modifier = modifier,
+//        verticalArrangement = Arrangement.spacedBy(10.dp),
+//        contentPadding = PaddingValues(vertical = 10.dp)
+//    ) {
+//        items(state.savedCoffee) { coffee ->
+//            CoffeeVerticalCard(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                coffee = coffee,
+//                onRecipeBtnClick = { coffeeId ->
+//                    onRecipeBtnClick(coffeeId)
+//                },
+//                onClick = { coffeeId ->
+//                    onItemClick(coffeeId)
+//                },
+//                onLongClick = { coffee ->
+//                    onLongItemClick(coffee)
+//                }
+//            )
+//        }
+//    }
+}
+
+@Composable
+private fun CoffeeGrid(
+    modifier: Modifier = Modifier,
+    state: SavedCoffeeScreenUiState,
+    onItemClick: (coffeeId: String) -> Unit,
+    onLongItemClick: (coffee: Coffee) -> Unit,
+    onRecipeBtnClick: (coffeeId: String) -> Unit,
+) {
+    LazyVerticalGrid(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
+        contentPadding = PaddingValues(vertical = 10.dp),
+        columns = GridCells.Fixed(2)
     ) {
         items(state.savedCoffee) { coffee ->
             CoffeeVerticalCard(

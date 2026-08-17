@@ -2,6 +2,7 @@ package org.example.project.features.savedCoffee.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,22 +33,21 @@ import org.example.project.core.domain.model.mockCoffee
 import org.example.project.core.ui.components.AppButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.getMontserratMedium
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
+import org.example.project.features.coffeeDetails.ui.composables.QGradeBox
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-@Preview(
-    widthDp = 393,
-)
+@Preview
 @Composable
 fun CoffeeVerticalCardPreview() {
     CoffeeVerticalCard(
-        modifier = Modifier.padding(10.dp),
         coffee = mockCoffee,
         onClick = {},
         onLongClick = {},
@@ -65,6 +65,11 @@ fun CoffeeVerticalCard(
 ) {
     Column(
         modifier = modifier
+            .combinedClickable(
+                onClick = { onClick(coffee.id) },
+                onLongClick = { onLongClick(coffee) }
+            )
+            .width(180.dp)
             .shadow(
                 elevation = 5.dp,
                 shape = RoundedCornerShape(UiDefaults.CARD_CORNERS_RADIUS.dp),
@@ -72,30 +77,33 @@ fun CoffeeVerticalCard(
                 ambientColor = black.copy(alpha = 0.3f),
             )
             .background(
-                color = white,
+                color = backgroundColor,
                 shape = RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)
             )
-            .combinedClickable(
-                onClick = { onClick(coffee.id) },
-                onLongClick = { onLongClick(coffee) }
-            )
-            .padding(10.dp)
     ) {
-        CoffeeImage(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth()
-                .padding(horizontal = 50.dp)
-                .aspectRatio(1 / 1f)
-                .clip(RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)),
-            contentScale = ContentScale.Crop,
-            model = coffee.imagePath,
-            placeholder = painterResource(Res.drawable.ic_coffee_image_placeholder)
-        )
+        Box {
+            CoffeeImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1 / 1f)
+                    .clip(RoundedCornerShape(UiDefaults.IMAGE_CORNERS_RADIUS.dp)),
+                contentScale = ContentScale.Crop,
+                model = coffee.imagePath,
+                placeholder = painterResource(Res.drawable.ic_coffee_image_placeholder)
+            )
+            coffee.qGrade?.let {
+                QGradeBox(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .align(Alignment.TopEnd),
+                    qGrade = it
+                )
+            }
+        }
         Spacer(Modifier.height(10.dp))
         CoffeeVerticalCardContent(
             modifier = Modifier
-                .fillMaxWidth(),
+                .padding(5.dp),
             roasting = coffee.roasting,
             title = coffee.title,
             tasteDescription = coffee.tasteDescription,
@@ -139,7 +147,7 @@ fun CoffeeVerticalCardContent(
         Spacer(Modifier.height(20.dp))
         RegularAppText(
             text = stringResource(Res.string.processing_prefix, processingMethod),
-            fontSize = UiDefaults.CARD_REGULAR_TEXT_SIZE.sp,
+            fontSize = UiDefaults.CARD_SMALL_TEXT_SIZE.sp,
             color = textSecondaryColor,
         )
         Spacer(Modifier.height(5.dp))

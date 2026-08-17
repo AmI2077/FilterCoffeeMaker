@@ -3,7 +3,6 @@ package org.example.project.core.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -13,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import org.example.project.core.ui.theme.black
-import org.example.project.core.ui.theme.white
+import org.example.project.core.ui.theme.accentColor
+import org.example.project.core.ui.theme.textPrimaryColorLight
 
 @Composable
 fun AppButton(
@@ -24,7 +23,7 @@ fun AppButton(
     text: @Composable (() -> Unit)?,
     icon: @Composable (() -> Unit)?,
     isEnabled: Boolean = true,
-    containerColor: Color = black,
+    containerColor: Color = accentColor,
     onClick: () -> Unit,
 ) {
     Button(
@@ -35,7 +34,7 @@ fun AppButton(
         onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
-            contentColor = white
+            contentColor = textPrimaryColorLight
         )
     ) {
         Row(
