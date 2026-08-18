@@ -25,15 +25,11 @@ class CoffeeDetailsScreen(private val coffeeId: String) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        Scaffold { paddingValues ->
+        Scaffold { _ ->
             CoffeeDetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(backgroundColor),
-                verticalPaddings = PaddingValues(
-                    top = paddingValues.calculateTopPadding(),
-                    bottom = paddingValues.calculateTopPadding()
-                ),
                 detailsScreenModel = koinScreenModel<CoffeeDetailsScreenModel>(),
                 editScreenModel = koinScreenModel<EditCoffeeScreenModel>(),
                 coffeeId = coffeeId,

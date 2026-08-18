@@ -12,4 +12,6 @@ val textPrimaryColorLight = white // текст заголовков
 val textSecondaryColor = Color(0xFF7A7A7A) // цвет обычного текста
 val lightGray = Color(0xFFE6E6E6) // рамки, обводки,
 
+val red = Color(0xFFCB0000)
+
 val lightOrange = Color(0xFFC27E4B)

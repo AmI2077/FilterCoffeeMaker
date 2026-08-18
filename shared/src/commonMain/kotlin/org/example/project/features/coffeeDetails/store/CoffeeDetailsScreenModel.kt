@@ -16,13 +16,14 @@ import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateState
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
+import org.example.project.features.coffeeDetails.ui.utils.CoffeeDetailsScreenCallbacks
 
 class CoffeeDetailsScreenModel(
     storeFactory: (scope: CoroutineScope) -> MviStore<
             CoffeeDetailsScreenUiState,
             CoffeeDetailsIntent,
             CoffeeDetailsAction>
-) : ScreenModel {
+) : ScreenModel, CoffeeDetailsScreenCallbacks {
     private val store = storeFactory(screenModelScope)
 
     val state = store.state
@@ -32,27 +33,27 @@ class CoffeeDetailsScreenModel(
         store.onIntent(CoffeeDetailsIntent.LoadCoffeeDetails(coffeeId))
     }
 
-    fun saveDescription(description: String) {
-        store.onIntent(CoffeeDetailsIntent.SaveDescriptionBtnClicked(description))
-    }
-
-    fun onRecipeClick() {
-        store.onIntent(CoffeeDetailsIntent.RecipeBtnClicked)
-    }
-
-    fun onAddDescription() {
-        store.onIntent(CoffeeDetailsIntent.AddDescriptionBtnClicked)
-    }
-
-    fun onCancelDescription() {
-        store.onIntent(CoffeeDetailsIntent.CancelDescriptionBtnClicked)
-    }
-
     fun dismissEditBottomSheet() {
         store.onIntent(CoffeeDetailsIntent.DismissEditBottomSheet)
     }
 
-    fun onEditButton() {
+    override fun onSaveDescription(desc: String) {
+        store.onIntent(CoffeeDetailsIntent.SaveDescriptionBtnClicked(desc))
+    }
+
+    override fun onRecipeBtnClick() {
+        store.onIntent(CoffeeDetailsIntent.RecipeBtnClicked)
+    }
+
+    override fun onAddDescriptionBtnClick() {
+        store.onIntent(CoffeeDetailsIntent.AddDescriptionBtnClicked)
+    }
+
+    override fun onCancellationClick() {
+        store.onIntent(CoffeeDetailsIntent.CancelDescriptionBtnClicked)
+    }
+
+    override fun onEditBtnClick() {
         store.onIntent(CoffeeDetailsIntent.EditBtnClicked)
     }
 }

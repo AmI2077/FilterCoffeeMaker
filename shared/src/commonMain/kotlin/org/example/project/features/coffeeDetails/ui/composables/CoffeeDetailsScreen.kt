@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -37,6 +40,7 @@ import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.getMontserratBold
+import org.example.project.core.ui.theme.getMontserratExtraBold
 import org.example.project.core.ui.theme.getMontserratRegular
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
@@ -44,6 +48,7 @@ import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsAction
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
+import org.example.project.features.coffeeDetails.ui.utils.CoffeeDetailsScreenCallbacks
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
 import org.jetbrains.compose.resources.painterResource
@@ -53,17 +58,13 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun CoffeeDetailsScreen(
     modifier: Modifier = Modifier,
-    verticalPaddings: PaddingValues = PaddingValues(0.dp),
-    horizontalPaddings: PaddingValues = PaddingValues(
-        horizontal = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp
-    ),
     coffeeId: String,
     detailsScreenModel: CoffeeDetailsScreenModel,
     editScreenModel: EditCoffeeScreenModel,
     onRecipeBtnClick: (coffeeId: String) -> Unit,
     onBackBtnClick: () -> Unit
 ) {
-    val scrollState = rememberScrollState()
+    val state by detailsScreenModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         detailsScreenModel.loadCoffeeDetails(coffeeId)
@@ -77,56 +78,39 @@ fun CoffeeDetailsScreen(
         }
     }
 
-    val state by detailsScreenModel.state.collectAsStateWithLifecycle()
+    if (state.showEditBottomSheet) {
+        EditBottomSheet(
+            screenModel = editScreenModel,
+            coffeeId = coffeeId,
+            onDismissRequest = {
+                detailsScreenModel.dismissEditBottomSheet()
+                detailsScreenModel.loadCoffeeDetails(coffeeId)
+            }
+        )
+    }
 
     state.content?.let { coffee ->
-        if (state.showEditBottomSheet) {
-            EditBottomSheet(
-                screenModel = editScreenModel,
-                coffeeId = coffeeId,
-                onDismissRequest = {
-                    detailsScreenModel.dismissEditBottomSheet()
-                    detailsScreenModel.loadCoffeeDetails(coffeeId)
-                }
-            )
-        }
-        Box(
-            modifier = Modifier
-                .padding(verticalPaddings)
+        Column(
+            modifier = modifier
+                .background(backgroundColor)
                 .fillMaxHeight()
         ) {
             CoffeeImageView(
-                modifier = Modifier
-                    .aspectRatio(1 / 1f)
-                    .fillMaxWidth(),
                 coffee = coffee,
                 onBackBtnClick = onBackBtnClick
             )
-
             CoffeeDetailsScreenInfo(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .background(
-                        color = backgroundColor,
+                    .offset(y = (-20).dp)
+                    .clip(
                         shape = RoundedCornerShape(
                             topStart = 30.dp,
                             topEnd = 30.dp
                         )
-                    )
-                    .padding(horizontalPaddings)
-                    .padding(top = 20.dp)
-                    .verticalScroll(scrollState),
+                    ),
                 coffee = coffee,
-                onRecipeBtnClick = { onRecipeBtnClick(coffeeId) },
-                onEditBtnClick = { detailsScreenModel.onEditButton() },
-                onAddDescriptionBtnClick = { detailsScreenModel.onAddDescription() },
                 showEditDescriptionField = state.showEditDescriptionField,
-                onSaveDescription = { desc ->
-                    detailsScreenModel.saveDescription(desc)
-                },
-                onCancellationClick = {
-                    detailsScreenModel.onCancelDescription()
-                },
+                callback = detailsScreenModel
             )
         }
     }
@@ -137,57 +121,49 @@ fun CoffeeDetailsScreenInfo(
     modifier: Modifier = Modifier,
     coffee: Coffee,
     showEditDescriptionField: Boolean = false,
-    onEditBtnClick: () -> Unit = {},
-    onRecipeBtnClick: () -> Unit = {},
-    onAddDescriptionBtnClick: () -> Unit = {},
-    onSaveDescription: (String) -> Unit = {},
-    onCancellationClick: () -> Unit = {},
+    callback: CoffeeDetailsScreenCallbacks
 ) {
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
+            .background(backgroundColor )
+            .padding(
+                top = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
+                start = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp,
+                end = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp
+            )
+            .verticalScroll(scrollState)
     ) {
         RoastingAndProcessingRow(
             roasting = coffee.roasting,
             processingMethod = coffee.processingMethod
         )
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(10.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             RegularAppText(
                 modifier = Modifier.weight(0.6f),
                 text = coffee.title,
-                fontSize = 30.sp,
+                fontSize = 32.sp,
                 lineHeight = 36.sp,
-                fontFamily = getMontserratBold(),
+                fontFamily = getMontserratExtraBold(),
                 maxLines = 2
             )
-            Box(
-                Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .border(
-                        width = 1.dp,
-                        color = textSecondaryColor.copy(alpha = 0.6f),
-                        shape = RoundedCornerShape(20.dp)
-                    )
-                    .clickable(onClick = onEditBtnClick)
-                    .size(60.dp)
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(24.dp),
-                    painter = painterResource(Res.drawable.ic_edit_24),
-                    contentDescription = null,
-                )
-            }
+            Spacer(Modifier.width(50.dp))
+            EditButton(
+                onClick = {
+                    callback.onEditBtnClick()
+                }
+            )
         }
         Spacer(Modifier.height(20.dp))
         RegularAppText(
             text = coffee.tasteDescription,
             maxLines = Int.MAX_VALUE,
             lineHeight = 25.sp,
-            fontSize = 16.sp,
+            fontSize = 18.sp,
             fontFamily = getMontserratRegular(),
             color = textSecondaryColor
         )
@@ -197,22 +173,30 @@ fun CoffeeDetailsScreenInfo(
             density = coffee.density,
             acidity = coffee.acidity
         )
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(25.dp))
         if (showEditDescriptionField) {
             EditDescriptionView(
-                onSaveBtnClick = { onSaveDescription(it) },
-                onCancellationClick = onCancellationClick,
+                onSaveBtnClick = {
+                    callback.onSaveDescription(it)
+                },
+                onCancellationClick = {
+                    callback.onCancellationClick()
+                },
             )
         } else {
             DescriptionView(
                 description = coffee.userDescription,
-                onAddDescriptionBtnClick = onAddDescriptionBtnClick
+                onAddDescriptionBtnClick = {
+                    callback.onAddDescriptionBtnClick()
+                }
             )
         }
         Spacer(Modifier.height(20.dp))
         RecipeButton(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onRecipeBtnClick
+            onClick = {
+                callback.onRecipeBtnClick()
+            }
         )
     }
 }
@@ -227,19 +211,29 @@ private fun CoffeeImageView(
         modifier = modifier
     ) {
         CoffeeImage(
+            modifier = Modifier
+                .aspectRatio(1 / 1f)
+                .fillMaxWidth(),
             shape = RoundedCornerShape(0),
             model = coffee.imagePath,
         )
         coffee.qGrade?.let {
             QGradeBox(
                 modifier = Modifier
-                    .padding(20.dp)
+                    .padding(
+                        horizontal = 20.dp,
+                        vertical = 40.dp
+                    )
                     .align(Alignment.TopEnd),
                 qGrade = coffee.qGrade
             )
         }
         AppBackButton(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier
+                .padding(
+                    horizontal = 20.dp,
+                    vertical = 40.dp
+                ),
             onClick = onBackBtnClick
         )
     }

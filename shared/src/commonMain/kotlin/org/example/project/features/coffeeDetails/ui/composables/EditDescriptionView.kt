@@ -29,6 +29,7 @@ import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.cancel_button
 import coffee.shared.generated.resources.edit_description_label
 import coffee.shared.generated.resources.save_button
+import org.example.project.core.ui.theme.red
 import org.jetbrains.compose.resources.stringResource
 
 @Preview
@@ -80,7 +81,7 @@ private fun SaveAndCancelButtons(
                 },
                 contentPadding =
                     PaddingValues(horizontal = 5.dp, vertical = 10.dp),
-                containerColor = black,
+                containerColor = red,
                 icon = null,
                 onClick = onCancellationClick
             )

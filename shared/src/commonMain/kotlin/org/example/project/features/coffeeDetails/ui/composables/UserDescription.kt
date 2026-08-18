@@ -20,6 +20,7 @@ import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.description_label
+import org.example.project.core.ui.theme.getMontserratMedium
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -36,17 +37,17 @@ fun UserDescription(
             )
             .border(
                 width = 1.dp,
-                color = textSecondaryColor,
+                color = textSecondaryColor.copy(alpha = 0.7f),
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(10.dp)
     ) {
-        Column {
+        Column(Modifier.fillMaxWidth()) {
             RegularAppText(
-                modifier = Modifier.align(Alignment.End),
+                modifier = Modifier.align(Alignment.Start),
                 text = stringResource(Res.string.description_label),
-                fontSize = 16.sp,
-                maxLines = Int.MAX_VALUE
+                fontFamily = getMontserratMedium(),
+                fontSize = 16.sp
             )
             Spacer(Modifier.height(15.dp))
             RegularAppText(
@@ -56,6 +57,5 @@ fun UserDescription(
                 color = textSecondaryColor
             )
         }
-
     }
 }
