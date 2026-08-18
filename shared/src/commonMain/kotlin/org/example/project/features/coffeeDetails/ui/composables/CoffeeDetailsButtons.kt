@@ -58,16 +58,16 @@ fun EditButton(
 ) {
     Box(
         modifier
-            .clip(RoundedCornerShape(10.dp))
+            .size(60.dp)
             .border(
                 width = 1.dp,
                 color = textSecondaryColor.copy(alpha = 0.6f),
                 shape = RoundedCornerShape(20.dp)
             )
-            .size(60.dp)
-            .clickable(
-                onClick = onClick
-            )
+            .clip(RoundedCornerShape(20.dp))
+            .clickable {
+                onClick()
+            }
     ) {
         Icon(
             modifier = Modifier
