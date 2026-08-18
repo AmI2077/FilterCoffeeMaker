@@ -17,7 +17,7 @@ koinAndroid = "4.2.2"
 kotlin = "2.4.0"
 material3 = "1.11.0-alpha07"
 
-detekt = "1.23.7"
+detekt = "1.23.8"
 
 room = "2.8.4"
 sqlite = "2.7.0"
