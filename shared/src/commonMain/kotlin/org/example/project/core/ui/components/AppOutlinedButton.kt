@@ -9,13 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.example.project.core.ui.theme.accentColor
 import org.example.project.core.ui.theme.black
 
 @Composable
 fun AppOutlinedButton(
     modifier: Modifier = Modifier,
     text: String,
-    borderStroke: BorderStroke = BorderStroke(2.dp, black),
+    borderStroke: BorderStroke = BorderStroke(1.dp, accentColor),
     shape: Shape = CircleShape,
     contentPadding: PaddingValues = PaddingValues(15.dp),
     onClick: () -> Unit,
@@ -30,7 +31,7 @@ fun AppOutlinedButton(
         RegularAppText(
             text = text,
             color = black,
-            fontSize = 18.sp
+            fontSize = 16.sp
         )
     }
 }

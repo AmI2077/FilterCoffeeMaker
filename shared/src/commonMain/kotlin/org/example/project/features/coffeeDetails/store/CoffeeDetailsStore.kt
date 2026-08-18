@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Coffee
@@ -47,7 +48,11 @@ class CoffeeDetailsStore(
             repository.getCoffeeDetailsFlow(coffeeId)
                 .catch { e -> println("COFFEE_ERROR: $e") }
                 .collect { coffee ->
+                    // TODO "че то придумать с путем к изображению, ибо в стейте нельзя хранить полный путь"
                     val directory = coffee.imagePath?.let {
+                        _state.update { oldState ->
+                            oldState.copy(imageName = it)
+                        }
                         imageSaver.getDirectory(it)
                     }
                     _state.updateState(
@@ -61,6 +66,7 @@ class CoffeeDetailsStore(
     fun saveDescription(description: String) {
         // TODO "пофиксить nullable coffee, ибо в этот момент он не может быть nullable"
         val coffeeWithDesc = _state.value.content?.copy(
+            imagePath = _state.value.imageName,
             userDescription = description
         )
         scope.launch {

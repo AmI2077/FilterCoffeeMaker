@@ -12,6 +12,8 @@ plugins {
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
+
+    alias(libs.plugins.detekt.plugin)
 }
 
 room {

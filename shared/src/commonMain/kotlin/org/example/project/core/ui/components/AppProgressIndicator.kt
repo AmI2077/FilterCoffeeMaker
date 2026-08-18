@@ -3,20 +3,21 @@ package org.example.project.core.ui.components
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.lightGray
 
-@Preview
 @Composable
 fun CustomProgressIndicator(
     modifier: Modifier = Modifier,
+    color: Color,
     progress: Float = 0.5f,
 ) {
     LinearProgressIndicator(
         modifier = modifier,
-        color = black,
+        color = color,
         strokeCap = StrokeCap.Round,
         trackColor = lightGray,
         progress = { progress }

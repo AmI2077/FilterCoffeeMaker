@@ -35,12 +35,14 @@ fun AppBackButton(
                 color = white,
                 shape = RoundedCornerShape(15.dp)
             )
+            .clickable {
+                onClick()
+            }
             .padding(10.dp),
     ) {
 
         Icon(
-            modifier = Modifier.size(30.dp)
-                .clickable(onClick = onClick),
+            modifier = Modifier.size(30.dp),
             painter = painterResource(Res.drawable.ic_back_button_24),
             contentDescription = null
         )
