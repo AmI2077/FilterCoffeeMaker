@@ -9,6 +9,17 @@ on:
       - main
 
 jobs:
+  detekt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Detekt Action
+        uses: detekt/detekt-action@v1.23.7 # Используйте актуальную версию
+        with:
+          config: config/detekt/detekt.yml
+
   lint_and_test:
     runs-on: ubuntu-latest
 
