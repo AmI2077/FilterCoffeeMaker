@@ -21,7 +21,8 @@ class CoffeeDetailsReducer: MviReducer<CoffeeDetailsScreenUiState, CoffeeDetails
                 showEditBottomSheet = true
             )
             is CoffeeDetailsResult.SaveDescription -> oldState.copy(
-                content = result.coffeeWithUpdatedDesc
+                content = result.coffeeWithUpdatedDesc,
+                showEditDescriptionField = false
             )
             CoffeeDetailsResult.ShowDescriptionEditField -> oldState.copy(
                 showEditDescriptionField = true

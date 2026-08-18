@@ -14,7 +14,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import org.example.project.core.domain.model.roastingTypes
+import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
 
@@ -56,6 +58,7 @@ fun AppDropdownMenu(
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
         )
         ExposedDropdownMenu(
+            containerColor = backgroundColor,
             expanded = expanded,
             onDismissRequest = { expanded = false },
             content = {
@@ -63,7 +66,8 @@ fun AppDropdownMenu(
                     DropdownMenuItem(
                         text = {
                             RegularAppText(
-                                text = roastingType
+                                text = roastingType,
+                                fontSize = 14.sp
                             )
                         },
                         onClick = {

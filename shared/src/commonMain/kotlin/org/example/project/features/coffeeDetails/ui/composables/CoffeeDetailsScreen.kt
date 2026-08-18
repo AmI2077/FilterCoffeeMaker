@@ -1,26 +1,20 @@
 package org.example.project.features.coffeeDetails.ui.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,17 +26,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.add_description
-import coffee.shared.generated.resources.ic_edit_24
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.components.AppBackButton
 import org.example.project.core.ui.components.AppOutlinedButton
 import org.example.project.core.ui.components.RegularAppText
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.backgroundColor
-import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.ui.theme.getMontserratExtraBold
 import org.example.project.core.ui.theme.getMontserratRegular
-import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.features.addCoffee.ui.composables.CoffeeBalance
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
@@ -51,9 +42,7 @@ import org.example.project.features.coffeeDetails.store.CoffeeDetailsScreenModel
 import org.example.project.features.coffeeDetails.ui.utils.CoffeeDetailsScreenCallbacks
 import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.editCoffee.ui.composables.EditBottomSheet
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-
 
 @Composable
 fun CoffeeDetailsScreen(

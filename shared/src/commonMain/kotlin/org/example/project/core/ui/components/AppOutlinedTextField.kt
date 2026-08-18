@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.sp
 import org.example.project.core.ui.theme.UiDefaults
 import org.example.project.core.ui.theme.black
 import org.example.project.core.ui.theme.getMontserratRegular
+import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.white
 
 @Composable
@@ -18,8 +19,8 @@ fun AppOutlinedTextField(
     modifier: Modifier = Modifier,
     text: String,
     label: String,
-    borderColor: Color = black,
-    labelColor: Color = black,
+    borderColor: Color,
+    labelColor: Color = textSecondaryColor,
     readOnly: Boolean = false,
     trailingIcon: @Composable (() -> Unit)? = null,
     onTextChange: (String) -> Unit = {},
@@ -28,13 +29,14 @@ fun AppOutlinedTextField(
         modifier = modifier,
         value = text,
         textStyle = TextStyle(
-            fontFamily = getMontserratRegular()
+            fontFamily = getMontserratRegular(),
         ),
         onValueChange = onTextChange,
         label = {
             RegularAppText(
                 text = label,
-                fontSize = 14.sp
+                fontSize = 12.sp,
+                color = labelColor
             )
         },
         colors = OutlinedTextFieldDefaults.colors(

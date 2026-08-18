@@ -29,6 +29,7 @@ import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.cancel_button
 import coffee.shared.generated.resources.edit_description_label
 import coffee.shared.generated.resources.save_button
+import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.red
 import org.jetbrains.compose.resources.stringResource
 
@@ -48,7 +49,8 @@ fun EditDescriptionView(
             modifier = Modifier.fillMaxWidth(),
             text = description,
             label = stringResource(Res.string.edit_description_label),
-            onTextChange = { description = it }
+            onTextChange = { description = it },
+            borderColor = lightGray
         )
         Spacer(Modifier.height(5.dp))
         SaveAndCancelButtons(
