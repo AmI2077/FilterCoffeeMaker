@@ -2,6 +2,9 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.api.file.FileTreeElement
+import org.gradle.api.specs.Spec
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -14,6 +17,27 @@ plugins {
     alias(libs.plugins.androidx.room)
 
     alias(libs.plugins.detekt.plugin)
+}
+
+detekt {
+    config.setFrom("$rootDir/config/detekt/detekt.yml")
+}
+
+tasks.withType<Detekt>().configureEach {
+    exclude(
+        Spec<FileTreeElement> { element ->
+            element.file.absolutePath.replace('\\', '/').contains("/build/")
+        }
+    )
+}
+
+tasks.named<Detekt>("detekt") {
+    val analysisTasks = tasks.withType<Detekt>().matching { task ->
+        task.name != "detekt" &&
+            !task.name.startsWith("detektGenerateConfig") &&
+            !task.name.startsWith("detektBaseline")
+    }
+    dependsOn(analysisTasks)
 }
 
 room {

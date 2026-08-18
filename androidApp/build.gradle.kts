@@ -1,9 +1,25 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.api.file.FileTreeElement
+import org.gradle.api.specs.Spec
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.detekt.plugin)
+}
+
+detekt {
+    config.setFrom("$rootDir/config/detekt/detekt.yml")
+}
+
+tasks.withType<Detekt>().configureEach {
+    exclude(
+        Spec<FileTreeElement> { element ->
+            element.file.absolutePath.replace('\\', '/').contains("/build/")
+        }
+    )
 }
 
 kotlin {
