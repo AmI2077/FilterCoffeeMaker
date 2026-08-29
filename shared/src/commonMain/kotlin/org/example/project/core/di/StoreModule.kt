@@ -5,6 +5,8 @@ import org.example.project.features.addCoffee.store.AddCoffeeReducer
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsReducer
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsStore
+import org.example.project.features.recipeDetails.store.RecipeDetailsReducer
+import org.example.project.features.recipeDetails.store.RecipeDetailsStore
 import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.koin.dsl.module
 
@@ -35,6 +37,17 @@ val storeModule = module {
         )
     }
 
+    factory { (scope: CoroutineScope) ->
+        RecipeDetailsStore(
+            get(),
+            get(),
+            get(),
+            get(),
+            scope
+        )
+    }
+
+    single { RecipeDetailsReducer() }
     single { AddCoffeeReducer() }
     single { CoffeeDetailsReducer() }
 }
