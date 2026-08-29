@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.project.core.data.extensions.getWithImageDirectory
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.features.recentRecipes.domain.api.RecipesRepository
 
@@ -27,15 +28,10 @@ class RecipesScreenModel(
             recipesRepository.getRecentRecipes()
                 .map { recipes ->
                     recipes.map { recipe ->
-                        recipe.coffee.imagePath?.let {
-                            val coffee = recipe.coffee.copy(
-                                imagePath = imageSaver.getDirectory(recipe.coffee.imagePath)
-                            )
-                            println("RECIPE: ${recipe.copy(coffee = coffee).toString()}")
-                            recipe.copy(
-                                coffee = coffee
-                            )
-                        } ?: recipe
+                        val coffee = recipe.coffee.getWithImageDirectory(imageSaver)
+                        recipe.copy(
+                            coffee = coffee
+                        )
                     }
                 }
                 .collect { recentRecipes ->

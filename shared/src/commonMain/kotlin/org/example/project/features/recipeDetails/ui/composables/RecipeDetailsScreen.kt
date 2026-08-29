@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,15 +36,18 @@ import org.example.project.core.ui.theme.textPrimaryColorDark
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.utils.toTimeString
 import org.example.project.features.addCoffee.ui.composables.CoffeeImage
-import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent.LoadRecipeDetails
-import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import coffee.shared.generated.resources.Res
+import coffee.shared.generated.resources.ic_fav_24
+import coffee.shared.generated.resources.ic_no_fav_24
 import coffee.shared.generated.resources.make_button
 import coffee.shared.generated.resources.recipe_total_time
 import coffee.shared.generated.resources.steps_brewing_title
+import org.example.project.core.ui.theme.black
+import org.example.project.core.ui.theme.lightOrange
 import org.example.project.core.ui.theme.textPrimaryColorLight
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -52,41 +58,33 @@ fun RecipeDetailsScreen(
     onStartTimerClick: (recipe: Recipe) -> Unit,
 ) {
     val state by screenModel.state.collectAsStateWithLifecycle()
-    println("_STATE: ${state}")
+    println("_STATE: $state")
 
     val scrollState = rememberScrollState()
 
-    when (state) {
-        is RecipeDetailsScreenUiState.Content -> {
-            val recipe = (state as RecipeDetailsScreenUiState.Content).recipe
-            RecipeDetailsScreenContent(
-                modifier = modifier
-                    .verticalScroll(scrollState),
-                coffeeImage = (state as RecipeDetailsScreenUiState.Content).imagePath,
-                recipe = recipe,
-                onStartTimerClick = { recipe ->
-                    onStartTimerClick(recipe)
-                }
-            )
+    if (state.showWaterAmountDialog) {
+        WaterAmountDialog { amount ->
+            screenModel.loadRecipeFromAi(amount)
         }
+    }
 
-        RecipeDetailsScreenUiState.Loading -> {
-            RecipeLoaderScreen(
-                modifier = modifier
-                    .background(backgroundColor),
-                screenModel = loaderScreenModel
-            )
-        }
+    if (state.isLoading) {
+        RecipeLoaderScreen(
+            modifier = modifier
+                .background(backgroundColor),
+            screenModel = loaderScreenModel
+        )
+    }
 
-        RecipeDetailsScreenUiState.WaterAmountDialog -> {
-            WaterAmountDialog { amount ->
-                screenModel.onIntent(
-                    LoadRecipeDetails(waterAmount = amount)
-                )
+    if (state.content != null) {
+        RecipeDetailsScreenContent(
+            modifier = modifier
+                .verticalScroll(scrollState),
+            recipe = state.content!!,
+            onStartTimerClick = { recipe ->
+                onStartTimerClick(recipe)
             }
-        }
-
-        else -> Unit
+        )
     }
 }
 
@@ -94,11 +92,11 @@ fun RecipeDetailsScreen(
 @Composable
 fun RecipeDetailsScreenContent(
     modifier: Modifier = Modifier,
-    coffeeImage: String? = null,
     recipe: Recipe = mockRecipe,
+    isFavourite: Boolean = false,
     onStartTimerClick: (recipe: Recipe) -> Unit = {}
 ) {
-    println("IMAGE_DIRECTORY: $coffeeImage")
+    println("IMAGE_DIRECTORY: ${recipe.coffee.imagePath}")
     Column(
         modifier = modifier
     ) {
@@ -107,7 +105,7 @@ fun RecipeDetailsScreenContent(
                 .padding(start = 20.dp, end = 20.dp)
                 .fillMaxWidth()
                 .aspectRatio(1 / 1f),
-            model = coffeeImage
+            model = recipe.coffee.imagePath
         )
         Spacer(Modifier.padding(top = 20.dp))
         Column(
@@ -124,7 +122,30 @@ fun RecipeDetailsScreenContent(
                 .padding(horizontal = UiDefaults.HORIZONTAL_SCREEN_PADDING.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Spacer(Modifier.padding(top = 10.dp))
+            Spacer(Modifier.height(10.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RegularAppText(
+                    modifier = Modifier.weight(0.5f),
+                    text = "${recipe.title} V60",
+                    fontFamily = getMontserratBold(),
+                    fontSize = 20.sp,
+                    color = textPrimaryColorDark,
+                    maxLines = 2
+                )
+                Spacer(Modifier.weight(0.1f))
+                Icon(
+                    modifier = Modifier
+                        .size(30.dp),
+                    painter = if (isFavourite) {
+                        painterResource(Res.drawable.ic_fav_24)
+                    } else  painterResource(Res.drawable.ic_no_fav_24),
+                    contentDescription = null,
+                    tint = if (isFavourite) lightOrange else black
+                )
+            }
+
             Column(
                 modifier = Modifier
                     .border(width = 2.dp, color = Color.White, shape = RoundedCornerShape(20.dp))
@@ -132,7 +153,6 @@ fun RecipeDetailsScreenContent(
                         color = backgroundColor,
                         shape = RoundedCornerShape(20.dp)
                     )
-                    .padding(20.dp)
             ) {
                 Row {
                     RegularAppText(
@@ -156,13 +176,11 @@ fun RecipeDetailsScreenContent(
                     temperature = "${recipe.waterTemperature} °C",
                 )
             }
-
             RegularAppText(
                 text = stringResource(Res.string.steps_brewing_title),
                 fontFamily = getMontserratBold(),
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 color = textPrimaryColorDark
-
             )
             Column(
                 Modifier
