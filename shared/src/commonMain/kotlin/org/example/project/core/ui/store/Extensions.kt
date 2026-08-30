@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-fun <S, R>MutableStateFlow<S>.updateState(reducer: MviReducer<S, R>, result: R) {
+fun <S, R>MutableStateFlow<S>.updateStateWithReducer(reducer: MviReducer<S, R>, result: R) {
     update { oldState ->
         reducer.reduce(oldState, result)
     }

@@ -5,8 +5,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import org.example.project.core.data.AiConfig
-import org.example.project.core.data.extensions.toEntity
-import org.example.project.core.data.local.db.dao.RecipeDao
+import org.example.project.core.data.extensions.toFavEntity
+import org.example.project.core.data.extensions.toRecentEntity
+import org.example.project.core.data.local.db.dao.FavouritesRecipesDao
+import org.example.project.core.data.local.db.dao.RecentRecipesDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkResult
@@ -20,7 +22,8 @@ import kotlin.random.Random
 
 class RecipeDetailsRepositoryImpl(
     private val aiClient: AiClient,
-    private val recipeDao: RecipeDao,
+    private val recentRecipesDao: RecentRecipesDao,
+    private val favouritesRecipesDao: FavouritesRecipesDao,
     private val resourceManager: ResourceManager,
     private val dispatcher: CoroutineDispatcher,
 ) : RecipeDetailsRepository {
@@ -61,7 +64,13 @@ class RecipeDetailsRepositoryImpl(
             id = Random.nextInt(0, 14315)
         )
         withContext(dispatcher) {
-            recipeDao.insertRecipe(recipeWithId.toEntity(coffeeId))
+            recentRecipesDao.insertRecipe(recipeWithId.toRecentEntity(coffeeId))
+        }
+    }
+
+    override suspend fun saveRecipesToFavourites(recipe: Recipe) {
+        withContext(dispatcher) {
+            //favouritesRecipesDao.insertRecipe(recipe.toFavEntity())
         }
     }
 }

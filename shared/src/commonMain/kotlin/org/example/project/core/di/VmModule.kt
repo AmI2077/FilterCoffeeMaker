@@ -1,5 +1,6 @@
 package org.example.project.core.di
 
+import kotlinx.coroutines.CoroutineScope
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
@@ -9,6 +10,7 @@ import org.example.project.features.editCoffee.store.EditCoffeeScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeDetailsScreenModel
 import org.example.project.features.recipeDetails.ui.vm.RecipeLoaderScreenModel
 import org.example.project.features.recentRecipes.ui.vm.RecipesScreenModel
+import org.example.project.features.recipeDetails.store.RecipeDetailsStore
 import org.example.project.features.savedCoffee.store.SavedCoffeeScreenModel
 import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.example.project.features.timer.ui.vm.TimerScreenModel
@@ -49,10 +51,11 @@ val vmModule = module {
         RecipeDetailsScreenModel(
             coffeeId = coffeeId,
             recipe = recipe,
-            imageSaver = get(),
-            recipeDetailsRepository = get(),
-            coffeeDetailsRepository = get()
-        )
+        ) { scope ->
+            get<RecipeDetailsStore> {
+                parametersOf(scope)
+            }
+        }
     }
     factory { (recipe: Recipe) ->
         TimerScreenModel(recipe)

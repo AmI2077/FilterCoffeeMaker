@@ -1,4 +1,4 @@
-package org.example.project.features.coffeeDetails.ui.composables
+package org.example.project.core.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

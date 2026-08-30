@@ -30,7 +30,7 @@ import org.example.project.core.ui.theme.lightGray
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.core.ui.theme.getMontserratBold
 import org.example.project.core.utils.toTimeString
-import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
+import org.example.project.core.ui.components.ButtonRow
 import org.example.project.features.timer.ui.state.TimerScreenUiState
 import org.example.project.features.timer.ui.vm.TimerScreenModel
 import org.jetbrains.compose.resources.painterResource

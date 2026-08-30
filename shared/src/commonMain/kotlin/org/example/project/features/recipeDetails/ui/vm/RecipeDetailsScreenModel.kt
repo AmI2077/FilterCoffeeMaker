@@ -2,89 +2,40 @@ package org.example.project.features.recipeDetails.ui.vm
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.example.project.core.domain.api.ImageSaver
+import kotlinx.coroutines.CoroutineScope
 import org.example.project.core.domain.model.Recipe
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
-import org.example.project.features.recipeDetails.domain.models.RecipeRequest
-import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenIntent
-import org.example.project.features.recipeDetails.ui.state.RecipeDetailsScreenUiState
+import org.example.project.features.recipeDetails.store.RecipeDetailsScreenIntent
+import org.example.project.features.recipeDetails.store.RecipeDetailsStore
 
 class RecipeDetailsScreenModel(
     private val coffeeId: String?,
     private val recipe: Recipe? = null,
-    private val imageSaver: ImageSaver,
-    private val recipeDetailsRepository: RecipeDetailsRepository,
-    private val coffeeDetailsRepository: CoffeeDetailsRepository
-) : ScreenModel {
+    storeFactory: (scope: CoroutineScope) -> RecipeDetailsStore
+) : ScreenModel, RecipeDetailsCallbacks {
+    private val store = storeFactory(screenModelScope)
 
-    private var _state =
-        MutableStateFlow<RecipeDetailsScreenUiState>(RecipeDetailsScreenUiState.Idle)
-    val state = _state.asStateFlow()
+    val state = store.state
+
+    val uiActions = store.uiActions
 
     init {
-        _state.update {
-            getInitState(recipe)
-        }
+        println("RECIPE: $recipe")
+        defineInitState()
     }
 
-    fun onIntent(intent: RecipeDetailsScreenIntent) {
-        when (intent) {
-            is RecipeDetailsScreenIntent.LoadRecipeDetails -> {
-                loadRecipeFromAi(waterAmount = intent.waterAmount)
-            }
-
-            is RecipeDetailsScreenIntent.SaveRecipeDetailsToRecents -> {
-                saveRecipeToRecents(intent.recipe, coffeeId!!)
-            }
-        }
+    override fun defineInitState() {
+        store.onIntent(RecipeDetailsScreenIntent.DefineInitState(recipe))
     }
 
-    private fun saveRecipeToRecents(recipe: Recipe, coffeeId: String) {
-        screenModelScope.launch {
-            recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
-        }
+    override fun loadRecipeFromAi(waterAmount: Int) {
+        store.onIntent(RecipeDetailsScreenIntent.LoadRecipeDetails(waterAmount, coffeeId))
     }
 
-    private fun loadRecipeFromAi(waterAmount: Int) {
-        _state.update {
-            RecipeDetailsScreenUiState.Loading
-        }
-        screenModelScope.launch {
-            // delay(10.seconds)
-            val coffee = coffeeDetailsRepository.getCoffeeDetails(coffeeId!!)
-
-            if (coffee != null) {
-                val directory = coffee.imagePath?.let {
-                    imageSaver.getDirectory(it)
-                }
-                val recipeRequest = RecipeRequest(
-                    coffee = coffee,
-                    waterAmount = waterAmount,
-                )
-                val recipe = recipeDetailsRepository.getRecipe(recipeRequest)
-
-                recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
-                _state.update {
-                    RecipeDetailsScreenUiState.Content(
-                        imagePath = directory,
-                        recipe = recipe
-                    )
-                }
-            }
-        }
+    override fun onFavBtnClick() {
+        // TODO "сделать нажатие после того как разгребу тудушки"
     }
 
-    private fun getInitState(recipe: Recipe?): RecipeDetailsScreenUiState {
-        return recipe?.let { recipe ->
-            RecipeDetailsScreenUiState.Content(
-                imagePath = recipe.coffee.imagePath,
-                recipe = recipe
-            )
-        } ?: RecipeDetailsScreenUiState.WaterAmountDialog
+    override fun onStartTimerClick() {
+        store.onIntent(RecipeDetailsScreenIntent.StartTimerBtnClicked(coffeeId))
     }
 }

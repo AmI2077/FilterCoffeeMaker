@@ -9,12 +9,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
-import org.example.project.core.ui.store.updateState
+import org.example.project.core.ui.store.updateStateWithReducer
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.savedCoffee.domain.api.CoffeeInteractor
 
 class CoffeeDetailsStore(
     private val reducer: CoffeeDetailsReducer,
@@ -55,7 +53,7 @@ class CoffeeDetailsStore(
                         }
                         imageSaver.getDirectory(it)
                     }
-                    _state.updateState(
+                    _state.updateStateWithReducer(
                         reducer,
                         CoffeeDetailsResult.CoffeeSuccessLoaded(coffee.copy(imagePath = directory))
                     )
@@ -71,7 +69,7 @@ class CoffeeDetailsStore(
         )
         scope.launch {
             coffeeWithDesc?.let {
-                _state.updateState(reducer, CoffeeDetailsResult.SaveDescription(it))
+                _state.updateStateWithReducer(reducer, CoffeeDetailsResult.SaveDescription(it))
                 repository.editCoffee(it)
             }
         }
@@ -82,18 +80,18 @@ class CoffeeDetailsStore(
     }
 
     fun onAddDescription() {
-        _state.updateState(reducer, CoffeeDetailsResult.ShowDescriptionEditField)
+        _state.updateStateWithReducer(reducer, CoffeeDetailsResult.ShowDescriptionEditField)
     }
 
     fun onCancelDescription() {
-        _state.updateState(reducer, CoffeeDetailsResult.CancelDescriptionEditField)
+        _state.updateStateWithReducer(reducer, CoffeeDetailsResult.CancelDescriptionEditField)
     }
 
     fun dismissEditBottomSheet() {
-        _state.updateState(reducer, CoffeeDetailsResult.CloseEditDialog)
+        _state.updateStateWithReducer(reducer, CoffeeDetailsResult.CloseEditDialog)
     }
 
     fun onEditButton() {
-        _state.updateState(reducer, CoffeeDetailsResult.OpenEditDialog)
+        _state.updateStateWithReducer(reducer, CoffeeDetailsResult.OpenEditDialog)
     }
 }
