@@ -21,7 +21,7 @@ val repositoryModule = module {
     }
 
     single<RecipeDetailsRepository> {
-        RecipeDetailsRepositoryImpl(get(), get(), get<ResourceManager>(), get())
+        RecipeDetailsRepositoryImpl(get(), get(), get(), get<ResourceManager>(), get())
     }
 
     single<CoffeeRepository> {

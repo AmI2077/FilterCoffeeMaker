@@ -7,7 +7,8 @@ import kotlinx.serialization.json.Json
 import org.example.project.core.data.AiConfig
 import org.example.project.core.data.local.db.AppDatabase
 import org.example.project.core.data.local.db.dao.CoffeeDao
-import org.example.project.core.data.local.db.dao.RecipeDao
+import org.example.project.core.data.local.db.dao.FavouritesRecipesDao
+import org.example.project.core.data.local.db.dao.RecentRecipesDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.client.YandexAiClient
 import org.example.project.core.data.resources.ResourceManagerImpl
@@ -29,7 +30,8 @@ val dataModule = module {
     single<CoroutineDispatcher> { Dispatchers.IO }
 
     single<CoffeeDao> { get<AppDatabase>().getCoffeeDao() }
-    single<RecipeDao> { get<AppDatabase>().getRecipeDao() }
+    single<FavouritesRecipesDao> { get<AppDatabase>().getFavouritesDao() }
+    single<RecentRecipesDao> { get<AppDatabase>().getRecipeDao() }
     single { AiConfig }
     single { Json { ignoreUnknownKeys = true } }
 }
