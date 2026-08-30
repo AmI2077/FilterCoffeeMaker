@@ -11,10 +11,12 @@ import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.store.MviStore
+import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateStateWithReducer
 import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
+import org.example.project.features.recipeDetails.store.RecipeDetailsAction.*
 
 class RecipeDetailsStore(
     private val imageSaver: ImageSaver,
@@ -39,10 +41,22 @@ class RecipeDetailsStore(
                     coffeeId = intent.coffeeId
                 )
 
-            is RecipeDetailsScreenIntent.SaveRecipeDetailsToRecents ->
-                saveRecipeToRecents(intent.recipe, intent.coffeeId!!)
+            is RecipeDetailsScreenIntent.StartTimerBtnClicked -> {
+                val recipe = _state.value.content ?: throw IllegalStateException("recipe == null")
+
+                saveRecipeToRecents(recipe, intent.coffeeId!!)
+                _uiActions.emitAction(scope, OpenTimerScreen(recipe))
+            }
 
             is RecipeDetailsScreenIntent.DefineInitState -> initState(intent.recipe)
+            is RecipeDetailsScreenIntent.FavouriteBtnClicked -> saveRecipeToFavourites(_state.value.content!!, intent.coffeeId!!)
+        }
+    }
+
+    // TODO "не трогай, не работает, надо разобраться с coffeeId, оно заебло меня"
+    private fun saveRecipeToFavourites(recipe: Recipe, coffeeId: String) {
+        scope.launch {
+            recipeDetailsRepository.saveRecipesToFavourites(recipe)
         }
     }
 
@@ -58,19 +72,21 @@ class RecipeDetailsStore(
             val coffee = getCoffeeDetails(coffeeId!!)
             val recipe = makeRecipeRequest(coffee, waterAmount)
 
-            recipeDetailsRepository.saveRecipeToRecents(
-                makeRecipeRequest(coffee, waterAmount),
-                coffeeId
-            )
-
-            val recipeWithImage = recipe.copy(
-                coffee = recipe.coffee.getWithImageDirectory(imageSaver)
-            )
             _state.updateStateWithReducer(
                 reducer,
-                RecipeDetailsResult.RecipeDetailsLoaded(recipeWithImage)
+                RecipeDetailsResult.RecipeDetailsLoaded(
+                    makeRecipeWithImage(coffee, recipe)
+                )
             )
         }
+    }
+
+    private suspend fun makeRecipeWithImage(coffee: Coffee, recipe: Recipe): Recipe {
+        val coffeeWithImage = coffee.getWithImageDirectory(imageSaver)
+
+        return recipe.copy(
+            coffee = coffeeWithImage
+        )
     }
 
     private suspend fun makeRecipeRequest(coffee: Coffee, waterAmount: Int): Recipe {
@@ -89,10 +105,10 @@ class RecipeDetailsStore(
     }
 
     private fun initState(recipe: Recipe?) {
-        recipe?.let { recipe ->
-            _state.updateStateWithReducer(reducer, RecipeDetailsResult.RecipeDetailsLoaded(recipe))
-        } ?: {
+        if (recipe == null) {
             _state.updateStateWithReducer(reducer, RecipeDetailsResult.ShowWaterAmountDialog)
+        } else {
+            _state.updateStateWithReducer(reducer, RecipeDetailsResult.RecipeDetailsLoaded(recipe))
         }
     }
 }

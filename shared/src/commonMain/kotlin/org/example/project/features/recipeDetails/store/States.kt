@@ -14,16 +14,23 @@ sealed interface RecipeDetailsScreenIntent {
     data class LoadRecipeDetails(val waterAmount: Int, val coffeeId: String?) :
         RecipeDetailsScreenIntent
 
-    data class SaveRecipeDetailsToRecents(val recipe: Recipe, val coffeeId: String?) :
-        RecipeDetailsScreenIntent
+    data class StartTimerBtnClicked(
+        val coffeeId: String?
+    ) : RecipeDetailsScreenIntent
+
+    data class FavouriteBtnClicked(
+        val coffeeId: String?
+    ): RecipeDetailsScreenIntent
 }
 
 sealed interface RecipeDetailsResult {
     data object ShowWaterAmountDialog : RecipeDetailsResult
     data object Loading : RecipeDetailsResult
     data class RecipeDetailsLoaded(val recipe: Recipe) : RecipeDetailsResult
+    data object RecipeAddedToFavourites: RecipeDetailsResult
+    data object RecipeDeletedFromFavourites: RecipeDetailsResult
 }
 
 sealed interface RecipeDetailsAction {
-    data class OpenTimerScreen(val recipe: Recipe): RecipeDetailsAction
+    data class OpenTimerScreen(val recipe: Recipe) : RecipeDetailsAction
 }

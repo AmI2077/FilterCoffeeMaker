@@ -27,6 +27,18 @@ class RecipeDetailsReducer : MviReducer<RecipeDetailsScreenUiState, RecipeDetail
                     isLoading = true,
                 )
             }
+
+            RecipeDetailsResult.RecipeAddedToFavourites -> {
+                oldState.copy(
+                    isFavourite = true
+                )
+            }
+
+            RecipeDetailsResult.RecipeDeletedFromFavourites -> {
+                oldState.copy(
+                    isFavourite = false
+                )
+            }
         }
     }
 }

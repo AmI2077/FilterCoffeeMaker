@@ -19,6 +19,7 @@ class RecipeDetailsScreenModel(
     val uiActions = store.uiActions
 
     init {
+        println("RECIPE: $recipe")
         defineInitState()
     }
 
@@ -28,5 +29,13 @@ class RecipeDetailsScreenModel(
 
     override fun loadRecipeFromAi(waterAmount: Int) {
         store.onIntent(RecipeDetailsScreenIntent.LoadRecipeDetails(waterAmount, coffeeId))
+    }
+
+    override fun onFavBtnClick() {
+        // TODO "сделать нажатие после того как разгребу тудушки"
+    }
+
+    override fun onStartTimerClick() {
+        store.onIntent(RecipeDetailsScreenIntent.StartTimerBtnClicked(coffeeId))
     }
 }

@@ -8,4 +8,6 @@ interface RecipeDetailsRepository {
     suspend fun getRecipe(recipeRequest: RecipeRequest): Recipe
 
     suspend fun saveRecipeToRecents(recipe: Recipe, coffeeId: String)
+
+    suspend fun saveRecipesToFavourites(recipe: Recipe)
 }
