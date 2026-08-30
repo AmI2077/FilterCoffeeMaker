@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.encodeToJsonElement
 import org.example.project.core.data.local.db.entities.CoffeeEntity
+import org.example.project.core.data.local.db.entities.FavouritesRecipesEntity
 import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.domain.model.Coffee
@@ -43,8 +44,22 @@ fun CoffeeEntity.toModel(): Coffee {
     )
 }
 
-fun Recipe.toEntity(coffeeId: String): RecentRecipeEntity {
+fun Recipe.toRecentEntity(coffeeId: String): RecentRecipeEntity {
     return RecentRecipeEntity(
+        id = this.id,
+        coffeeEntityId = coffeeId,
+        title = this.title,
+        userRating = this.userRating,
+        brewTime = this.brewTime,
+        coffeeAmount = this.coffeeAmount,
+        waterAmount = this.waterAmount,
+        waterTemperature = this.waterTemperature,
+        brewSteps = this.brewSteps
+    )
+}
+
+fun Recipe.toFavEntity(coffeeId: String): FavouritesRecipesEntity {
+    return FavouritesRecipesEntity(
         id = this.id,
         coffeeEntityId = coffeeId,
         title = this.title,

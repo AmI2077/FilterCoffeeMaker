@@ -38,7 +38,7 @@ import org.example.project.core.ui.theme.textPrimaryColorLight
 import org.example.project.core.ui.theme.textSecondaryColor
 import org.example.project.features.addCoffee.store.AddCoffeeActions
 import org.example.project.features.addCoffee.store.AddCoffeeScreenUiState
-import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
+import org.example.project.core.ui.components.ButtonRow
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

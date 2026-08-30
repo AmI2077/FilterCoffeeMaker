@@ -10,23 +10,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.example.project.core.data.local.db.dao.BrewStepDao
 import org.example.project.core.data.local.db.dao.CoffeeDao
-import org.example.project.core.data.local.db.dao.RecipeDao
+import org.example.project.core.data.local.db.dao.FavouritesRecipesDao
+import org.example.project.core.data.local.db.dao.RecentRecipesDao
 import org.example.project.core.data.local.db.entities.CoffeeEntity
+import org.example.project.core.data.local.db.entities.FavouritesRecipesEntity
 import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 
 // TODO "прописать миграцию для бд, чтобы не ебаться с версиями"
+// TODO "убрать хардкор Dispatchers.IO"
 
 @Database(
-    version = 6,
-    entities = [CoffeeEntity::class, RecentRecipeEntity::class]
+    version = 7,
+    entities = [CoffeeEntity::class, RecentRecipeEntity::class, FavouritesRecipesEntity::class]
 )
 @TypeConverters(Converters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getCoffeeDao(): CoffeeDao
-    abstract fun getRecipeDao(): RecipeDao
+    abstract fun getRecipeDao(): RecentRecipesDao
     abstract fun getBrewStepDao(): BrewStepDao
+    abstract fun getFavouritesDao(): FavouritesRecipesDao
 }
 
 fun getRoomDatabase(
@@ -39,7 +43,6 @@ fun getRoomDatabase(
         .build()
 }
 
-@Suppress("KotlinNoActualForExpect")
 expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase> {
     override fun initialize(): AppDatabase
 }

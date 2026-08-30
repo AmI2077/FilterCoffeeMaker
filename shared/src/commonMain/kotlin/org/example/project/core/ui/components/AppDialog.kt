@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import org.example.project.core.ui.theme.getMontserratBold
-import org.example.project.features.coffeeDetails.ui.composables.ButtonRow
 import coffee.shared.generated.resources.Res
 import coffee.shared.generated.resources.dialog_no
 import coffee.shared.generated.resources.dialog_yes

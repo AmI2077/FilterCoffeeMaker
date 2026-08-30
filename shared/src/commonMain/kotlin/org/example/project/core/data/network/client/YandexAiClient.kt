@@ -22,6 +22,9 @@ import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
 
+// TODO "убрать неиспользуемые штуки"
+// TODO "внедрить http клиент в конструктор"
+
 class YandexAiClient(
     private val config: AiConfig,
     private val json: Json
@@ -77,6 +80,8 @@ class YandexAiClient(
             }
             handleResponse(response)
         } catch (e: Exception) {
+            // TODO "сделать нормальную обработку ошибок без printStackTrace"
+
             e.printStackTrace()
 
             NetworkResult.Error(NetworkErrors.UnknownError)
