@@ -15,6 +15,7 @@ import org.example.project.core.data.AiConfig
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
+import kotlin.coroutines.cancellation.CancellationException
 
 class YandexAiClient(
     config: AiConfig,
@@ -35,11 +36,9 @@ class YandexAiClient(
                 setBody(request)
             }
             handleResponse(response)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
-            // TODO "сделать нормальную обработку ошибок без printStackTrace"
-
-            e.printStackTrace()
-
             NetworkResult.Error(NetworkErrors.UnknownError)
         }
     }
