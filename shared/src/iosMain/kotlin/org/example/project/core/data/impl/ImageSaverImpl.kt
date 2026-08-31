@@ -1,4 +1,4 @@
-package org.example.project.features.addCoffee.data
+package org.example.project.core.data.impl
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
