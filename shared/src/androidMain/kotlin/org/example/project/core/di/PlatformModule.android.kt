@@ -13,7 +13,8 @@ actual val platformModule: Module
     get() = module {
         single<AppDatabase> {
             getRoomDatabase(
-                getDatabaseBuilder(androidContext())
+                getDatabaseBuilder(androidContext()),
+                get()
             )
         }
         single<ImageSaver> {

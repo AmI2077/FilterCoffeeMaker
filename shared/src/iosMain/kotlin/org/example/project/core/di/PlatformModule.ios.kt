@@ -12,7 +12,8 @@ actual val platformModule: Module
     get() = module {
         single<AppDatabase> {
             getRoomDatabase(
-                getDatabaseBuilder()
+                getDatabaseBuilder(),
+                get()
             )
         }
 
