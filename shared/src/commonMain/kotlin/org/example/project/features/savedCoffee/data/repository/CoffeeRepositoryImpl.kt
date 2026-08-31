@@ -1,6 +1,5 @@
 package org.example.project.features.savedCoffee.data.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -10,13 +9,13 @@ import kotlinx.coroutines.withContext
 import org.example.project.core.data.extensions.toEntity
 import org.example.project.core.data.extensions.toModel
 import org.example.project.core.data.local.db.dao.CoffeeDao
+import org.example.project.core.domain.api.CoroutineDispatchers
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.savedCoffee.domain.api.CoffeeRepository
 
 class CoffeeRepositoryImpl(
     private val coffeeDao: CoffeeDao,
-    // TODO "передавать dispatcher через самописный интерфейс"
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatchers
 ) : CoffeeRepository {
     override fun getCoffeeList(): Flow<List<Coffee>> {
         return coffeeDao.getCoffeeList()
@@ -28,7 +27,7 @@ class CoffeeRepositoryImpl(
     }
 
     override suspend fun deleteCoffee(coffee: Coffee) {
-        withContext(dispatcher) {
+        withContext(dispatcher.io()) {
             coffeeDao.deleteCoffee(coffee.toEntity())
         }
     }
