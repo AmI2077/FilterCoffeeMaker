@@ -19,7 +19,6 @@ import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 import org.example.project.core.domain.api.CoroutineDispatchers
 
 // TODO "прописать миграцию для бд, чтобы не ебаться с версиями"
-// TODO "убрать хардкор Dispatchers.IO"
 
 @Database(
     version = 7,

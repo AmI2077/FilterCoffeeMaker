@@ -18,10 +18,7 @@ import org.koin.dsl.module
 
 val dataModule = module {
     includes(repositoryModule)
-
-    single<AiClient> {
-        YandexAiClient(get(), get())
-    }
+    includes(networkModule)
 
     single<ResourceManager> {
         ResourceManagerImpl()
@@ -39,6 +36,4 @@ val dataModule = module {
     single<CoffeeDao> { get<AppDatabase>().getCoffeeDao() }
     single<FavouritesRecipesDao> { get<AppDatabase>().getFavouritesDao() }
     single<RecentRecipesDao> { get<AppDatabase>().getRecipeDao() }
-    single { AiConfig }
-    single { Json { ignoreUnknownKeys = true } }
 }
