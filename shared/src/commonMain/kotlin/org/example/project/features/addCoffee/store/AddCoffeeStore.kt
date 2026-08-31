@@ -27,7 +27,7 @@ class AddCoffeeStore(
 
     override fun onIntent(intent: AddCoffeeIntent) {
         when (intent) {
-            is AddCoffeeIntent.LoadCoffeeInfo -> loadCoffeeInfo(intent.imageByteArray)
+            is AddCoffeeIntent.LoadCoffeeInfo -> loadCoffeeInfo(_state.value.imageByteArray)
 
             AddCoffeeIntent.PickImage -> pickImage()
 
@@ -36,18 +36,21 @@ class AddCoffeeStore(
                 imageByteArray = intent.imageByteArray
             )
 
-            is AddCoffeeIntent.AddCoffeeBtnClicked -> onAddCoffeeBtnClicked(intent.coffeeInfo)
+            is AddCoffeeIntent.AddCoffeeBtnClicked -> onAddCoffeeBtnClicked(_state.value.coffeeInfo)
             // оператор "!!" используется потому что диалог не может быть показан, если coffeeInfo == null
             AddCoffeeIntent.ConfirmAlreadyExistDialog -> addCoffee(_state.value.coffeeInfo!!)
             AddCoffeeIntent.DismissAlreadyExistDialog -> updateState(AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
         }
     }
 
-    private fun loadCoffeeInfo(imageByteArray: ByteArray) {
+    private fun loadCoffeeInfo(imageByteArray: ByteArray?) {
         updateState(result = AddCoffeeResults.Loading)
 
         scope.launch {
-            when (val result = addCoffeeInteractor.getCoffeeDetailsFromImage(imageByteArray)) {
+            val imageBytes = imageByteArray
+                ?: throw IllegalStateException("imageByteArray now is null")
+
+            when (val result = addCoffeeInteractor.getCoffeeDetailsFromImage(imageBytes)) {
                 is AddCoffeeRepositoryResult.Error -> {
                     updateState(
                         result = AddCoffeeResults.CoffeeInfoError(result.errorMessage)
@@ -84,7 +87,10 @@ class AddCoffeeStore(
         }
     }
 
-    private fun onAddCoffeeBtnClicked(coffee: Coffee) {
+    private fun onAddCoffeeBtnClicked(coffee: Coffee?) {
+        val coffee = coffee
+            ?: throw IllegalStateException("coffee now is null")
+
         scope.launch {
             val isExist = addCoffeeInteractor.isCoffeeExist(coffee)
             if (isExist) {
@@ -93,7 +99,6 @@ class AddCoffeeStore(
                 addCoffee(coffee)
             }
         }
-
     }
 
     private fun addCoffee(coffeeInfo: Coffee) {
