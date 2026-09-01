@@ -1,4 +1,4 @@
-package org.example.project.features.addCoffee.data
+package org.example.project.core.data.impl
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,7 +8,6 @@ import androidx.exifinterface.media.ExifInterface
 import org.example.project.core.domain.api.ImageSaver
 import java.io.ByteArrayInputStream
 import java.io.File
-import java.io.FileOutputStream
 
 actual class ImageSaverImpl(private val context: Context) : ImageSaver {
     actual override suspend fun getDirectory(fileName: String): String? {

@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.example.project.core.data.extensions.getWithImageDirectory
 import org.example.project.core.domain.api.ImageSaver
+import org.example.project.core.domain.impl.getWithImageDirectory
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.Recipe
 import org.example.project.core.ui.store.MviStore
@@ -17,6 +17,8 @@ import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
 import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
 import org.example.project.features.recipeDetails.store.RecipeDetailsAction.*
+
+// TODO "рефактор"
 
 class RecipeDetailsStore(
     private val imageSaver: ImageSaver,

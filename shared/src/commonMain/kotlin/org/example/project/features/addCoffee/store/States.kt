@@ -47,17 +47,13 @@ sealed interface AddCoffeeIntent {
 
     /**
      * Отправляется когда пользователь нажал кнопку "Добавить"
-     *
-     * @property coffeeInfo передается для сохранения информации о кофе в бд.
      */
-    data class AddCoffeeBtnClicked(val coffeeInfo: Coffee) : AddCoffeeIntent
+    data object AddCoffeeBtnClicked : AddCoffeeIntent
 
     /**
      * Отправляется когда пользователь нажимает кнопку "Загрузить" после выбора фото.
-     *
-     * @property imageByteArray передается для отправки в нейронку.
      */
-    data class LoadCoffeeInfo(val imageByteArray: ByteArray) : AddCoffeeIntent
+    data object LoadCoffeeInfo : AddCoffeeIntent
 
     data object ConfirmAlreadyExistDialog : AddCoffeeIntent
     data object DismissAlreadyExistDialog : AddCoffeeIntent

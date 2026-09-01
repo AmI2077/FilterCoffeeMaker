@@ -12,6 +12,9 @@ package org.example.project.core.utils
  *@see org.example.project.core.utils
  *
  **/
+
+// TODO "Перенести в domain/impl/extensions"
+
 fun Int.toTimeString(): String {
     val minutes = this / 60
     val seconds = this % 60

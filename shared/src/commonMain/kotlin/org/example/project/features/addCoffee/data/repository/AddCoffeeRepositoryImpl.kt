@@ -1,6 +1,5 @@
 package org.example.project.features.addCoffee.data.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.example.project.core.data.AiConfig
@@ -11,6 +10,7 @@ import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.Directories
+import org.example.project.core.domain.api.CoroutineDispatchers
 import org.example.project.core.domain.api.ResourceManager
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.addCoffee.data.extensions.CoffeeResponseSerializer
@@ -20,10 +20,10 @@ class AddCoffeeRepositoryImpl(
     private val aiClient: AiClient,
     private val coffeeDao: CoffeeDao,
     private val resourceManager: ResourceManager,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatchers
 ) : AddCoffeeRepository {
     override suspend fun getCoffeeDetailsFromImage(imageBase64: String): AddCoffeeRepositoryResult {
-        return withContext(dispatcher) {
+        return withContext(dispatcher.io()) {
             val prompt = resourceManager.getFileResource(Directories.AI_COFFEE_PROMPT_FILE_PATH)
 
             val result = aiClient.makeRequest(
@@ -44,7 +44,7 @@ class AddCoffeeRepositoryImpl(
     }
 
     override suspend fun saveCoffee(coffee: Coffee) {
-        withContext(dispatcher) {
+        withContext(dispatcher.io()) {
             coffeeDao.insertCoffee(coffee.toEntity())
         }
     }

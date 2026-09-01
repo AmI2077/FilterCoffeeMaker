@@ -5,11 +5,14 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
+import org.example.project.core.domain.impl.runIfExist
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
+import org.example.project.core.ui.store.emitAction
+import org.example.project.core.ui.store.updateStateWithReducer
 import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
 import org.example.project.features.addCoffee.domain.AddCoffeeInteractor
 
@@ -17,7 +20,8 @@ class AddCoffeeStore(
     private val reducer: AddCoffeeReducer,
     private val addCoffeeInteractor: AddCoffeeInteractor,
     private val imageSaver: ImageSaver,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val logger: AppLogger
 ) : MviStore<AddCoffeeScreenUiState, AddCoffeeIntent, AddCoffeeActions> {
     private var _state = MutableStateFlow(AddCoffeeScreenUiState())
     override val state = _state.asStateFlow()
@@ -27,7 +31,11 @@ class AddCoffeeStore(
 
     override fun onIntent(intent: AddCoffeeIntent) {
         when (intent) {
-            is AddCoffeeIntent.LoadCoffeeInfo -> loadCoffeeInfo(intent.imageByteArray)
+            is AddCoffeeIntent.LoadCoffeeInfo -> {
+                runIfExist(_state.value::imageByteArray, logger) {
+                    loadCoffeeInfo(it)
+                }
+            }
 
             AddCoffeeIntent.PickImage -> pickImage()
 
@@ -36,26 +44,40 @@ class AddCoffeeStore(
                 imageByteArray = intent.imageByteArray
             )
 
-            is AddCoffeeIntent.AddCoffeeBtnClicked -> onAddCoffeeBtnClicked(intent.coffeeInfo)
-            // оператор "!!" используется потому что диалог не может быть показан, если coffeeInfo == null
-            AddCoffeeIntent.ConfirmAlreadyExistDialog -> addCoffee(_state.value.coffeeInfo!!)
-            AddCoffeeIntent.DismissAlreadyExistDialog -> updateState(AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
+            is AddCoffeeIntent.AddCoffeeBtnClicked -> {
+                runIfExist(_state.value::coffeeInfo, logger) {
+                    onAddCoffeeBtnClicked(it)
+                }
+            }
+
+            AddCoffeeIntent.ConfirmAlreadyExistDialog -> {
+                runIfExist(_state.value::coffeeInfo, logger) {
+                    addCoffee(it)
+                }
+            }
+
+            AddCoffeeIntent.DismissAlreadyExistDialog -> _state.updateStateWithReducer(
+                reducer,
+                AddCoffeeResults.CloseCoffeeAlreadyExistDialog
+            )
         }
     }
 
     private fun loadCoffeeInfo(imageByteArray: ByteArray) {
-        updateState(result = AddCoffeeResults.Loading)
+        _state.updateStateWithReducer(reducer, result = AddCoffeeResults.Loading)
 
         scope.launch {
             when (val result = addCoffeeInteractor.getCoffeeDetailsFromImage(imageByteArray)) {
                 is AddCoffeeRepositoryResult.Error -> {
-                    updateState(
+                    _state.updateStateWithReducer(
+                        reducer,
                         result = AddCoffeeResults.CoffeeInfoError(result.errorMessage)
                     )
                 }
 
                 is AddCoffeeRepositoryResult.Success -> {
-                    updateState(
+                    _state.updateStateWithReducer(
+                        reducer,
                         result = AddCoffeeResults.CoffeeInfoSuccess(result.coffee)
                     )
                 }
@@ -74,7 +96,8 @@ class AddCoffeeStore(
                     fileBytes = imageByteArray
                 )
             }
-            updateState(
+            _state.updateStateWithReducer(
+                reducer,
                 result = AddCoffeeResults.ImageLoaded(
                     imageByteArray = imageByteArray,
                     imageDirectory = imageDirectory,
@@ -88,12 +111,14 @@ class AddCoffeeStore(
         scope.launch {
             val isExist = addCoffeeInteractor.isCoffeeExist(coffee)
             if (isExist) {
-                updateState(AddCoffeeResults.ShowCoffeeAlreadyExistDialog)
+                _state.updateStateWithReducer(
+                    reducer,
+                    AddCoffeeResults.ShowCoffeeAlreadyExistDialog
+                )
             } else {
                 addCoffee(coffee)
             }
         }
-
     }
 
     private fun addCoffee(coffeeInfo: Coffee) {
@@ -103,26 +128,12 @@ class AddCoffeeStore(
         scope.launch {
             addCoffeeInteractor.saveCoffee(coffee)
         }
-        updateState(AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
-        emitAction(AddCoffeeActions.AddCoffeeBtnClicked)
+
+        _state.updateStateWithReducer(reducer, AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
+        _uiActions.emitAction(scope, AddCoffeeActions.AddCoffeeBtnClicked)
     }
 
     private fun pickImage() {
-        emitAction(AddCoffeeActions.OpenGallery)
-    }
-
-    private fun emitAction(action: AddCoffeeActions) {
-        scope.launch {
-            _uiActions.emit(action)
-        }
-    }
-
-    private fun updateState(result: AddCoffeeResults) {
-        _state.update { oldState ->
-            reducer.reduce(
-                oldState = oldState,
-                result = result
-            )
-        }
+        _uiActions.emitAction(scope, AddCoffeeActions.OpenGallery)
     }
 }

@@ -4,7 +4,6 @@ import org.example.project.core.domain.model.Coffee
 
 data class CoffeeDetailsScreenUiState(
     val content: Coffee? = null,
-    val imageName: String? = null,
     val showEditDescriptionField: Boolean = false,
     val showEditBottomSheet: Boolean = false,
 )

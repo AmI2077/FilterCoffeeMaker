@@ -22,17 +22,11 @@ class AddCoffeeScreenModel(
     }
 
     fun addCoffee() {
-        store.onIntent(AddCoffeeIntent.AddCoffeeBtnClicked(state.value.coffeeInfo!!))
-        // TODO "пофиксить nullable coffeeInfo"
+        store.onIntent(AddCoffeeIntent.AddCoffeeBtnClicked)
     }
 
     fun loadCoffeeInfo() {
-        store.onIntent(AddCoffeeIntent.LoadCoffeeInfo(
-            state.value.imageByteArray!!
-        ))
-        /**
-         * TODO "пофиксить nullable imageByteArray"
-         * **/
+        store.onIntent(AddCoffeeIntent.LoadCoffeeInfo)
     }
 
     fun loadImage(bytes: ByteArray?) {

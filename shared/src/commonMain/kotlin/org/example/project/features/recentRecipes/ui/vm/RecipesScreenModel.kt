@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.project.core.data.extensions.getWithImageDirectory
 import org.example.project.core.domain.api.ImageSaver
+import org.example.project.core.domain.impl.getWithImageDirectory
 import org.example.project.features.recentRecipes.domain.api.RecipesRepository
 
 class RecipesScreenModel(

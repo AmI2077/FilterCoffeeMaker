@@ -2,10 +2,6 @@ package org.example.project.core.data.network.client
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.Logger
-import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -15,58 +11,21 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
 import org.example.project.core.data.AiConfig
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
+import kotlin.coroutines.cancellation.CancellationException
 
-// TODO "убрать неиспользуемые штуки"
-// TODO "внедрить http клиент в конструктор"
+// TODO "Сделать единое место для обработки ошибок"
 
 class YandexAiClient(
-    private val config: AiConfig,
-    private val json: Json
+    config: AiConfig,
+    private val ktorClient: HttpClient
 ) : AiClient {
-
-    private val timeOutMillis: Long = 300000
-
-    private val temperature = config.getTemperature()
-    private val maxTokens = config.getMaxTokens()
-    private val reasoningEffort = config.getReasoningEffort()
-
     private val yandexCloudFolder: String = config.getYandexCloudFolder()
     private val yandexCloudApiKey: String = config.getApi()
     private val yandexCloudModelBaseUrl: String = config.getYandexCloudBaseUrl()
-
-    private val qwenModelId = AiConfig.getQwenModelId()
-    private val gtpProModelId = AiConfig.getGptProModelId()
-
-    private val ktorClient = HttpClient {
-        install(ContentNegotiation) {
-            json(
-                json = json
-            )
-            json(
-                json = Json {
-                    ignoreUnknownKeys = true
-                    coerceInputValues = true
-                },
-            )
-        }
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println("KTOR_LOG: $message")
-                }
-            }
-            level = io.ktor.client.plugins.logging.LogLevel.ALL
-        }
-        install(HttpTimeout) {
-            socketTimeoutMillis = timeOutMillis
-        }
-    }
 
     override suspend fun makeRequest(request: AiRequestDto): NetworkResult<String> {
         return try {
@@ -79,11 +38,9 @@ class YandexAiClient(
                 setBody(request)
             }
             handleResponse(response)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
-            // TODO "сделать нормальную обработку ошибок без printStackTrace"
-
-            e.printStackTrace()
-
             NetworkResult.Error(NetworkErrors.UnknownError)
         }
     }
@@ -91,7 +48,7 @@ class YandexAiClient(
     private suspend fun handleResponse(response: HttpResponse): NetworkResult<String> {
         println("RESPONSE_STATUS: \nCODE: ${response.status.value}, ${response.status.description}\nDESCRIPTION: ${response.bodyAsText()}")
 
-        return when (val status = response.status) {
+        return when (response.status) {
             HttpStatusCode.BadGateway -> NetworkResult.Error(NetworkErrors.BadGateway)
             HttpStatusCode.GatewayTimeout -> NetworkResult.Error(NetworkErrors.GatewayTimeout)
             HttpStatusCode.InternalServerError -> NetworkResult.Error(NetworkErrors.InternalServerError)

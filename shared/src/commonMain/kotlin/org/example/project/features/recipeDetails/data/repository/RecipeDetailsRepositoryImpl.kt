@@ -1,11 +1,9 @@
 package org.example.project.features.recipeDetails.data.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import org.example.project.core.data.AiConfig
-import org.example.project.core.data.extensions.toFavEntity
 import org.example.project.core.data.extensions.toRecentEntity
 import org.example.project.core.data.local.db.dao.FavouritesRecipesDao
 import org.example.project.core.data.local.db.dao.RecentRecipesDao
@@ -13,6 +11,7 @@ import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
 import org.example.project.core.data.network.dto.NetworkResult
 import org.example.project.core.data.resources.Directories
+import org.example.project.core.domain.api.CoroutineDispatchers
 import org.example.project.core.domain.api.ResourceManager
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.recipeDetails.data.extensions.RecipeResponseSerializer
@@ -25,10 +24,10 @@ class RecipeDetailsRepositoryImpl(
     private val recentRecipesDao: RecentRecipesDao,
     private val favouritesRecipesDao: FavouritesRecipesDao,
     private val resourceManager: ResourceManager,
-    private val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatchers,
 ) : RecipeDetailsRepository {
     override suspend fun getRecipe(recipeRequest: RecipeRequest): Recipe {
-        return withContext(dispatcher) {
+        return withContext(dispatcher.io()) {
             val coffeeJson = Json.encodeToJsonElement(recipeRequest).toString()
             val prompt = resourceManager.getFileResource(Directories.AI_RECIPE_PROMPT_FILE_PATH)
 
@@ -63,13 +62,13 @@ class RecipeDetailsRepositoryImpl(
         val recipeWithId = recipe.copy(
             id = Random.nextInt(0, 14315)
         )
-        withContext(dispatcher) {
+        withContext(dispatcher.io()) {
             recentRecipesDao.insertRecipe(recipeWithId.toRecentEntity(coffeeId))
         }
     }
 
     override suspend fun saveRecipesToFavourites(recipe: Recipe) {
-        withContext(dispatcher) {
+        withContext(dispatcher.io()) {
             //favouritesRecipesDao.insertRecipe(recipe.toFavEntity())
         }
     }

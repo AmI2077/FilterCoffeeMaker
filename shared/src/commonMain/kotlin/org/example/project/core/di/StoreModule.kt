@@ -17,6 +17,7 @@ val storeModule = module {
             get(),
             get(),
             scope,
+            get()
         )
     }
 
@@ -24,6 +25,7 @@ val storeModule = module {
         CoffeeDetailsStore(
             get(),
             scope,
+            get(),
             get(),
             get()
         )

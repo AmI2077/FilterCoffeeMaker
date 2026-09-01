@@ -16,6 +16,8 @@ import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.features.savedCoffee.domain.api.CoffeeInteractor
 
+// TODO "рефактор"
+
 class SavedCoffeeStore(
     private val coffeeInteractor: CoffeeInteractor,
     private val imageSaver: ImageSaver,

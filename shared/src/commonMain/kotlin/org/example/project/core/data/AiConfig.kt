@@ -1,6 +1,10 @@
 package org.example.project.core.data
 
+// TODO "Разгрести конфиг, понять что мне нужно и что нет"
+
 object AiConfig {
+
+    private const val TIMEOUT_MILLIS = 300000L
 
     private const val MAX_TOKENS = 1500
     private const val TEMPERATURE = 0.2
@@ -14,13 +18,11 @@ object AiConfig {
 
     private const val YANDEX_CLOUD_BASE_URL: String = "https://ai.api.cloud.yandex.net/v1/responses"
 
+    fun getTimeoutMillis() = TIMEOUT_MILLIS
+
     fun getApi(): String = YANDEX_CLOUD_API_KEY
     fun getYandexCloudFolder(): String = YANDEX_CLOUD_FOLDER
     fun getYandexCloudBaseUrl(): String = YANDEX_CLOUD_BASE_URL
-
-    fun getMaxTokens(): Int = MAX_TOKENS
-    fun getTemperature(): Double = TEMPERATURE
-    fun getReasoningEffort(): String = REASONING_EFFORT
 
     fun getQwenModelId(): String {
         return "gpt://${YANDEX_CLOUD_FOLDER}/${YANDEX_CLOUD_QWEN_MODEL}"
