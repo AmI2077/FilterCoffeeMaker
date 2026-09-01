@@ -18,6 +18,8 @@ import org.example.project.features.recipeDetails.domain.api.RecipeDetailsReposi
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
 import org.example.project.features.recipeDetails.store.RecipeDetailsAction.*
 
+// TODO "рефактор"
+
 class RecipeDetailsStore(
     private val imageSaver: ImageSaver,
     private val recipeDetailsRepository: RecipeDetailsRepository,
