@@ -10,6 +10,9 @@ import kotlinx.serialization.json.Json
 import org.example.project.core.data.AiConfig
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.client.YandexAiClient
+import org.example.project.core.domain.api.AppLogger
+import org.example.project.core.domain.api.LogMessageType
+import org.example.project.core.domain.api.log
 import org.koin.dsl.module
 
 val networkModule = module {
@@ -30,7 +33,10 @@ val networkModule = module {
     single<Logger> {
         object : Logger {
             override fun log(message: String) {
-                println("KTOR_LOG: $message")
+                get<AppLogger>().log<Logger>(
+                    type = LogMessageType.INFO,
+                    message = message
+                )
             }
         }
     }

@@ -1,6 +1,5 @@
 package org.example.project.core.di
 
-import kotlinx.coroutines.CoroutineScope
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.addCoffee.ui.vm.AddCoffeeScreenModel

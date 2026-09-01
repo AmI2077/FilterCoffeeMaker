@@ -17,6 +17,7 @@ val storeModule = module {
             get(),
             get(),
             scope,
+            get()
         )
     }
 
