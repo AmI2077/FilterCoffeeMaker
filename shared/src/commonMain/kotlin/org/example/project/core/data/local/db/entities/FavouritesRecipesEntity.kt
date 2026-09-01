@@ -2,6 +2,7 @@ package org.example.project.core.data.local.db.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.example.project.core.domain.model.BrewStep
 
@@ -14,7 +15,8 @@ import org.example.project.core.domain.model.BrewStep
             childColumns = ["coffeeEntityId"],
             onDelete = ForeignKey.CASCADE
         ),
-    ]
+    ],
+    indices = [Index(value = ["coffeeEntityId"])]
 )
 data class FavouritesRecipesEntity(
     @PrimaryKey

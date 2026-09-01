@@ -1,0 +1,239 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 7,
+    "identityHash": "817f6dcc860720404304a56c675434a9",
+    "entities": [
+      {
+        "tableName": "Coffee",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `imagePath` TEXT NOT NULL, `roasting` TEXT NOT NULL, `qGrade` TEXT, `tasteDescription` TEXT NOT NULL, `density` REAL NOT NULL, `acidity` REAL NOT NULL, `processingMethod` TEXT NOT NULL, `userDescription` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imagePath",
+            "columnName": "imagePath",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roasting",
+            "columnName": "roasting",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qGrade",
+            "columnName": "qGrade",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tasteDescription",
+            "columnName": "tasteDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "density",
+            "columnName": "density",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "acidity",
+            "columnName": "acidity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "processingMethod",
+            "columnName": "processingMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userDescription",
+            "columnName": "userDescription",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "RecentRecipes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `coffeeEntityId` TEXT NOT NULL, `userRating` TEXT, `brewTime` INTEGER NOT NULL, `coffeeAmount` INTEGER NOT NULL, `waterAmount` INTEGER NOT NULL, `waterTemperature` INTEGER NOT NULL, `brewSteps` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`coffeeEntityId`) REFERENCES `Coffee`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coffeeEntityId",
+            "columnName": "coffeeEntityId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "userRating",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "brewTime",
+            "columnName": "brewTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coffeeAmount",
+            "columnName": "coffeeAmount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterAmount",
+            "columnName": "waterAmount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterTemperature",
+            "columnName": "waterTemperature",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brewSteps",
+            "columnName": "brewSteps",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "Coffee",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "coffeeEntityId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "FavouritesRecipes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `coffeeEntityId` TEXT NOT NULL, `userRating` TEXT, `brewTime` INTEGER NOT NULL, `coffeeAmount` INTEGER NOT NULL, `waterAmount` INTEGER NOT NULL, `waterTemperature` INTEGER NOT NULL, `brewSteps` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`coffeeEntityId`) REFERENCES `Coffee`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coffeeEntityId",
+            "columnName": "coffeeEntityId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "userRating",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "brewTime",
+            "columnName": "brewTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coffeeAmount",
+            "columnName": "coffeeAmount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterAmount",
+            "columnName": "waterAmount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterTemperature",
+            "columnName": "waterTemperature",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brewSteps",
+            "columnName": "brewSteps",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "Coffee",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "coffeeEntityId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '817f6dcc860720404304a56c675434a9')"
+    ]
+  }
+}
