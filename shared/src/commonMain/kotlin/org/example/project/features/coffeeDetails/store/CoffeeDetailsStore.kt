@@ -6,9 +6,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
+import org.example.project.core.domain.impl.getWithImageDirectory
+import org.example.project.core.domain.impl.runIfExist
+import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateStateWithReducer
@@ -18,14 +21,19 @@ class CoffeeDetailsStore(
     private val reducer: CoffeeDetailsReducer,
     private val scope: CoroutineScope,
     private val repository: CoffeeDetailsRepository,
-    private val imageSaver: ImageSaver
+    private val imageSaver: ImageSaver,
+    private val logger: AppLogger,
 ) : MviStore<CoffeeDetailsScreenUiState, CoffeeDetailsIntent, CoffeeDetailsAction> {
 
+    private var imageName: String? = null
+
     private var _state = MutableStateFlow(CoffeeDetailsScreenUiState())
+
     private var _uiActions = MutableSharedFlow<CoffeeDetailsAction>()
 
     override val state: StateFlow<CoffeeDetailsScreenUiState>
         get() = _state
+
     override val uiActions: SharedFlow<CoffeeDetailsAction>
         get() = _uiActions
 
@@ -37,7 +45,7 @@ class CoffeeDetailsStore(
             CoffeeDetailsIntent.EditBtnClicked -> onEditButton()
             is CoffeeDetailsIntent.LoadCoffeeDetails -> loadCoffeeDetails(intent.coffeeId)
             CoffeeDetailsIntent.RecipeBtnClicked -> onRecipeClick()
-            is CoffeeDetailsIntent.SaveDescriptionBtnClicked -> saveDescription(intent.description)
+            is CoffeeDetailsIntent.SaveDescriptionBtnClicked -> onSaveDescriptionClick(intent.description)
         }
     }
 
@@ -46,33 +54,38 @@ class CoffeeDetailsStore(
             repository.getCoffeeDetailsFlow(coffeeId)
                 .catch { e -> println("COFFEE_ERROR: $e") }
                 .collect { coffee ->
-                    // TODO "че то придумать с путем к изображению, ибо в стейте нельзя хранить полный путь"
-                    val directory = coffee.imagePath?.let {
-                        _state.update { oldState ->
-                            oldState.copy(imageName = it)
-                        }
-                        imageSaver.getDirectory(it)
-                    }
+                    imageName = coffee.imagePath
+
+                    val newCoffee = coffee.getWithImageDirectory(imageSaver)
+
                     _state.updateStateWithReducer(
                         reducer,
-                        CoffeeDetailsResult.CoffeeSuccessLoaded(coffee.copy(imagePath = directory))
+                        CoffeeDetailsResult.CoffeeSuccessLoaded(newCoffee)
                     )
                 }
         }
     }
 
-    fun saveDescription(description: String) {
-        // TODO "пофиксить nullable coffee, ибо в этот момент он не может быть nullable"
-        val coffeeWithDesc = _state.value.content?.copy(
-            imagePath = _state.value.imageName,
-            userDescription = description
-        )
-        scope.launch {
-            coffeeWithDesc?.let {
-                _state.updateStateWithReducer(reducer, CoffeeDetailsResult.SaveDescription(it))
-                repository.editCoffee(it)
-            }
+    fun onSaveDescriptionClick(description: String) {
+        runIfExist(_state.value::content, logger) { coffee ->
+            val updatedCoffee = updateCoffeeDesc(coffee, description)
+
+            saveDescription(updatedCoffee)
         }
+    }
+
+    private fun saveDescription(coffeeWithDesc: Coffee) {
+        scope.launch {
+            _state.updateStateWithReducer(reducer, CoffeeDetailsResult.SaveDescription(coffeeWithDesc))
+            repository.editCoffee(coffeeWithDesc)
+        }
+    }
+
+    private fun updateCoffeeDesc(coffee: Coffee, newDesc: String): Coffee {
+        return coffee.copy(
+            imagePath = imageName,
+            userDescription = newDesc
+        )
     }
 
     fun onRecipeClick() {

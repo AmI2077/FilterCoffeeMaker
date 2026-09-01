@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.core.domain.api.LogMessageType
-import org.example.project.core.domain.api.log
 import org.example.project.core.domain.impl.runIfExist
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
