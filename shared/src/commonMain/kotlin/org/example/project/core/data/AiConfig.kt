@@ -1,5 +1,7 @@
 package org.example.project.core.data
 
+// TODO "Разгрести конфиг, понять что мне нужно и что нет"
+
 object AiConfig {
 
     private const val TIMEOUT_MILLIS = 300000L

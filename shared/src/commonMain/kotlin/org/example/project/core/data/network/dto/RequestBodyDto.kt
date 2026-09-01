@@ -3,6 +3,8 @@ package org.example.project.core.data.network.dto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+// TODO "Почему оно не используется?"
+
 @Serializable
 data class RequestBodyDto(
     @SerialName("model")

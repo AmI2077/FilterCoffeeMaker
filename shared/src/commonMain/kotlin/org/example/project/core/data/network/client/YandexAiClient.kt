@@ -17,6 +17,8 @@ import org.example.project.core.data.network.dto.NetworkErrors
 import org.example.project.core.data.network.dto.NetworkResult
 import kotlin.coroutines.cancellation.CancellationException
 
+// TODO "Сделать единое место для обработки ошибок"
+
 class YandexAiClient(
     config: AiConfig,
     private val ktorClient: HttpClient

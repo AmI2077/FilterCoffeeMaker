@@ -19,6 +19,8 @@ import org.example.project.core.ui.theme.backgroundColor
 import org.example.project.core.ui.theme.white
 import org.jetbrains.compose.resources.painterResource
 
+// TODO "Избавиться от магических чисел в UI и как-то прийти к дизайн системе"
+
 @Composable
 fun AppBackButton(
     modifier: Modifier = Modifier,

@@ -28,6 +28,8 @@ inline fun <S: Any, reified T: Any> T.runIfExist(
     }
 }
 
+// TODO "Функция не должна выбрасывать IllegalState, а checkNotNull его выбрасывает"
+
 suspend fun Coffee.getWithImageDirectory(
     imageSaver: ImageSaver
 ): Coffee {
