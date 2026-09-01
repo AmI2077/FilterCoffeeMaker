@@ -10,6 +10,7 @@ import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.api.LogMessageType
 import org.example.project.core.domain.api.log
+import org.example.project.core.domain.impl.runIfExist
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
@@ -33,7 +34,7 @@ class AddCoffeeStore(
     override fun onIntent(intent: AddCoffeeIntent) {
         when (intent) {
             is AddCoffeeIntent.LoadCoffeeInfo -> {
-                runIfStateNotNull(_state.value.imageByteArray) {
+                runIfExist(_state.value::imageByteArray, logger) {
                     loadCoffeeInfo(it)
                 }
             }
@@ -46,13 +47,13 @@ class AddCoffeeStore(
             )
 
             is AddCoffeeIntent.AddCoffeeBtnClicked -> {
-                runIfStateNotNull(_state.value.coffeeInfo) {
+                runIfExist(_state.value::coffeeInfo, logger) {
                     onAddCoffeeBtnClicked(it)
                 }
             }
 
             AddCoffeeIntent.ConfirmAlreadyExistDialog -> {
-                runIfStateNotNull(_state.value.coffeeInfo) {
+                runIfExist(_state.value::coffeeInfo, logger) {
                     addCoffee(it)
                 }
             }
@@ -61,24 +62,6 @@ class AddCoffeeStore(
                 reducer,
                 AddCoffeeResults.CloseCoffeeAlreadyExistDialog
             )
-        }
-    }
-
-    /**
-     * Этот метод для безопасного обращения к nullable полям из state, если они в момент выполнения
-     * не могут быть nullable
-     */
-    private fun <T> runIfStateNotNull(
-        info: T?,
-        action: (info : T) -> Unit
-    ) {
-        if (info == null) {
-            logger.log<AddCoffeeStore>(
-                type = LogMessageType.ERROR,
-                message = "info from state doesn't exist"
-            )
-        } else {
-            action(info)
         }
     }
 
