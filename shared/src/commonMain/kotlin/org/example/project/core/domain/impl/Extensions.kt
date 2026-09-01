@@ -8,8 +8,8 @@ import org.example.project.core.domain.model.Coffee
 import kotlin.reflect.KProperty0
 
 /**
- * Этот метод для безопасного обращения к nullable полям из state, если они в момент выполнения
- * не могут быть nullable
+ * Этот метод для безопасного обращения к nullable полям, например,
+ * если они не могут быть nullable по логике программы в момент выполнения
  */
 inline fun <S: Any, reified T: Any> T.runIfExist(
     info: KProperty0<S?>,
