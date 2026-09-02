@@ -24,16 +24,13 @@ inline fun <S: Any> runIfExist(
     }
 }
 
-// TODO "Функция не должна выбрасывать IllegalState, а checkNotNull его выбрасывает"
-
 suspend fun Coffee.getWithImageDirectory(
     imageSaver: ImageSaver
 ): Coffee {
-    checkNotNull(imagePath) {
-        return this
-    }
-    val directory = imageSaver.getDirectory(imagePath)
-    return this.copy(
-        imagePath = directory
-    )
+    return imagePath?.let {
+        val directory = imageSaver.getDirectory(imagePath)
+        this.copy(
+            imagePath = directory
+        )
+    } ?: this
 }
