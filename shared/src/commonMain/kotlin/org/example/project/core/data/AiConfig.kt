@@ -1,14 +1,7 @@
 package org.example.project.core.data
 
-// TODO "Разгрести конфиг, понять что мне нужно и что нет"
-
 object AiConfig {
-
     private const val TIMEOUT_MILLIS = 300000L
-
-    private const val MAX_TOKENS = 1500
-    private const val TEMPERATURE = 0.2
-    private const val REASONING_EFFORT = "none"
 
     private const val YANDEX_CLOUD_API_KEY = "AQVN2fRbj27e9s7UYj2wtah5MDW-11nJ83qxndyr"
     private const val YANDEX_CLOUD_FOLDER: String = "b1gmek2o6f58ld4b8iaq"
