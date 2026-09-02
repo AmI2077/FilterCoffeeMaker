@@ -24,15 +24,6 @@ val dataModule = module {
         ResourceManagerImpl()
     }
 
-    single<CoroutineDispatchers> {
-        AndroidCoroutineDispatchers(
-            io = Dispatchers.IO,
-            main = Dispatchers.Main,
-            default = Dispatchers.Default,
-            unconfined = Dispatchers.Unconfined
-        )
-    }
-
     single<CoffeeDao> { get<AppDatabase>().getCoffeeDao() }
     single<FavouritesRecipesDao> { get<AppDatabase>().getFavouritesDao() }
     single<RecentRecipesDao> { get<AppDatabase>().getRecipeDao() }

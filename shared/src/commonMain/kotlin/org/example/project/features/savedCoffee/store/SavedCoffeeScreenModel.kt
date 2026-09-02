@@ -3,13 +3,14 @@ package org.example.project.features.savedCoffee.store
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.savedCoffee.ui.screens.SavedCoffeeDialogResult
 
 class SavedCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> SavedCoffeeStore
-) : ScreenModel {
-    private val store = storeFactory(screenModelScope)
+) : BaseScreenModel() {
+    private val store = storeFactory(screenModelScopeWithHandler)
 
     val state = store.state
 

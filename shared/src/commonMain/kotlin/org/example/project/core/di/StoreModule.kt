@@ -11,13 +11,14 @@ import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.koin.dsl.module
 
 val storeModule = module {
+    includes(coroutineModule)
+
     factory { (scope: CoroutineScope) ->
         AddCoffeeStore(
             get(),
             get(),
             get(),
             scope,
-            get()
         )
     }
 
@@ -27,7 +28,6 @@ val storeModule = module {
             scope,
             get(),
             get(),
-            get()
         )
     }
 
@@ -35,7 +35,7 @@ val storeModule = module {
         SavedCoffeeStore(
             get(),
             get(),
-            scope
+            scope,
         )
     }
 
@@ -45,7 +45,7 @@ val storeModule = module {
             get(),
             get(),
             get(),
-            scope
+            scope,
         )
     }
 

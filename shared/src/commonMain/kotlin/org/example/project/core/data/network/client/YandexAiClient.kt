@@ -46,8 +46,6 @@ class YandexAiClient(
     }
 
     private suspend fun handleResponse(response: HttpResponse): NetworkResult<String> {
-        println("RESPONSE_STATUS: \nCODE: ${response.status.value}, ${response.status.description}\nDESCRIPTION: ${response.bodyAsText()}")
-
         return when (response.status) {
             HttpStatusCode.BadGateway -> NetworkResult.Error(NetworkErrors.BadGateway)
             HttpStatusCode.GatewayTimeout -> NetworkResult.Error(NetworkErrors.GatewayTimeout)

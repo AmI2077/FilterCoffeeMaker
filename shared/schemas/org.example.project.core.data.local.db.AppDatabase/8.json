@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "817f6dcc860720404304a56c675434a9",
+    "identityHash": "0565580b317346367e002fc37571af0a",
     "entities": [
       {
         "tableName": "Coffee",
@@ -138,6 +138,17 @@
             "id"
           ]
         },
+        "indices": [
+          {
+            "name": "index_RecentRecipes_coffeeEntityId",
+            "unique": false,
+            "columnNames": [
+              "coffeeEntityId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RecentRecipes_coffeeEntityId` ON `${TABLE_NAME}` (`coffeeEntityId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Coffee",
@@ -216,6 +227,17 @@
             "id"
           ]
         },
+        "indices": [
+          {
+            "name": "index_FavouritesRecipes_coffeeEntityId",
+            "unique": false,
+            "columnNames": [
+              "coffeeEntityId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_FavouritesRecipes_coffeeEntityId` ON `${TABLE_NAME}` (`coffeeEntityId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Coffee",
@@ -233,7 +255,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '817f6dcc860720404304a56c675434a9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0565580b317346367e002fc37571af0a')"
     ]
   }
 }

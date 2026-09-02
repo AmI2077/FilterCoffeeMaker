@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.impl.getWithImageDirectory
 import org.example.project.core.domain.impl.runIfExist
@@ -22,7 +21,6 @@ class CoffeeDetailsStore(
     private val scope: CoroutineScope,
     private val repository: CoffeeDetailsRepository,
     private val imageSaver: ImageSaver,
-    private val logger: AppLogger,
 ) : MviStore<CoffeeDetailsScreenUiState, CoffeeDetailsIntent, CoffeeDetailsAction> {
 
     private var imageName: String? = null
@@ -67,7 +65,7 @@ class CoffeeDetailsStore(
     }
 
     fun onSaveDescriptionClick(description: String) {
-        runIfExist(_state.value::content, logger) { coffee ->
+        runIfExist(_state.value::content) { coffee ->
             val updatedCoffee = updateCoffeeDesc(coffee, description)
 
             saveDescription(updatedCoffee)

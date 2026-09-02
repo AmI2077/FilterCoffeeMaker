@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.impl.runIfExist
 import org.example.project.core.domain.model.Coffee
@@ -21,7 +20,6 @@ class AddCoffeeStore(
     private val addCoffeeInteractor: AddCoffeeInteractor,
     private val imageSaver: ImageSaver,
     private val scope: CoroutineScope,
-    private val logger: AppLogger
 ) : MviStore<AddCoffeeScreenUiState, AddCoffeeIntent, AddCoffeeActions> {
     private var _state = MutableStateFlow(AddCoffeeScreenUiState())
     override val state = _state.asStateFlow()
@@ -32,7 +30,7 @@ class AddCoffeeStore(
     override fun onIntent(intent: AddCoffeeIntent) {
         when (intent) {
             is AddCoffeeIntent.LoadCoffeeInfo -> {
-                runIfExist(_state.value::imageByteArray, logger) {
+                runIfExist(_state.value::imageByteArray) {
                     loadCoffeeInfo(it)
                 }
             }
@@ -45,13 +43,13 @@ class AddCoffeeStore(
             )
 
             is AddCoffeeIntent.AddCoffeeBtnClicked -> {
-                runIfExist(_state.value::coffeeInfo, logger) {
+                runIfExist(_state.value::coffeeInfo) {
                     onAddCoffeeBtnClicked(it)
                 }
             }
 
             AddCoffeeIntent.ConfirmAlreadyExistDialog -> {
-                runIfExist(_state.value::coffeeInfo, logger) {
+                runIfExist(_state.value::coffeeInfo) {
                     addCoffee(it)
                 }
             }

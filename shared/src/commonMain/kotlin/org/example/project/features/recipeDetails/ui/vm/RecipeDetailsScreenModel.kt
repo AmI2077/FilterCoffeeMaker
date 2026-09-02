@@ -3,6 +3,7 @@ package org.example.project.features.recipeDetails.ui.vm
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.recipeDetails.store.RecipeDetailsScreenIntent
 import org.example.project.features.recipeDetails.store.RecipeDetailsStore
@@ -11,8 +12,8 @@ class RecipeDetailsScreenModel(
     private val coffeeId: String?,
     private val recipe: Recipe? = null,
     storeFactory: (scope: CoroutineScope) -> RecipeDetailsStore
-) : ScreenModel, RecipeDetailsCallbacks {
-    private val store = storeFactory(screenModelScope)
+) : BaseScreenModel(), RecipeDetailsCallbacks {
+    private val store = storeFactory(screenModelScopeWithHandler)
 
     val state = store.state
 

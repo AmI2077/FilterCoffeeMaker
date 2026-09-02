@@ -1,5 +1,6 @@
 package org.example.project.features.recipeDetails.store
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,7 @@ class RecipeDetailsStore(
     private val recipeDetailsRepository: RecipeDetailsRepository,
     private val coffeeDetailsRepository: CoffeeDetailsRepository,
     private val reducer: RecipeDetailsReducer,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
 ) : MviStore<RecipeDetailsScreenUiState, RecipeDetailsScreenIntent, RecipeDetailsAction> {
 
     private var _state = MutableStateFlow(RecipeDetailsScreenUiState())
