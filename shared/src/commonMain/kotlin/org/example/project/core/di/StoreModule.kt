@@ -1,6 +1,7 @@
 package org.example.project.core.di
 
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.di.data.coroutineModule
 import org.example.project.features.addCoffee.store.AddCoffeeReducer
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsReducer

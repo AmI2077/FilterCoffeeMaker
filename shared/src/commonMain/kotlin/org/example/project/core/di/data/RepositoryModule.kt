@@ -1,4 +1,4 @@
-package org.example.project.core.di
+package org.example.project.core.di.data
 
 import org.example.project.core.domain.api.ResourceManager
 import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryImpl

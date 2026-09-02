@@ -1,18 +1,14 @@
-package org.example.project.core.di
+package org.example.project.core.di.data
 
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.MainCoroutineDispatcher
-import kotlinx.coroutines.SupervisorJob
 import org.example.project.core.data.impl.AndroidCoroutineDispatchers
 import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.CoroutineDispatchers
 import org.example.project.core.domain.api.LogMessageType
 import org.example.project.core.domain.exceptions.NullStateException
 import org.koin.core.qualifier.named
-import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
 const val APP_CEN = "AppCoroutineExceptionHandler"
