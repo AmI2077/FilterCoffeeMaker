@@ -1,5 +1,6 @@
 package org.example.project.features.addCoffee.data.repository
 
+import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.example.project.core.data.AiConfig
@@ -7,11 +8,14 @@ import org.example.project.core.data.extensions.toEntity
 import org.example.project.core.data.local.db.dao.CoffeeDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
-import org.example.project.core.data.network.dto.NetworkErrors
-import org.example.project.core.data.network.dto.NetworkResult
+import org.example.project.core.domain.model.NetworkErrors
+import org.example.project.core.domain.model.NetworkResult
 import org.example.project.core.data.resources.Directories
 import org.example.project.core.domain.api.CoroutineDispatchers
+import org.example.project.core.domain.api.JsonResponseSerializer
+import org.example.project.core.domain.api.NetworkResponseHandler
 import org.example.project.core.domain.api.ResourceManager
+import org.example.project.core.domain.impl.getWithId
 import org.example.project.core.domain.model.Coffee
 import org.example.project.features.addCoffee.data.extensions.CoffeeResponseSerializer
 import org.example.project.features.addCoffee.domain.AddCoffeeRepository
@@ -20,9 +24,10 @@ class AddCoffeeRepositoryImpl(
     private val aiClient: AiClient,
     private val coffeeDao: CoffeeDao,
     private val resourceManager: ResourceManager,
-    private val dispatcher: CoroutineDispatchers
-) : AddCoffeeRepository {
-    override suspend fun getCoffeeDetailsFromImage(imageBase64: String): AddCoffeeRepositoryResult {
+    private val dispatcher: CoroutineDispatchers,
+    private val responseHandler: NetworkResponseHandler<HttpResponse>,
+) : AddCoffeeRepository<String> {
+    override suspend fun getCoffeeDetailsFromImage(imageBase64: String): NetworkResult<String> {
         return withContext(dispatcher.io()) {
             val prompt = resourceManager.getFileResource(Directories.AI_COFFEE_PROMPT_FILE_PATH)
 
@@ -34,8 +39,7 @@ class AddCoffeeRepositoryImpl(
                     model = AiConfig.getQwenModelId()
                 )
             )
-
-            handleNetworkResult(result)
+            responseHandler.handle(result,String::class)
         }
     }
 
@@ -44,21 +48,7 @@ class AddCoffeeRepositoryImpl(
     }
 
     override suspend fun saveCoffee(coffee: Coffee) {
-        withContext(dispatcher.io()) {
-            coffeeDao.insertCoffee(coffee.toEntity())
-        }
-    }
-
-    private fun handleNetworkResult(result: NetworkResult<String>): AddCoffeeRepositoryResult {
-        return when (result) {
-            is NetworkResult.Error -> {
-                AddCoffeeRepositoryResult.Error(result.error.message)
-            }
-            is NetworkResult.Success -> {
-                val rawJson = result.data
-                handleSerializeResult(rawJson)
-            }
-        }
+        coffeeDao.insertCoffee(coffee.toEntity())
     }
 
     private fun handleSerializeResult(rawJson: String): AddCoffeeRepositoryResult {
@@ -66,16 +56,10 @@ class AddCoffeeRepositoryImpl(
             val coffee = Json.decodeFromString(CoffeeResponseSerializer(), rawJson).copy()
 
             AddCoffeeRepositoryResult.Success(
-                coffee.copy(
-                    id = getId(coffee.title)
-                )
+                coffee.getWithId()
             )
         } catch (e: Exception) {
             AddCoffeeRepositoryResult.Error(NetworkErrors.UnknownError.message)
         }
-    }
-
-    private fun getId(title: String): String {
-        return title.substring(0, 4).lowercase()
     }
 }

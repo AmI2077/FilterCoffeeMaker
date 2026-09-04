@@ -9,7 +9,7 @@ import org.example.project.core.data.local.db.dao.FavouritesRecipesDao
 import org.example.project.core.data.local.db.dao.RecentRecipesDao
 import org.example.project.core.data.network.client.AiClient
 import org.example.project.core.data.network.dto.AiRequestDto
-import org.example.project.core.data.network.dto.NetworkResult
+import org.example.project.core.domain.model.NetworkResult
 import org.example.project.core.data.resources.Directories
 import org.example.project.core.domain.api.CoroutineDispatchers
 import org.example.project.core.domain.api.ResourceManager

@@ -34,3 +34,11 @@ suspend fun Coffee.getWithImageDirectory(
         )
     } ?: this
 }
+
+fun Coffee.getWithId(): Coffee {
+    val newId = title.substring(0, 4).lowercase()
+
+    return this.copy(
+        id = newId
+    )
+}

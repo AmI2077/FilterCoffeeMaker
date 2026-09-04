@@ -5,7 +5,7 @@ import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositor
 import kotlin.io.encoding.Base64
 
 class AddCoffeeInteractorImpl(
-    private val repository: AddCoffeeRepository
+    private val repository: AddCoffeeRepository<String>
 ) : AddCoffeeInteractor {
     override suspend fun getCoffeeDetailsFromImage(imageByteArray: ByteArray): AddCoffeeRepositoryResult {
         return repository.getCoffeeDetailsFromImage(

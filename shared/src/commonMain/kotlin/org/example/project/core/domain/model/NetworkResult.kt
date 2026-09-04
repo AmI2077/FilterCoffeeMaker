@@ -1,4 +1,4 @@
-package org.example.project.core.data.network.dto
+package org.example.project.core.domain.model
 
 sealed interface NetworkResult<out T> {
     data class Success<T>(val data: T) : NetworkResult<T>
@@ -19,4 +19,3 @@ sealed class NetworkErrors(val message: String) {
         private const val UNKNOWN_ERROR = "Нейронка не смогла, попробуй еще раз"
     }
 }
-
