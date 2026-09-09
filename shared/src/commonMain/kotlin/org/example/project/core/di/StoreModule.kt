@@ -30,9 +30,8 @@ val storeModule = module {
             get(),
             get(),
             get(),
-            get(),
             scope,
-            get()
+            get(),
         )
     }
 

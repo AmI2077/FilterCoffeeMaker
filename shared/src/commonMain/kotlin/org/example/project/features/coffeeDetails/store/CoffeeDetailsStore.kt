@@ -20,7 +20,6 @@ import org.example.project.features.coffeeDetails.domain.GetCoffeeDetailsUseCase
 
 class CoffeeDetailsStore(
     private val reducer: CoffeeDetailsReducer,
-    private val getCoffeeDetailsUseCase: GetCoffeeDetailsUseCase,
     private val getCoffeeDetailsFlowUseCase: GetCoffeeDetailsFlowUseCase,
     private val editCoffeeUseCase: EditCoffeeUseCase,
     private val scope: CoroutineScope,

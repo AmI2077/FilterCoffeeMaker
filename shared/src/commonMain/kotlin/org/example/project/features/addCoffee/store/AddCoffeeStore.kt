@@ -61,13 +61,13 @@ class AddCoffeeStore(
 
             AddCoffeeIntent.DismissAlreadyExistDialog -> _state.updateStateWithReducer(
                 reducer,
-                AddCoffeeResults.CloseCoffeeAlreadyExistDialog
+                CloseCoffeeAlreadyExistDialog
             )
         }
     }
 
     private fun loadCoffeeInfo(imageByteArray: ByteArray) {
-        _state.updateStateWithReducer(reducer, result = AddCoffeeResults.Loading)
+        _state.updateStateWithReducer(reducer, result = Loading)
 
         scope.launch {
             when (val result = coffeeFromImageUseCase(imageByteArray)) {
@@ -100,7 +100,7 @@ class AddCoffeeStore(
             }
             _state.updateStateWithReducer(
                 reducer,
-                result = AddCoffeeResults.ImageLoaded(
+                result = ImageLoaded(
                     imageByteArray = imageByteArray,
                     imageDirectory = imageDirectory,
                     imageName = imageName
@@ -115,7 +115,7 @@ class AddCoffeeStore(
             if (isExist) {
                 _state.updateStateWithReducer(
                     reducer,
-                    AddCoffeeResults.ShowCoffeeAlreadyExistDialog
+                    ShowCoffeeAlreadyExistDialog
                 )
             } else {
                 addCoffee(coffee)
@@ -131,7 +131,7 @@ class AddCoffeeStore(
             saveCoffeeUseCase(coffee)
         }
 
-        _state.updateStateWithReducer(reducer, AddCoffeeResults.CloseCoffeeAlreadyExistDialog)
+        _state.updateStateWithReducer(reducer, CloseCoffeeAlreadyExistDialog)
         _uiActions.emitAction(scope, AddCoffeeActions.AddCoffeeBtnClicked)
     }
 
