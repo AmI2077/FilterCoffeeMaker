@@ -24,13 +24,6 @@ val networkModule = module {
 
     single<AiConfig> { AiConfig }
 
-    single<Json> {
-        Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-        }
-    }
-
     single<Logger> {
         object : Logger {
             override fun log(message: String) {

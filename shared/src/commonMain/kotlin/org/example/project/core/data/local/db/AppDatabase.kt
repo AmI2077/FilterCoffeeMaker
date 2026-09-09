@@ -20,7 +20,7 @@ import org.example.project.core.domain.api.CoroutineDispatchers
     entities = [CoffeeEntity::class, RecentRecipeEntity::class, FavouritesRecipesEntity::class],
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(8, 9)
+        AutoMigration(7, 8)
     ]
 )
 @TypeConverters(Converters::class)
