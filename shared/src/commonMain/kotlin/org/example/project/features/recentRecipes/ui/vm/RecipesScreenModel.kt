@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.impl.getWithImageDirectory
-import org.example.project.features.recentRecipes.domain.api.RecipesRepository
+import org.example.project.features.recentRecipes.domain.useCases.GetRecentRecipesUseCase
 
 class RecipesScreenModel(
-    private val recipesRepository: RecipesRepository,
+    private val getRecentRecipesUseCase: GetRecentRecipesUseCase,
     private val imageSaver: ImageSaver,
 ) : BaseScreenModel() {
 
@@ -24,7 +24,7 @@ class RecipesScreenModel(
 
     fun getRecentRecipes() {
         screenModelScopeWithHandler.launch {
-            recipesRepository.getRecentRecipes()
+            getRecentRecipesUseCase()
                 .map { recipes ->
                     recipes.map { recipe ->
                         val coffee = recipe.coffee.getWithImageDirectory(imageSaver)

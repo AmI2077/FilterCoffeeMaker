@@ -9,15 +9,20 @@ import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.impl.runIfExist
 import org.example.project.core.domain.model.Coffee
+import org.example.project.core.domain.model.Result
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateStateWithReducer
-import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryResult
-import org.example.project.features.addCoffee.domain.AddCoffeeInteractor
+import org.example.project.features.addCoffee.domain.useCases.CoffeeExistUseCase
+import org.example.project.features.addCoffee.domain.useCases.CoffeeFromImageUseCase
+import org.example.project.features.addCoffee.domain.useCases.SaveCoffeeUseCase
+import org.example.project.features.addCoffee.store.AddCoffeeResults.*
 
 class AddCoffeeStore(
     private val reducer: AddCoffeeReducer,
-    private val addCoffeeInteractor: AddCoffeeInteractor,
+    private val coffeeFromImageUseCase: CoffeeFromImageUseCase,
+    private val coffeeExistUseCase: CoffeeExistUseCase,
+    private val saveCoffeeUseCase: SaveCoffeeUseCase,
     private val imageSaver: ImageSaver,
     private val scope: CoroutineScope,
 ) : MviStore<AddCoffeeScreenUiState, AddCoffeeIntent, AddCoffeeActions> {
@@ -65,18 +70,17 @@ class AddCoffeeStore(
         _state.updateStateWithReducer(reducer, result = AddCoffeeResults.Loading)
 
         scope.launch {
-            when (val result = addCoffeeInteractor.getCoffeeDetailsFromImage(imageByteArray)) {
-                is AddCoffeeRepositoryResult.Error -> {
+            when (val result = coffeeFromImageUseCase(imageByteArray)) {
+                is Result.Content -> {
                     _state.updateStateWithReducer(
                         reducer,
-                        result = AddCoffeeResults.CoffeeInfoError(result.errorMessage)
+                        result = CoffeeInfoSuccess(result.data)
                     )
                 }
-
-                is AddCoffeeRepositoryResult.Success -> {
+                is Result.Error -> {
                     _state.updateStateWithReducer(
                         reducer,
-                        result = AddCoffeeResults.CoffeeInfoSuccess(result.coffee)
+                        result = CoffeeInfoError(result.message)
                     )
                 }
             }
@@ -107,7 +111,7 @@ class AddCoffeeStore(
 
     private fun onAddCoffeeBtnClicked(coffee: Coffee) {
         scope.launch {
-            val isExist = addCoffeeInteractor.isCoffeeExist(coffee)
+            val isExist = coffeeExistUseCase(coffee.id)
             if (isExist) {
                 _state.updateStateWithReducer(
                     reducer,
@@ -124,7 +128,7 @@ class AddCoffeeStore(
             imagePath = _state.value.imageName
         )
         scope.launch {
-            addCoffeeInteractor.saveCoffee(coffee)
+            saveCoffeeUseCase(coffee)
         }
 
         _state.updateStateWithReducer(reducer, AddCoffeeResults.CloseCoffeeAlreadyExistDialog)

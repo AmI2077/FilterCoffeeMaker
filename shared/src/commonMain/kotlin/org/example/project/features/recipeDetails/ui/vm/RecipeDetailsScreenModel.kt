@@ -1,7 +1,5 @@
 package org.example.project.features.recipeDetails.ui.vm
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
 import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.domain.model.Recipe

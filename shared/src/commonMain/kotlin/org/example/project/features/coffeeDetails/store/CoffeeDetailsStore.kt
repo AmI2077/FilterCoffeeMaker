@@ -14,12 +14,16 @@ import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateStateWithReducer
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
+import org.example.project.features.coffeeDetails.domain.EditCoffeeUseCase
+import org.example.project.features.coffeeDetails.domain.GetCoffeeDetailsFlowUseCase
+import org.example.project.features.coffeeDetails.domain.GetCoffeeDetailsUseCase
 
 class CoffeeDetailsStore(
     private val reducer: CoffeeDetailsReducer,
+    private val getCoffeeDetailsUseCase: GetCoffeeDetailsUseCase,
+    private val getCoffeeDetailsFlowUseCase: GetCoffeeDetailsFlowUseCase,
+    private val editCoffeeUseCase: EditCoffeeUseCase,
     private val scope: CoroutineScope,
-    private val repository: CoffeeDetailsRepository,
     private val imageSaver: ImageSaver,
 ) : MviStore<CoffeeDetailsScreenUiState, CoffeeDetailsIntent, CoffeeDetailsAction> {
 
@@ -49,7 +53,7 @@ class CoffeeDetailsStore(
 
     fun loadCoffeeDetails(coffeeId: String) {
         scope.launch {
-            repository.getCoffeeDetailsFlow(coffeeId)
+            getCoffeeDetailsFlowUseCase(coffeeId)
                 .catch { e -> println("COFFEE_ERROR: $e") }
                 .collect { coffee ->
                     imageName = coffee.imagePath
@@ -75,7 +79,7 @@ class CoffeeDetailsStore(
     private fun saveDescription(coffeeWithDesc: Coffee) {
         scope.launch {
             _state.updateStateWithReducer(reducer, CoffeeDetailsResult.SaveDescription(coffeeWithDesc))
-            repository.editCoffee(coffeeWithDesc)
+            editCoffeeUseCase(coffeeWithDesc)
         }
     }
 
