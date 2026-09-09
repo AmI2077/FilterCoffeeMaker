@@ -16,11 +16,11 @@ import org.example.project.core.data.local.db.entities.RecentRecipeEntity
 import org.example.project.core.domain.api.CoroutineDispatchers
 
 @Database(
-    version = 8,
+    version = 9,
     entities = [CoffeeEntity::class, RecentRecipeEntity::class, FavouritesRecipesEntity::class],
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(7, 8)
+        AutoMigration(8, 9)
     ]
 )
 @TypeConverters(Converters::class)
