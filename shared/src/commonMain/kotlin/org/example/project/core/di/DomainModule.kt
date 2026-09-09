@@ -12,6 +12,8 @@ import org.example.project.features.recentRecipes.domain.useCases.GetRecentRecip
 import org.example.project.features.recipeDetails.domain.useCases.GetRecipeUseCase
 import org.example.project.features.recipeDetails.domain.useCases.SaveRecipeToFavouritesUseCase
 import org.example.project.features.recipeDetails.domain.useCases.SaveRecipeToRecentsUseCase
+import org.example.project.features.savedCoffee.domain.impl.DeleteCoffeeUseCase
+import org.example.project.features.savedCoffee.domain.impl.GetUserCoffeeListUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -54,6 +56,14 @@ val domainModule = module {
 
     factory {
         SaveRecipeToRecentsUseCase(get())
+    }
+
+    factory {
+        DeleteCoffeeUseCase(get())
+    }
+
+    factory {
+        GetUserCoffeeListUseCase(get())
     }
 
     single<AppLogger> {

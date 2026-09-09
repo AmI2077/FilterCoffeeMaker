@@ -39,8 +39,9 @@ val storeModule = module {
     factory { (scope: CoroutineScope) ->
         SavedCoffeeStore(
             get(),
-            get(),
             scope,
+            get(),
+            get()
         )
     }
 
