@@ -1,7 +1,6 @@
 package org.example.project.core.data.local.db.entities
 
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(

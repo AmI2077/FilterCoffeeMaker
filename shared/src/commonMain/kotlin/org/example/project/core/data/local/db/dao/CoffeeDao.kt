@@ -24,11 +24,11 @@ interface CoffeeDao {
     fun getFlowCoffeeDetails(coffeeId: String): Flow<CoffeeEntity>
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun insertCoffee(coffeeEntity: CoffeeEntity): Long
 
     @Delete
-    suspend fun deleteCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun deleteCoffee(coffeeEntity: CoffeeEntity): Int
 
     @Update
-    suspend fun updateCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun updateCoffee(coffeeEntity: CoffeeEntity): Int
 }
