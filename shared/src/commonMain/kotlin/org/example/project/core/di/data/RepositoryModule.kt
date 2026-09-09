@@ -1,46 +1,40 @@
 package org.example.project.core.di.data
 
+import org.example.project.core.data.impl.repository.AiClientRepositoryImpl
+import org.example.project.core.data.impl.repository.CoffeeRepositoryImpl
+import org.example.project.core.data.impl.repository.RecipesRepositoryImpl
 import org.example.project.core.domain.api.ResourceManager
-import org.example.project.features.addCoffee.data.repository.AddCoffeeRepositoryImpl
-import org.example.project.features.addCoffee.domain.AddCoffeeRepository
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepositoryImpl
-import org.example.project.features.recentRecipes.data.repository.RecipesRepositoryImpl
-import org.example.project.features.recentRecipes.domain.api.RecipesRepository
+import org.example.project.core.domain.api.repository.AiClientRepository
+import org.example.project.core.domain.api.repository.CoffeeRepository
+import org.example.project.core.domain.api.repository.RecipesRepository
 import org.example.project.features.recipeDetails.data.repository.LoaderScreenRepositoryImpl
-import org.example.project.features.recipeDetails.data.repository.RecipeDetailsRepositoryImpl
 import org.example.project.features.recipeDetails.domain.api.LoaderScreenRepository
-import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
-import org.example.project.features.savedCoffee.data.repository.CoffeeRepositoryImpl
-import org.example.project.features.savedCoffee.domain.api.CoffeeRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<AddCoffeeRepository> {
-        AddCoffeeRepositoryImpl(get(), get(), get<ResourceManager>(), get())
-    }
-
-    single<RecipeDetailsRepository> {
-        RecipeDetailsRepositoryImpl(get(), get(), get(), get<ResourceManager>(), get())
-    }
 
     single<CoffeeRepository> {
-        CoffeeRepositoryImpl(get(), get())
+        CoffeeRepositoryImpl(get())
     }
 
-    single<CoffeeDetailsRepository> {
-        CoffeeDetailsRepositoryImpl(get(), get())
-    }
-
-    single<LoaderScreenRepository> {
-        LoaderScreenRepositoryImpl(get<ResourceManager>(), get())
+    single<AiClientRepository> {
+        AiClientRepositoryImpl(
+            get(),
+            get(),
+            get(),
+            get(),
+        )
     }
 
     single<RecipesRepository> {
         RecipesRepositoryImpl(
             get(),
             get(),
-            get(),
+            get()
         )
+    }
+
+    single<LoaderScreenRepository> {
+        LoaderScreenRepositoryImpl(get<ResourceManager>(), get())
     }
 }

@@ -19,16 +19,20 @@ val storeModule = module {
             get(),
             get(),
             get(),
-            scope,
+            get(),
+            get(),
+            scope
         )
     }
 
     factory { (scope: CoroutineScope) ->
         CoffeeDetailsStore(
             get(),
+            get(),
+            get(),
+            get(),
             scope,
-            get(),
-            get(),
+            get()
         )
     }
 
@@ -46,7 +50,9 @@ val storeModule = module {
             get(),
             get(),
             get(),
-            scope,
+            get(),
+            get(),
+            scope
         )
     }
 
