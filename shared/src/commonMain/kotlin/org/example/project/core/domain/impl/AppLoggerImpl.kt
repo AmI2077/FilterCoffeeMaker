@@ -4,7 +4,7 @@ import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.LogMessageType
 
 class AppLoggerImpl: AppLogger {
-    override fun <T> l(
+    override fun l(
         className: String?,
         type: LogMessageType,
         message: String

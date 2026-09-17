@@ -14,14 +14,16 @@ import kotlinx.coroutines.launch
 import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.ui.store.MviStore
-import org.example.project.features.savedCoffee.domain.api.CoffeeInteractor
+import org.example.project.features.savedCoffee.domain.impl.DeleteCoffeeUseCase
+import org.example.project.features.savedCoffee.domain.impl.GetUserCoffeeListUseCase
 
 // TODO "рефактор"
 
 class SavedCoffeeStore(
-    private val coffeeInteractor: CoffeeInteractor,
     private val imageSaver: ImageSaver,
     private val scope: CoroutineScope,
+    private val getUserCoffeeListUseCase: GetUserCoffeeListUseCase,
+    private val deleteCoffeeUseCase: DeleteCoffeeUseCase,
 ) : MviStore<SavedCoffeeScreenUiState, SavedCoffeeScreenIntent, SavedCoffeeScreenActions> {
     private var _state = MutableStateFlow(SavedCoffeeScreenUiState())
     override val state: StateFlow<SavedCoffeeScreenUiState> = _state.asStateFlow()
@@ -67,7 +69,7 @@ class SavedCoffeeStore(
 
     private fun loadSavedCoffee() {
         scope.launch {
-            coffeeInteractor.getCoffeeList()
+            getUserCoffeeListUseCase()
                 .map { coffeeList ->
                     coffeeList.map { coffee ->
                         coffee.imagePath?.let {
@@ -88,7 +90,7 @@ class SavedCoffeeStore(
 
     private fun deleteCoffee(coffee: Coffee) {
         scope.launch {
-            coffeeInteractor.deleteCoffee(coffee)
+            deleteCoffeeUseCase(coffee)
         }
     }
 

@@ -1,8 +1,7 @@
 package org.example.project.features.coffeeDetails.store
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.ui.store.MviStore
 import org.example.project.features.coffeeDetails.ui.utils.CoffeeDetailsScreenCallbacks
 
@@ -11,8 +10,8 @@ class CoffeeDetailsScreenModel(
             CoffeeDetailsScreenUiState,
             CoffeeDetailsIntent,
             CoffeeDetailsAction>
-) : ScreenModel, CoffeeDetailsScreenCallbacks {
-    private val store = storeFactory(screenModelScope)
+) : BaseScreenModel(), CoffeeDetailsScreenCallbacks {
+    private val store = storeFactory(screenModelScopeWithHandler)
 
     val state = store.state
     val uiActions = store.uiActions

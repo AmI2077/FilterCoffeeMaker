@@ -3,7 +3,6 @@ package org.example.project.core.data.local.db.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Update
@@ -24,11 +23,11 @@ interface CoffeeDao {
     fun getFlowCoffeeDetails(coffeeId: String): Flow<CoffeeEntity>
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun insertCoffee(coffeeEntity: CoffeeEntity): Long
 
     @Delete
-    suspend fun deleteCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun deleteCoffee(coffeeEntity: CoffeeEntity): Int
 
     @Update
-    suspend fun updateCoffee(coffeeEntity: CoffeeEntity)
+    suspend fun updateCoffee(coffeeEntity: CoffeeEntity): Int
 }

@@ -1,12 +1,11 @@
 package org.example.project.features.timer.ui.vm
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.domain.model.BrewStep
 import org.example.project.core.domain.model.Recipe
 import org.example.project.features.timer.ui.state.TimerScreenUiState
@@ -14,7 +13,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class TimerScreenModel(
     private val recipe: Recipe
-) : ScreenModel {
+) : BaseScreenModel() {
 
     private val initState = TimerScreenUiState(
         currentTime = 0,
@@ -26,7 +25,7 @@ class TimerScreenModel(
     val state = _state.asStateFlow()
 
     fun startTimer() {
-        screenModelScope.launch {
+        screenModelScopeWithHandler.launch {
             recipe.brewSteps.forEachIndexed { index, step ->
                 println("CURRENT_STEP: $index - $step")
                 println("TIMER_VALUE: ${_state.value.currentStep}")

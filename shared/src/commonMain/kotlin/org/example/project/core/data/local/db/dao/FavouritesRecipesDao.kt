@@ -10,8 +10,8 @@ import org.example.project.core.data.local.db.entities.FavouritesRecipesEntity
 interface FavouritesRecipesDao {
 
     @Query("SELECT * FROM FavouritesRecipes")
-    fun getFavouritesRecipes(): Flow<FavouritesRecipesEntity>
+    fun getFavouritesRecipes(): Flow<List<FavouritesRecipesEntity>>
 
     @Insert
-    suspend fun insertRecipe(recipe: FavouritesRecipesEntity)
+    suspend fun insertRecipe(recipe: FavouritesRecipesEntity): Long
 }

@@ -13,5 +13,5 @@ interface RecentRecipesDao {
     fun getRecentRecipes(): Flow<List<RecentRecipeEntity>>
 
     @Insert
-    suspend fun insertRecipe(recentRecipeEntity: RecentRecipeEntity)
+    suspend fun insertRecipe(recentRecipeEntity: RecentRecipeEntity): Long
 }

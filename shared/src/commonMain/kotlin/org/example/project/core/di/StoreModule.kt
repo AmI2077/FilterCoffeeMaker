@@ -1,6 +1,7 @@
 package org.example.project.core.di
 
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.di.data.coroutineModule
 import org.example.project.features.addCoffee.store.AddCoffeeReducer
 import org.example.project.features.addCoffee.store.AddCoffeeStore
 import org.example.project.features.coffeeDetails.store.CoffeeDetailsReducer
@@ -11,28 +12,13 @@ import org.example.project.features.savedCoffee.store.SavedCoffeeStore
 import org.koin.dsl.module
 
 val storeModule = module {
+    includes(coroutineModule)
+
     factory { (scope: CoroutineScope) ->
         AddCoffeeStore(
             get(),
             get(),
             get(),
-            scope,
-            get()
-        )
-    }
-
-    factory { (scope: CoroutineScope) ->
-        CoffeeDetailsStore(
-            get(),
-            scope,
-            get(),
-            get(),
-            get()
-        )
-    }
-
-    factory { (scope: CoroutineScope) ->
-        SavedCoffeeStore(
             get(),
             get(),
             scope
@@ -40,7 +26,28 @@ val storeModule = module {
     }
 
     factory { (scope: CoroutineScope) ->
+        CoffeeDetailsStore(
+            get(),
+            get(),
+            get(),
+            scope,
+            get(),
+        )
+    }
+
+    factory { (scope: CoroutineScope) ->
+        SavedCoffeeStore(
+            get(),
+            scope,
+            get(),
+            get()
+        )
+    }
+
+    factory { (scope: CoroutineScope) ->
         RecipeDetailsStore(
+            get(),
+            get(),
             get(),
             get(),
             get(),

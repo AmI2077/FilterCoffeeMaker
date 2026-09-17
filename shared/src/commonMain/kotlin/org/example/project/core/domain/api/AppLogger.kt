@@ -2,7 +2,7 @@ package org.example.project.core.domain.api
 
 interface AppLogger {
 
-    fun <T> l(
+    fun l(
         className: String?,
         type: LogMessageType,
         message: String
@@ -13,7 +13,7 @@ inline fun <reified T: Any> AppLogger.log(
     type: LogMessageType,
     message: String,
 ) {
-    l<T>(
+    l(
         className = T::class.simpleName,
         type = type,
         message = message

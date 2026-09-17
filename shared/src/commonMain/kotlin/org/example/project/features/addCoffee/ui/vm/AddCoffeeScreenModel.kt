@@ -1,8 +1,7 @@
 package org.example.project.features.addCoffee.ui.vm
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineScope
+import org.example.project.core.data.impl.BaseScreenModel
 import org.example.project.core.utils.getCoffeeImageName
 import org.example.project.features.addCoffee.store.AddCoffeeIntent
 import org.example.project.features.addCoffee.store.AddCoffeeStore
@@ -10,8 +9,8 @@ import org.example.project.features.addCoffee.ui.composables.AlreadyExistDialogR
 
 class AddCoffeeScreenModel(
     storeFactory: (CoroutineScope) -> AddCoffeeStore
-) : ScreenModel {
-    private val store = storeFactory(screenModelScope)
+) : BaseScreenModel() {
+    private val store = storeFactory(screenModelScopeWithHandler)
 
     val state = store.state
 

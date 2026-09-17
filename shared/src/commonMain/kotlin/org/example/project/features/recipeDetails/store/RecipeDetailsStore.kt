@@ -10,22 +10,27 @@ import org.example.project.core.domain.api.ImageSaver
 import org.example.project.core.domain.impl.getWithImageDirectory
 import org.example.project.core.domain.model.Coffee
 import org.example.project.core.domain.model.Recipe
+import org.example.project.core.domain.model.Result
 import org.example.project.core.ui.store.MviStore
 import org.example.project.core.ui.store.emitAction
 import org.example.project.core.ui.store.updateStateWithReducer
-import org.example.project.features.coffeeDetails.data.CoffeeDetailsRepository
-import org.example.project.features.recipeDetails.domain.api.RecipeDetailsRepository
+import org.example.project.features.coffeeDetails.domain.GetCoffeeDetailsUseCase
 import org.example.project.features.recipeDetails.domain.models.RecipeRequest
+import org.example.project.features.recipeDetails.domain.useCases.GetRecipeUseCase
+import org.example.project.features.recipeDetails.domain.useCases.SaveRecipeToFavouritesUseCase
+import org.example.project.features.recipeDetails.domain.useCases.SaveRecipeToRecentsUseCase
 import org.example.project.features.recipeDetails.store.RecipeDetailsAction.*
 
 // TODO "рефактор"
 
 class RecipeDetailsStore(
     private val imageSaver: ImageSaver,
-    private val recipeDetailsRepository: RecipeDetailsRepository,
-    private val coffeeDetailsRepository: CoffeeDetailsRepository,
+    private val getCoffeeDetailsUseCase: GetCoffeeDetailsUseCase,
+    private val getRecipeUseCase: GetRecipeUseCase,
+    private val saveRecipeToRecentsUseCase: SaveRecipeToRecentsUseCase,
+    private val saveRecipeToFavouritesUseCase: SaveRecipeToFavouritesUseCase,
     private val reducer: RecipeDetailsReducer,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
 ) : MviStore<RecipeDetailsScreenUiState, RecipeDetailsScreenIntent, RecipeDetailsAction> {
 
     private var _state = MutableStateFlow(RecipeDetailsScreenUiState())
@@ -58,13 +63,13 @@ class RecipeDetailsStore(
     // TODO "не трогай, не работает, надо разобраться с coffeeId, оно заебло меня"
     private fun saveRecipeToFavourites(recipe: Recipe, coffeeId: String) {
         scope.launch {
-            recipeDetailsRepository.saveRecipesToFavourites(recipe)
+            saveRecipeToFavouritesUseCase(recipe, coffeeId)
         }
     }
 
     private fun saveRecipeToRecents(recipe: Recipe, coffeeId: String) {
         scope.launch {
-            recipeDetailsRepository.saveRecipeToRecents(recipe, coffeeId)
+            saveRecipeToRecentsUseCase(recipe, coffeeId)
         }
     }
 
@@ -92,16 +97,18 @@ class RecipeDetailsStore(
     }
 
     private suspend fun makeRecipeRequest(coffee: Coffee, waterAmount: Int): Recipe {
-        return recipeDetailsRepository.getRecipe(
-            RecipeRequest(
-                coffee = coffee,
-                waterAmount = waterAmount,
-            )
-        )
+        return when(val result = getRecipeUseCase(RecipeRequest(coffee, waterAmount))) {
+            is Result.Content -> {
+               result.data
+            }
+            is Result.Error -> {
+                throw IllegalStateException("")
+            }
+        }
     }
 
     private suspend fun getCoffeeDetails(coffeeId: String): Coffee {
-        return checkNotNull(coffeeDetailsRepository.getCoffeeDetails(coffeeId)) {
+        return checkNotNull(getCoffeeDetailsUseCase(coffeeId)) {
             throw IllegalStateException("Coffee for recipe don't exist")
         }
     }

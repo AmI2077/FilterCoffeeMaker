@@ -1,19 +1,18 @@
 package org.example.project.core.domain.impl
 
-import org.example.project.core.domain.api.AppLogger
 import org.example.project.core.domain.api.ImageSaver
-import org.example.project.core.domain.api.LogMessageType
-import org.example.project.core.domain.api.log
+import org.example.project.core.domain.exceptions.NullStateException
 import org.example.project.core.domain.model.Coffee
 import kotlin.reflect.KProperty0
 
 /**
  * Этот метод для безопасного обращения к nullable полям, например,
  * если они не могут быть nullable по логике программы в момент выполнения
+ *
+ * @throws org.example.project.core.domain.exceptions.NullStateException
  */
-inline fun <S: Any, reified T: Any> T.runIfExist(
+inline fun <S: Any> runIfExist(
     info: KProperty0<S?>,
-    logger: AppLogger? = null,
     action: (S) -> Unit,
 ) {
     val value = info.get()
@@ -21,23 +20,25 @@ inline fun <S: Any, reified T: Any> T.runIfExist(
     if (value != null) {
         action(value)
     } else {
-        logger?.log<T>(
-            type = LogMessageType.ERROR,
-            message = "Field ${info.name} from state doesn't exist"
-        )
+        throw NullStateException("Field ${info.name} from state doesn't exist")
     }
 }
-
-// TODO "Функция не должна выбрасывать IllegalState, а checkNotNull его выбрасывает"
 
 suspend fun Coffee.getWithImageDirectory(
     imageSaver: ImageSaver
 ): Coffee {
-    checkNotNull(imagePath) {
-        return this
-    }
-    val directory = imageSaver.getDirectory(imagePath)
+    return imagePath?.let {
+        val directory = imageSaver.getDirectory(imagePath)
+        this.copy(
+            imagePath = directory
+        )
+    } ?: this
+}
+
+fun Coffee.getWithId(): Coffee {
+    val newId = title.substring(0, 4).lowercase()
+
     return this.copy(
-        imagePath = directory
+        id = newId
     )
 }

@@ -63,6 +63,6 @@ val vmModule = module {
         RecipeLoaderScreenModel(get())
     }
     factory {
-        EditCoffeeScreenModel(get())
+        EditCoffeeScreenModel(get(), get())
     }
 }
